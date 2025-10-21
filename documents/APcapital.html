@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Manager Portal - AP Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .table-fixed th, .table-fixed td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        .positive-return {
+            color: #10B981; /* Emerald 500 */
+        }
+        .negative-return {
+            color: #EF4444; /* Red 500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <a href="#" class="text-2xl font-bold text-gray-900">AP Capital Portal</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                <a href="#performance" class="text-gray-600 hover:text-gray-900">Performance</a>
+                <a href="#holdings" class="text-gray-600 hover:text-gray-900">Holdings</a>
+                <a href="#reports" class="text-gray-600 hover:text-gray-900">Reports</a>
+                <span class="text-gray-500">Last updated: Aug 07, 2025</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-6" id="dashboard">
+        <h1 class="text-3xl font-bold mb-6">Fund Manager Dashboard</h1>
+
+        <!-- Return and Mix Table -->
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4">Return and Mix</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3">Fund Name</th>
+                            <th class="px-6 py-3">YTD</th>
+                            <th class="px-6 py-3">1-Month</th>
+                            <th class="px-6 py-3">3-Month</th>
+                            <th class="px-6 py-3">1-Year</th>
+                            <th class="px-6 py-3">Since Inception</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900">AP Vision Fund</td>
+                            <td class="px-6 py-4 positive-return">6.89%</td>
+                            <td class="px-6 py-4 positive-return">3.28%</td>
+                            <td class="px-6 py-4 positive-return">3.50%</td>
+                            <td class="px-6 py-4 positive-return">8.15%</td>
+                            <td class="px-6 py-4 positive-return">5.17%</td>
+                        </tr>
+                        <tr class="bg-gray-50 border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900">AB - American Income Portfolio</td>
+                            <td class="px-6 py-4 positive-return">4.56%</td>
+                            <td class="px-6 py-4 positive-return">1.85%</td>
+                            <td class="px-6 py-4 positive-return">2.95%</td>
+                            <td class="px-6 py-4 positive-return">7.44%</td>
+                            <td class="px-6 py-4 positive-return">416.36%</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900">Global Technology Leaders Fund</td>
+                            <td class="px-6 py-4 positive-return">15.20%</td>
+                            <td class="px-6 py-4 positive-return">5.50%</td>
+                            <td class="px-6 py-4 positive-return">8.90%</td>
+                            <td class="px-6 py-4 positive-return">22.50%</td>
+                            <td class="px-6 py-4 positive-return">250.75%</td>
+                        </tr>
+                        <tr class="bg-gray-50 border-b">
+                            <td class="px-6 py-4 font-medium text-gray-900">Emerging Markets Bond Fund</td>
+                            <td class="px-6 py-4 positive-return">2.10%</td>
+                            <td class="px-6 py-4 negative-return">-0.50%</td>
+                            <td class="px-6 py-4 positive-return">1.20%</td>
+                            <td class="px-6 py-4 positive-return">4.80%</td>
+                            <td class="px-6 py-4 positive-return">88.90%</td>
+                        </tr>
+                         <tr class="bg-white">
+                            <td class="px-6 py-4 font-medium text-gray-900">Sustainable Future Equity Fund</td>
+                            <td class="px-6 py-4 positive-return">9.80%</td>
+                            <td class="px-6 py-4 positive-return">2.10%</td>
+                            <td class="px-6 py-4 positive-return">4.50%</td>
+                            <td class="px-6 py-4 positive-return">14.20%</td>
+                            <td class="px-6 py-4 positive-return">120.40%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Asset Allocation Charts -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="card">
+                <h3 class="font-semibold mb-2">AP Vision Fund</h3>
+                <canvas id="apVisionChart"></canvas>
+            </div>
+            <div class="card">
+                <h3 class="font-semibold mb-2">AB American Income</h3>
+                <canvas id="abIncomeChart"></canvas>
+            </div>
+            <div class="card">
+                <h3 class="font-semibold mb-2">Global Tech Leaders</h3>
+                <canvas id="globalTechChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Performance & Holdings -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="performance">
+            <!-- Performance Section -->
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Cumulative Performance</h2>
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th>Fund Name</th>
+                            <th>1-Year</th>
+                            <th>3-Year</th>
+                            <th>5-Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b"><td class="py-2 font-medium">AP Vision Fund</td><td class="positive-return">8.15%</td><td class="positive-return">25.4%</td><td class="positive-return">N/A</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">AB American Income</td><td class="positive-return">7.44%</td><td class="positive-return">16.30%</td><td class="positive-return">7.28%</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">Global Tech Leaders</td><td class="positive-return">22.50%</td><td class="positive-return">65.8%</td><td class="positive-return">155.2%</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">Emerging Markets Bond</td><td class="positive-return">4.80%</td><td class="negative-return">-2.1%</td><td class="positive-return">9.5%</td></tr>
+                        <tr><td class="py-2 font-medium">Sustainable Future</td><td class="positive-return">14.20%</td><td class="positive-return">42.1%</td><td class="positive-return">98.7%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Holdings Section -->
+            <div class="card" id="holdings">
+                <h2 class="text-xl font-semibold mb-4">Top 5 Holdings - Global Tech Leaders</h2>
+                <table class="w-full text-sm text-left text-gray-600">
+                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th>Company</th>
+                            <th>Ticker</th>
+                            <th>% of Portfolio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b"><td class="py-2 font-medium">NVIDIA Corp</td><td>NVDA</td><td>8.5%</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">Microsoft Corp</td><td>MSFT</td><td>7.2%</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">Apple Inc.</td><td>AAPL</td><td>6.8%</td></tr>
+                        <tr class="border-b"><td class="py-2 font-medium">ASML Holding NV</td><td>ASML</td><td>5.5%</td></tr>
+                        <tr><td class="py-2 font-medium">Alphabet Inc.</td><td>GOOGL</td><td>5.1%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Market Commentary & Recent Trades -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card">
+                 <h2 class="text-xl font-semibold mb-4">Market Commentary</h2>
+                 <h3 class="font-semibold text-md mb-2">Mid-Year Outlook 2025: Navigating a Shifting Landscape</h3>
+                 <p class="text-sm text-gray-600 mb-4">The first half of 2025 has been characterized by a complex interplay of macroeconomic factors. Inflationary pressures have shown signs of moderating, yet remain above the central banks' target levels. This has led to a cautious stance from monetary policymakers, with interest rate decisions being data-dependent and subject to a high degree of uncertainty.</p>
+                 <p class="text-sm text-gray-600">Equity markets have demonstrated resilience, particularly in the technology and healthcare sectors. However, volatility is expected to persist as geopolitical tensions and supply chain disruptions continue to pose risks. In the fixed-income space, opportunities are emerging in high-quality corporate bonds and government securities, as yields have become more attractive. We maintain a diversified approach, with a focus on risk management and a keen eye on identifying long-term growth opportunities.</p>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Recent Trades (Last 7 Days)</h2>
+                <table class="w-full text-sm text-left text-gray-600">
+                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th>Date</th>
+                            <th>Action</th>
+                            <th>Security</th>
+                            <th>Fund</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b"><td class="py-2">Aug 06</td><td class="text-green-600">BUY</td><td>Tesla Inc (TSLA)</td><td>Global Tech</td></tr>
+                        <tr class="border-b"><td class="py-2">Aug 05</td><td class="text-red-600">SELL</td><td>US 10Y Treasury</td><td>AB Income</td></tr>
+                        <tr class="border-b"><td class="py-2">Aug 05</td><td class="text-green-600">BUY</td><td>Eli Lilly & Co (LLY)</td><td>AP Vision</td></tr>
+                        <tr class="border-b"><td class="py-2">Aug 02</td><td class="text-green-600">BUY</td><td>Petrobras (PBR)</td><td>Emerging Markets</td></tr>
+                        <tr><td class="py-2">Aug 01</td><td class="text-red-600">SELL</td><td>Exxon Mobil (XOM)</td><td>AP Vision</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+    
+    <footer class="text-center py-8 text-sm text-gray-500">
+        <p><strong>Disclaimer:</strong> The information provided in this portal is for illustrative purposes only and does not constitute financial advice. Past performance is not indicative of future results.</p>
+        <p>&copy; 2025 AP Capital Limited. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Chart.js configuration
+        const createPieChart = (ctx, labels, data, title) => {
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: title,
+                        data: data,
+                        backgroundColor: [
+                            '#3B82F6', // blue-500
+                            '#10B981', // emerald-500
+                            '#F97316', // orange-500
+                            '#8B5CF6', // violet-500
+                            '#6B7280'  // gray-500
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        // AP Vision Fund Chart
+        const apVisionCtx = document.getElementById('apVisionChart').getContext('2d');
+        createPieChart(apVisionCtx, ['Equity', 'Structured Product', 'Cash'], [40, 39, 21], 'AP Vision Fund');
+
+        // AB American Income Portfolio Chart
+        const abIncomeCtx = document.getElementById('abIncomeChart').getContext('2d');
+        createPieChart(abIncomeCtx, ['Treasuries', 'Corp High Yield', 'MBS', 'Corp IG', 'Other'], [44.9, 16.8, 10.9, 10.1, 17.3], 'AB American Income');
+
+        // Global Technology Leaders Fund Chart
+        const globalTechCtx = document.getElementById('globalTechChart').getContext('2d');
+        createPieChart(globalTechCtx, ['US Equities', 'European Equities', 'Asian Equities', 'Cash'], [65, 20, 10, 5], 'Global Tech Leaders');
+    </script>
+
+</body>
+</html>

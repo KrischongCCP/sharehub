@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Practical Hands-on Training</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the new design */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark charcoal background */
+        }
+
+        .highlight-text {
+            color: #22d3ee; /* Cyan-500 */
+        }
+
+        /* Timeline styles */
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #334155; /* slate-700 */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 1rem 2.5rem;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 4rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 4rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: #0d1117;
+            border: 4px solid #22d3ee; /* cyan-500 */
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        /* Responsive timeline for smaller screens */
+        @media screen and (max-width: 768px) {
+            .timeline-container::after {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 1rem;
+            }
+            .timeline-item:nth-child(odd) {
+                left: 0;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            .timeline-item::after {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 lg:p-12">
+
+        <!-- Header Section -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-white">
+                DevOps Practical <span class="highlight-text">Hands-on</span> Training
+            </h1>
+            <p class="mt-4 text-lg text-gray-400">
+                From Scratch to Pro: Real-World Skills for Real-World Problems
+            </p>
+        </header>
+
+        <main class="space-y-16">
+            <!-- Course Overview Section -->
+            <section class="bg-[#161b22] p-8 rounded-lg border border-gray-800">
+                <h2 class="text-2xl font-bold text-white mb-4">Course Overview</h2>
+                <p class="text-gray-400 leading-relaxed">
+                    This immersive, hands-on training program is designed to take you from the fundamentals to advanced DevOps practices. Forget dry theory; you will learn by doing. We focus on building practical, real-world skills with the tools and technologies that are defining the future of software development and operations. Our curriculum is built on industry-based case studies to ensure you gain the competency to execute real-time projects with best practices.
+                </p>
+            </section>
+
+            <!-- Training Agenda Section -->
+            <div>
+                <h2 class="text-3xl font-bold text-white text-center mb-12">Training Agenda</h2>
+                <div class="timeline-container">
+                    <!-- Module 1 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 1: DevOps & Container Foundations</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Intro to DevOps Culture</li>
+                                <li>Containerization with Docker</li>
+                                <li>Dockerfiles & Image Management</li>
+                                <li>Intro to Container Orchestration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Module 2 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 2: Kubernetes Administration - Part 1</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Kubernetes Architecture</li>
+                                <li>Cluster Installation & Configuration</li>
+                                <li>Workloads: Pods, Deployments</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Module 3 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 3: Kubernetes Administration - Part 2</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Services & Networking</li>
+                                <li>Persistent Storage</li>
+                                <li>ConfigMaps & Secrets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Module 4 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 4: CI/CD Pipelines</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Git & GitLab for Version Control</li>
+                                <li>Building Pipelines with Jenkins</li>
+                                <li>Intro to GitOps with Argo CD</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Module 5 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 5: Configuration Management & IaC</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Managing Servers with Ansible</li>
+                                <li>Writing Playbooks and Roles</li>
+                                <li>Integrating OpenAI for Scripting</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Module 6 -->
+                    <div class="timeline-item">
+                        <div class="bg-[#161b22] p-6 rounded-lg border border-gray-800">
+                            <h3 class="font-bold text-lg text-white mb-2">Module 6: Advanced Operations</h3>
+                            <ul class="list-disc list-inside text-gray-400 space-y-1">
+                                <li>Monitoring & Logging</li>
+                                <li>Role-Based Access Control (RBAC)</li>
+                                <li>Troubleshooting & Maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certification Section -->
+            <section class="bg-[#161b22] p-8 rounded-lg border border-gray-800">
+                <h2 class="text-2xl font-bold text-white mb-4">Certification & Career Pathways</h2>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    This training is strategically designed to provide you with the comprehensive knowledge and practical skills required to confidently sit for and pass industry-recognized exams.
+                </p>
+                <div class="bg-gray-900/50 p-4 rounded-md border border-gray-700 text-center mb-6">
+                    <p class="font-semibold text-white">Primary Certification Targets: DCA, CKA, CKAD, CKS</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-4">A Foundation for Your Career</h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    The skills you learn are a fundamental prerequisite for many other advanced topics and certifications. This course provides the essential foundation for:
+                </p>
+                <div class="space-y-4">
+                    <div class="bg-gray-900/50 p-4 rounded-md border border-gray-700">
+                        <h4 class="font-semibold text-white">Foundation for Kubernetes Certs (CKA, CKAD)</h4>
+                        <p class="text-gray-400 text-sm">A solid understanding of how to build, manage, and run containers is required before you can tackle Kubernetes.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-4 rounded-md border border-gray-700">
+                        <h4 class="font-semibold text-white">Cloud Platform Certifications (AWS, Azure, GCP)</h4>
+                        <p class="text-gray-400 text-sm">Mastering container fundamentals is the first step to working with services like Amazon ECS, Azure Container Instances, or Google Cloud Run.</p>
+                    </div>
+                     <div class="bg-gray-900/50 p-4 rounded-md border border-gray-700">
+                        <h4 class="font-semibold text-white">DevOps Tooling & CI/CD</h4>
+                        <p class="text-gray-400 text-sm">These principles are crucial for working with CI/CD pipelines and other DevOps tools that rely on containerization.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prerequisites Section -->
+            <section class="bg-[#161b22] p-8 rounded-lg border border-gray-800">
+                <h2 class="text-2xl font-bold text-white mb-6">Who Should Attend & Prerequisites</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold highlight-text mb-3">Ideal For</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <li>System Administrators</li>
+                            <li>Software Developers</li>
+                            <li>Cloud Engineers</li>
+                            <li>IT Professionals</li>
+                            <li>Anyone looking to transition into a DevOps role</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold highlight-text mb-3">Prerequisites</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <li>Basic understanding of Linux command-line</li>
+                            <li>Familiarity with general networking concepts</li>
+                            <li>Scripting experience is helpful but not mandatory</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+</body>
+</html>

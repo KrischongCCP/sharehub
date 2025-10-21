@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartier - Intelligent SharePoint Archiving</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-glow {
+            box-shadow: 0 0 100px 20px rgba(56, 189, 248, 0.15);
+        }
+        .card-bg {
+            background-color: #1e293b; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+        }
+        .card-bg:hover {
+            border-color: #4f46e5; /* indigo-600 */
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+        }
+        .table-header {
+            background-color: #334155; /* slate-700 */
+        }
+    </style>
+</head>
+<body x-data="{}" class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-slate-900/70 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">
+                <span class="gradient-text">Smartier</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#why-smartier" class="text-slate-300 hover:text-white transition-colors">Why Smartier?</a>
+                <a href="#features" class="text-slate-300 hover:text-white transition-colors">Features</a>
+                <a href="#function-list" class="text-slate-300 hover:text-white transition-colors">Function List</a>
+            </div>
+            <a href="#function-list" class="bg-indigo-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105">Get Started</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+            <div class="absolute inset-0 bg-grid-slate-800 [mask-image:linear-gradient(to_bottom,white_0%,transparent_100%)]"></div>
+             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 rounded-full bg-indigo-500/20 blur-3xl hero-glow"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tighter">
+                    Reclaim Your SharePoint Storage. <br> <span class="gradient-text">Unlock Massive Savings.</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-400">
+                    Smartier intelligently finds and archives stale data from SharePoint to low-cost cloud storage. Cut costs, ensure compliance, and declutter your digital workspace—all on autopilot.
+                </p>
+                <div class="mt-10">
+                    <a href="#function-list" class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-indigo-600/30">
+                        See All Features
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- "Why Smartier?" / Pain Points Section -->
+        <section id="why-smartier" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">Your SharePoint is a Ticking Time Bomb</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400">Unmanaged data isn't just messy—it's expensive and risky. Smartier is the definitive solution.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Problem 1: Cost -->
+                    <div class="card-bg p-8 rounded-xl transition-all duration-300 transform hover:-translate-y-2">
+                         <div class="feature-icon text-white rounded-lg w-12 h-12 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        </div>
+                        <h3 class="mt-5 text-xl font-bold text-white">Slash M365 Costs</h3>
+                        <p class="mt-2 text-slate-400">Stop paying premium prices for cold data. Archive files that haven't been touched in years to ultra low-cost storage and see your bill plummet.</p>
+                    </div>
+                    <!-- Problem 2: Compliance -->
+                    <div class="card-bg p-8 rounded-xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-indigo-600 shadow-2xl shadow-indigo-500/20">
+                         <div class="feature-icon text-white rounded-lg w-12 h-12 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        </div>
+                        <h3 class="mt-5 text-xl font-bold text-white">Automate Compliance</h3>
+                        <p class="mt-2 text-slate-400">Effortlessly enforce data retention policies like Hong Kong's 7-year rule. Keep what's legally required, and safely archive the rest without manual intervention.</p>
+                    </div>
+                     <!-- Problem 3: Efficiency -->
+                    <div class="card-bg p-8 rounded-xl transition-all duration-300 transform hover:-translate-y-2">
+                         <div class="feature-icon text-white rounded-lg w-12 h-12 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h3 class="mt-5 text-xl font-bold text-white">Boost IT & User Efficiency</h3>
+                        <p class="mt-2 text-slate-400">Free your IT team from manual cleanups. Give users a clutter-free SharePoint and instant, self-service restores for any archived file they need.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- How it works -->
+        <section id="how-it-works" class="py-16 sm:py-24 bg-slate-900/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">Effortless Archiving in Action</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">From setup to savings, the process is seamless and transparent.</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                    <!-- End-User View -->
+                    <div class="w-full md:w-1/2">
+                         <div class="card-bg rounded-lg p-6">
+                            <h4 class="font-bold text-white text-lg mb-4">The End-User Experience</h4>
+                            <div class="space-y-4">
+                               <div class="flex items-start space-x-4">
+                                    <div class="text-indigo-400 font-bold text-xl">1</div>
+                                    <p class="text-slate-300 -mt-1"><strong class="text-white">Find:</strong> User sees an archived file as a normal-looking shortcut in SharePoint.</p>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="text-indigo-400 font-bold text-xl">2</div>
+                                    <p class="text-slate-300 -mt-1"><strong class="text-white">Click:</strong> They click the shortcut to view details and a "Restore" link.</p>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="text-indigo-400 font-bold text-xl">3</div>
+                                    <p class="text-slate-300 -mt-1"><strong class="text-white">Restore:</strong> One more click, and the file is instantly restored to its original location. It's that simple.</p>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                    <!-- Admin View -->
+                    <div class="w-full md:w-1/2">
+                        <div class="card-bg rounded-lg p-6">
+                            <h4 class="font-bold text-white text-lg mb-4">The Admin Dashboard</h4>
+                            <img src="https://placehold.co/800x500/1e293b/9ca3af?text=Smartier+Dashboard+View" alt="Smartier Dashboard" class="rounded-md shadow-lg border border-slate-700">
+                             <p class="text-sm text-slate-400 mt-4">Get a complete overview of archived data, policy effectiveness, and most importantly, your estimated cost savings—all in real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">A High-Level Overview</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                     <!-- Feature cards -->
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Policy Rule</h3><p class="text-slate-400 mt-2 text-sm">Automate archiving using customizable rules.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">ROT Data Identification</h3><p class="text-slate-400 mt-2 text-sm">Automatically flag Redundant, Obsolete, and Trivial files.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Granular Scoping</h3><p class="text-slate-400 mt-2 text-sm">Apply policies to entire sites, libraries, or specific folders.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Multi-Cloud Support</h3><p class="text-slate-400 mt-2 text-sm">Archive to your AWS S3, Azure Blob, and more.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Customizable URL</h3><p class="text-slate-400 mt-2 text-sm">Control the metadata and links left behind after archiving.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Admin Restore Portal</h3><p class="text-slate-400 mt-2 text-sm">Admins can search and restore any file across the organization.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">End-to-End Encryption</h3><p class="text-slate-400 mt-2 text-sm">Data is secured both in transit and at rest.</p></div>
+                    <div class="card-bg p-6 rounded-lg"><h3 class="font-bold text-white">Full Audit Trails</h3><p class="text-slate-400 mt-2 text-sm">Log every archive, restore, and access activity for full visibility.</p></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Detailed Function List Section -->
+        <section id="function-list" class="py-16 sm:py-24 bg-slate-900/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">Detailed Function List</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">Compare the features across our offerings.</p>
+                </div>
+                <div class="card-bg rounded-xl overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="p-4 font-semibold text-white">Function Area</th>
+                                <th class="p-4 font-semibold text-white">Feature</th>
+                                <th class="p-4 font-semibold text-white hidden md:table-cell">Description</th>
+                                <th class="p-4 font-semibold text-white text-center">SaaS</th>
+                                <th class="p-4 font-semibold text-white text-center">Bring Your Own Storage</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700">
+                            <!-- Automated Archiving -->
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="3">Automated Archiving</td>
+                                <td class="p-4">Policy-Based Archiving</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Automate archiving using customizable rules (date, size, metadata, etc.)</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">ROT Data Detection</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Identify and archive redundant, obsolete, or trivial data</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                             <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">Scheduling & Simulation</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Schedule jobs and simulate rules to preview archiving impact</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <!-- Granular Selection -->
+                             <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="2">Granular Selection</td>
+                                <td class="p-4">Content Filtering</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Archive files based on properties (last modified, type, custom metadata, etc.)</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">Site/Library/Folder Scope</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Apply policies at different SharePoint scopes</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <!-- Storage Targeting -->
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="2">Storage Targeting</td>
+                                <td class="p-4">AWS S3 / Azure Blob Integration</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Archive directly to your own cloud storage account</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">Included S3 Cloud Storage</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">S3 Intelligent-Tiering, 10TB included</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-red-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></td>
+                            </tr>
+                             <!-- Archiving Management -->
+                             <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="2">Archiving Management</td>
+                                <td class="p-4">Customizable URL</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Option to leave or remove URL after archiving</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <!-- Restore Capabilities -->
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="2">Restore Capabilities</td>
+                                <td class="p-4">Self-Service Restore</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">End users can restore archived files via stubs</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">Admin Restore</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Admins can restore in-place or out-of-place via Portal</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                             <!-- Security & Auditability -->
+                             <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4 font-semibold text-white" rowspan="2">Security & Auditability</td>
+                                <td class="p-4">End-to-End Encryption</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Encrypt data in transit and at rest</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                            <tr class="group hover:bg-slate-800/50">
+                                <td class="p-4">Full Audit Trails</td>
+                                <td class="p-4 text-slate-400 hidden md:table-cell">Log all archiving, restore, and access activities</td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                                <td class="p-4 text-center"><svg class="w-6 h-6 text-green-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

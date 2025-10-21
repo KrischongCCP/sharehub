@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmarTier – SharePoint Data Tiering & Archiving Solution</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Custom styles to apply the Inter font */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Simple animation for section loading */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header Section -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-6 py-12 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900">
+        SmarTier – SharePoint Data Tiering & Archiving Solution
+      </h1>
+      <p class="mt-4 text-lg text-gray-600">
+        Automate SharePoint storage optimization and compliance with ease.
+      </p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-12">
+    <!-- What is SharePoint Data Tiering? -->
+    <section class="fade-in my-12">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">What is SharePoint Data Tiering?</h2>
+      <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <p class="text-lg text-gray-700 leading-relaxed">
+          SharePoint data tiering is the process of automatically moving less frequently accessed or inactive data from expensive primary SharePoint storage to more cost-effective archival storage solutions. This helps organizations optimize storage usage and reduce costs by ensuring only active, high-value data remains in primary storage, while older or redundant data is securely archived.
+        </p>
+      </div>
+    </section>
+
+    <!-- Why is SharePoint Archiving Needed? -->
+    <section class="fade-in my-16">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Why is SharePoint Archiving Needed?</h2>
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Cost Reduction Card -->
+        <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="flex items-center mb-4">
+             <svg class="h-8 w-8 text-blue-500 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1V4m0 2.01v.01M12 18v-1m0-1v-1m0-1v-1m0-1V6m6 6h-1m-1-1h-1m-1-1h-1m-1-1H6m6 10h1m1 1h1m1 1h1m1 1H6m12-6h-1m-1-1h-1m-1-1h-1m-1-1H6"/></svg>
+            <h3 class="text-xl font-semibold text-gray-900">Cost Reduction</h3>
+          </div>
+          <p class="text-gray-700">Unmanaged storage growth leads to higher costs. Archiving stale and ROT (Redundant, Obsolete, Trivial) data minimizes these costs by freeing up expensive storage space.</p>
+        </div>
+        <!-- Compliance and Governance Card -->
+        <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="flex items-center mb-4">
+            <svg class="h-8 w-8 text-blue-500 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <h3 class="text-xl font-semibold text-gray-900">Compliance & Governance</h3>
+          </div>
+          <p class="text-gray-700">Many organizations must retain records for legal or regulatory reasons. Archiving supports compliance by enforcing retention policies and ensuring data is kept as required by law.</p>
+        </div>
+        <!-- Future Proofing Card -->
+        <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div class="flex items-center mb-4">
+            <svg class="h-8 w-8 text-blue-500 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <h3 class="text-xl font-semibold text-gray-900">Future Proofing</h3>
+          </div>
+          <p class="text-gray-700">Automated archiving manages future storage growth, preventing uncontrolled expansion and associated risks, ensuring your SharePoint environment remains efficient.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- What is the ROI? -->
+    <section class="fade-in my-16 bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">What is the ROI?</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <ul class="space-y-4">
+                  <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✔</span> <strong>Direct Cost Savings:</strong> By moving inactive data to cheaper storage, organizations avoid paying for additional SharePoint storage.</li>
+                  <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✔</span> <strong>Operational Efficiency:</strong> Automated archiving reduces manual intervention, freeing up IT resources for higher-value tasks.</li>
+                  <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✔</span> <strong>Risk Mitigation:</strong> Ensures compliance with legal data retention requirements, reducing the risk of penalties or legal issues.</li>
+                </ul>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                <h4 class="font-semibold text-gray-900 mb-2">Real-World Case Example:</h4>
+                <p class="text-gray-700">In one real customer scenario, only <strong>7.4%</strong> of SharePoint sites and less than <strong>0.2%</strong> of files were active, yet storage was projected to grow by over <strong>300 TB annually</strong>. Archiving inactive data would significantly reduce this growth and associated costs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SmarTier – What Is It and How Does It Help? -->
+    <section class="fade-in my-16">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">SmarTier – What Is It and How Does It Help?</h2>
+      <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <p class="text-lg text-gray-700 leading-relaxed mb-6">
+          SmarTier is a SaaS solution designed to automate SharePoint data tiering and archiving. It helps organizations:
+        </p>
+        <ul class="space-y-4 list-disc list-inside text-gray-700">
+          <li>Automatically identify and archive ROT data based on customizable rules (e.g., file age, size, type, metadata).</li>
+          <li>Move archived content to cost-effective cloud storage (e.g., AWS S3, Azure Blob, Dropbox), while leaving a shortcut (stub) in SharePoint for easy restoration.</li>
+          <li>Enable both end-users and administrators to restore archived files on demand, ensuring business continuity and easy access to historical data.</li>
+          <li>Provide dashboards and reports for monitoring archiving activity, storage savings, and compliance coverage.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Key Features Table -->
+    <section class="fade-in my-16">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Key Features</h2>
+      <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+        <table class="w-full text-sm text-left text-gray-600">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+              <th scope="col" class="px-6 py-3">Function Area</th>
+              <th scope="col" class="px-6 py-3">Feature</th>
+              <th scope="col" class="px-6 py-3">Description</th>
+              <th scope="col" class="px-6 py-3 text-center">SmarTier (SaaS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Automated Archiving -->
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td rowspan="3" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Automated Archiving</td>
+              <td class="px-6 py-4 font-medium">Policy-Based Archiving</td>
+              <td class="px-6 py-4">Automate archiving using customizable rules (date, size, metadata, etc.)</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td class="px-6 py-4 font-medium">ROT Data Detection</td>
+              <td class="px-6 py-4">Identify and archive redundant, obsolete, or trivial data</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td class="px-6 py-4 font-medium">Scheduling & Simulation</td>
+              <td class="px-6 py-4">Schedule jobs and simulate rules to preview archiving impact</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <!-- Granular Selection -->
+            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td rowspan="2" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Granular Selection</td>
+                <td class="px-6 py-4 font-medium">Content Filtering</td>
+                <td class="px-6 py-4">Archive files based on properties (last modified, type, custom metadata, etc.)</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td class="px-6 py-4 font-medium">Site/Library/Folder Scope</td>
+                <td class="px-6 py-4">Apply policies at different SharePoint scopes</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <!-- Storage Targeting -->
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td rowspan="2" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Storage Targeting</td>
+              <td class="px-6 py-4 font-medium">AWS S3 Integration</td>
+              <td class="px-6 py-4">Archive directly to AWS S3</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td class="px-6 py-4 font-medium">S3 Intelligent-Tiering</td>
+              <td class="px-6 py-4">Supports S3 Intelligent-Tiering for cost optimization</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <!-- Restore Capabilities -->
+            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td rowspan="2" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Restore Capabilities</td>
+                <td class="px-6 py-4 font-medium">Self-Service Restore</td>
+                <td class="px-6 py-4">End users can restore archived files via stubs</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+             <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td class="px-6 py-4 font-medium">Admin Restore</td>
+                <td class="px-6 py-4">Admins can restore in-place or out-of-place via Portal</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+             <!-- Monitoring & Reporting -->
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td rowspan="2" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Monitoring & Reporting</td>
+              <td class="px-6 py-4 font-medium">Real-Time Dashboard</td>
+              <td class="px-6 py-4">Visualize archiving activity, storage savings, and rule coverage</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td class="px-6 py-4 font-medium">Detailed Reports</td>
+              <td class="px-6 py-4">Exportable reports on archived content and policy effectiveness</td>
+              <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <!-- Security & Auditability -->
+            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td rowspan="2" class="px-6 py-4 font-medium text-gray-900 align-top border-r">Security & Auditability</td>
+                <td class="px-6 py-4 font-medium">End-to-End Encryption</td>
+                <td class="px-6 py-4">Encrypt data in transit and at rest</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                <td class="px-6 py-4 font-medium">Full Audit Trails</td>
+                <td class="px-6 py-4">Log all archiving, restore, and access activities</td>
+                <td class="px-6 py-4 text-center text-green-500 font-bold">✔</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- User Case and Flow -->
+    <section class="fade-in my-16">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">User Case and Flow</h2>
+        <div class="max-w-4xl mx-auto">
+            <ol class="relative border-l border-gray-200">                  
+                <li class="mb-10 ml-6">            
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                        1
+                    </span>
+                    <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Archiving</h3>
+                    <p class="mb-4 text-base font-normal text-gray-600">When content in SharePoint meets specified criteria (e.g., not modified for over a year, larger than 1MB), SmarTier automatically archives it to a cheaper storage tier. A shortcut with metadata and a restore link is left in SharePoint.</p>
+                </li>
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                        2
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-gray-900">Restore (End User)</h3>
+                    <p class="text-base font-normal text-gray-600">The user sees the archived file as a shortcut. Clicking it opens a pop-up with information and a restore link. The user confirms, and the file is restored to its original location.</p>
+                </li>
+                <li class="mb-10 ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                        3
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-gray-900">Restore (Admin)</h3>
+                    <p class="text-base font-normal text-gray-600">Administrators can use the Portal to search for and restore archived content, either in-place or to a new location.</p>
+                </li>
+                <li class="ml-6">
+                    <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                        4
+                    </span>
+                    <h3 class="mb-1 text-lg font-semibold text-gray-900">Monitoring</h3>
+                    <p class="text-base font-normal text-gray-600">Administrators monitor archiving activity, storage savings, and compliance status via a real-time dashboard and exportable reports.</p>
+                </li>
+            </ol>
+             <div class="mt-10 bg-gray-100 p-6 rounded-lg border-l-4 border-gray-400">
+                <h4 class="font-semibold text-gray-900 mb-2">Example Use Case:</h4>
+                <p class="text-gray-700">A company with rapidly growing SharePoint storage identifies that most files are inactive. Using SmarTier, they set rules to archive documents unmodified for over five years or files larger than 5GB and older than 60 days. This reduces storage costs, ensures compliance with seven-year retention laws, and allows easy restoration if needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="fade-in my-16">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Frequently Asked Questions</h2>
+      <div class="max-w-4xl mx-auto space-y-4">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-lg text-gray-900 mb-2">What kind of storage can SmarTier archive to?</h3>
+          <p class="text-gray-700">SmarTier supports a variety of cost-effective cloud storage solutions, including AWS S3 (with support for Intelligent-Tiering), Azure Blob Storage, and Dropbox, giving you flexibility in choosing your archival destination.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-lg text-gray-900 mb-2">Is the archived data secure?</h3>
+          <p class="text-gray-700">Absolutely. Security is a top priority. SmarTier provides end-to-end encryption, ensuring your data is secure both in transit and at rest in the archival storage. Full audit trails are also available for all actions.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-lg text-gray-900 mb-2">Can users get their archived files back easily?</h3>
+          <p class="text-gray-700">Yes. The process is seamless for end-users. They can restore files on their own through the "stubs" left in SharePoint. These stubs provide a direct link to restore the data, minimizing IT intervention and ensuring users can access historical data when needed.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-lg text-gray-900 mb-2">How is this different from SharePoint's built-in retention policies?</h3>
+          <p class="text-gray-700">While SharePoint's retention policies are primarily for compliance and preventing data deletion, SmarTier is focused on storage cost optimization. It actively moves data to cheaper storage tiers based on granular rules, while still providing easy access. SmarTier complements native features by tackling the economic challenges of data growth.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-lg text-gray-900 mb-2">Is SmarTier difficult to set up?</h3>
+          <p class="text-gray-700">No. As a SaaS (Software-as-a-Service) solution, SmarTier is designed for easy integration with your SharePoint Online environment. Our team provides support to ensure a smooth setup and configuration process.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white">
+    <div class="container mx-auto px-6 py-12 text-center">
+      <h2 class="text-3xl font-bold">Ready to Optimize Your SharePoint Storage?</h2>
+      <p class="mt-4 mb-8 text-gray-300">See how SmarTier can cut costs and improve compliance for your organization.</p>
+      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
+        Contact Us for a Demo!
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
