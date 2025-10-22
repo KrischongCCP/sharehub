@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> <!-- Default to dark mode -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot MCP Hub - Trending MCP Servers</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Style for the active filter tab */
+        .filter-tab.active {
+            border-bottom-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5; /* indigo-600 */
+        }
+        .dark .filter-tab.active {
+            border-bottom-color: #818cf8; /* indigo-400 */
+            color: #818cf8; /* indigo-400 */
+        }
+        
+        /* Simple transition for cards */
+        .mcp-card {
+            transition: all 0.2s ease-in-out;
+            /* Using border for hover instead of just shadow for this style */
+            border: 1px solid transparent;
+        }
+        .dark .mcp-card {
+            border: 1px solid #1f2937; /* dark:border-gray-800 */
+        }
+
+        .mcp-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+        .dark .mcp-card:hover {
+            border: 1px solid #374151; /* dark:border-gray-700 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* REMOVED .upvote-btn styles */
+
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- App Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header / Navigation -->
+        <header class="py-6">
+            <nav class="flex flex-wrap justify-between items-center gap-4">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+                    🔥 Hot MCP Hub
+                </a>
+                
+                <!-- Search Bar -->
+                <div class="w-full sm:w-auto sm:flex-1 sm:max-w-md order-3 sm:order-2">
+                    <input type="search" placeholder="Search MCPs (e.g., AI, Voice, Data...)" class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-2 order-2 sm:order-3">
+                    <button class="hidden sm:inline-block px-4 py-2 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        Tutorials
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-colors">
+                        Submit MCP
+                    </button>
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <!-- Sun Icon -->
+                        <svg id="theme-icon-light" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <!-- Moon Icon -->
+                        <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- "Hot This Week" Spotlight -->
+            <section class="mb-8 p-6 sm:p-8 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-700 text-white shadow-lg">
+                <h2 class="text-3xl font-bold mb-2">🔥 Hot This Week</h2>
+                <p class="text-lg text-indigo-100 mb-6">Top 10 trending MCPs, powered by community votes and usage analytics.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    <!-- Top 5 MCPs - simple card -->
+                    <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center transition-transform hover:scale-105">
+                        <div class="text-3xl mb-1">🥇</div>
+                        <div class="font-semibold">NexusAI Bridge</div>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center transition-transform hover:scale-105">
+                        <div class="text-3xl mb-1">🥈</div>
+                        <div class="font-semibold">DataScribe</div>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center transition-transform hover:scale-105">
+                        <div class="text-3xl mb-1">🥉</div>
+                        <div class="font-semibold">AudioFlow</div>
+                    </div>
+                    <div class="hidden md:block bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center transition-transform hover:scale-105">
+                        <div class="text-xl pt-2 mb-1 opacity-80">4.</div>
+                        <div class="font-semibold">CodePilot Pro</div>
+                    </div>
+                    <div class="hidden md:block bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center transition-transform hover:scale-105">
+                        <div class="text-xl pt-2 mb-1 opacity-80">5.</div>
+                        <div class="font-semibold">ImageMod</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Grid: List + Sidebar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Main Column: MCP List -->
+                <div class="lg:col-span-2">
+                    <!-- Filter Tabs -->
+                    <div class="flex border-b border-gray-300 dark:border-gray-800 mb-6">
+                        <button class="filter-tab active py-3 px-4 font-medium text-gray-500 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-700 dark:hover:text-gray-200" data-filter="today">
+                            🚀 Top Today
+                        </button>
+                        <button class="filter-tab py-3 px-4 font-medium text-gray-500 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-700 dark:hover:text-gray-200" data-filter="week">
+                            🌟 Top This Week
+                        </button>
+                        <button class="filter-tab py-3 px-4 font-medium text-gray-500 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-700 dark:hover:text-gray-200" data-filter="all-time">
+                            🏆 All-Time Favorites
+                        </button>
+                    </div>
+
+                    <!-- MCP List Container -->
+                    <div id="mcp-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- MCP cards will be dynamically inserted here -->
+                        <div class="text-center p-10 md:col-span-2">
+                            <p class="text-gray-500">Loading MCPs...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Column -->
+                <aside class="space-y-6">
+                    <!-- Live Analytics Card -->
+                    <div class="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md border border-transparent dark:border-gray-800">
+                        <h4 class="text-lg font-semibold mb-4">Live Analytics</h4>
+                        <h5 class="font-medium text-sm text-gray-500 dark:text-gray-400 mb-2">Most Connected (Last 24h)</h5>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between items-center text-sm">
+                                <span>1. NexusAI Bridge</span>
+                                <span class="font-medium text-indigo-500">1.2k</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm">
+                                <span>2. AudioFlow</span>
+                                <span class="font-medium">840</span>
+                            </li>
+                            <li class="flex justify-between items-center text-sm">
+                                <span>3. CodePilot Pro</span>
+                                <span class="font-medium">610</span>
+                            </li>
+                        </ul>
+                        <!-- Placeholder for a graph -->
+                        <div class="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center text-sm text-gray-500 dark:text-gray-400">
+                            
+                            <p class="mt-1">Overall MCP Connection Trends</p>
+                        </div>
+                    </div>
+
+                    <!-- Categories Card -->
+                    <div class="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md border border-transparent dark:border-gray-800">
+                        <h4 class="text-lg font-semibold mb-4">Categories</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Developer Tools</a></li>
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Data Science</a></li>
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">AI Enhancement</a></li>
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Voice/Audio</a></li>
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Productivity</a></li>
+                            <li><a href="#" class="block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">Gaming</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Educational Content Card -->
+                    <div class="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md border border-transparent dark:border-gray-800">
+                        <h4 class="text-lg font-semibold mb-4">Learn MCP</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="block text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400">What is MCP?</a></li>
+                            <li><a href="#" class="block text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400">How MCP enables AI interconnectivity</a></li>
+                            <li><a href="#" class="block text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400">How to build your own MCP Server</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- News & Updates Card -->
+                    <div class="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md border border-transparent dark:border-gray-800">
+                        <h4 class="text-lg font-semibold mb-4">News & Updates</h4>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="#" class="block text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400">NexusAI Bridge 2.0 is now live!</a>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Oct 21, 2025</p>
+                            </li>
+                            <li>
+                                <a href="#" class="block text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400">The rise of Audio-based MCPs</a>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Oct 20, 2025</p>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 py-8 border-t border-gray-300 dark:border-gray-800 text-center text-sm text-gray-500 dark:text-gray-400">
+            <div class="flex justify-center space-x-4 mb-4">
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white">About</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white">API</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+            <p>&copy; 2025 Hot MCP Hub. All rights reserved.</p>
+        </footer>
+
+    </div> <!-- End App Container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Mock Data ---
+            const mockMCPs = [
+                { id: 1, name: "NexusAI Bridge", developer: "CoreWeave", description: "Connects Claude 3.5 to real-time AI models and data streams.", stars: 1240, connectionsToday: 1200, comments: 45, tags: ["AI Enhancement", "Developer Tools"], timestamp: new Date('2025-10-22T10:00:00Z') },
+                { id: 2, name: "AudioFlow", developer: "VoiceGen", description: "Real-time voice synthesis and transcription MCP for interactive agents.", stars: 980, connectionsToday: 840, comments: 22, tags: ["Voice/Audio"], timestamp: new Date('2025-10-22T08:00:00Z') },
+                { id: 3, name: "DataScribe", developer: "AnalyticsIO", description: "Query live databases and get formatted reports directly in your AI chat.", stars: 2100, connectionsToday: 500, comments: 88, tags: ["Data Science", "Productivity"], timestamp: new Date('2025-10-15T14:00:00Z') },
+                { id: 4, name: "CodePilot Pro", developer: "DevTools", description: "Execute and debug code snippets on-demand from any MCP-enabled client.", stars: 850, connectionsToday: 610, comments: 30, tags: ["Developer Tools"], timestamp: new Date('2025-10-21T11:00:00Z') },
+                { id: 5, name: "ImageMod", developer: "CreativeAI", description: "On-the-fly image generation and editing protocol. Used by Cherry Studio.", stars: 1800, connectionsToday: 450, comments: 60, tags: ["AI Enhancement", "Productivity"], timestamp: new Date('2025-10-10T10:00:00Z') },
+                { id: 6, name: "GameSense", developer: "RiftSync", description: "Provides real-time game state data to AI assistants and overlays.", stars: 720, connectionsToday: 300, comments: 15, tags: ["Gaming"], timestamp: new Date('2025-10-20T16:00:00Z') },
+                { id: 7, name: "StockWatch", developer: "FinTech MCPs", description: "Live stock market data, analysis, and trading signal provider.", stars: 1150, connectionsToday: 710, comments: 40, tags: ["Data Science"], timestamp: new Date('2025-10-22T12:00:00Z') },
+                { id: 8, name: "Cursor Connect", developer: "Cursor Team", description: "Official MCP for integrating custom logic into the Cursor IDE.", stars: 3500, connectionsToday: 1100, comments: 150, tags: ["Developer Tools"], timestamp: new Date('2025-09-01T10:00:00Z') },
+            ];
+
+            const mcpListContainer = document.getElementById('mcp-list');
+            const filterTabs = document.querySelectorAll('.filter-tab');
+
+            // --- Dark Mode Toggle ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const docElement = document.documentElement;
+
+            function setInitialTheme() {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    docElement.classList.add('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                } else {
+                    docElement.classList.remove('dark');
+                    themeIconLight.classList.add('hidden');
+                    themeIconDark.classList.remove('hidden');
+                }
+            }
+            
+            setInitialTheme();
+
+            themeToggle.addEventListener('click', () => {
+                if (docElement.classList.contains('dark')) {
+                    docElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    themeIconLight.classList.add('hidden');
+                    themeIconDark.classList.remove('hidden');
+                } else {
+                    docElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                }
+            });
+
+            // --- MCP List Rendering ---
+            function renderMCPs(filter) {
+                let sortedMCPs = [...mockMCPs]; // Create a copy
+
+                if (filter === 'today') {
+                    sortedMCPs.sort((a, b) => b.connectionsToday - a.connectionsToday);
+                } else if (filter === 'week') {
+                    // Mocking "week" by just sorting by stars, but could be filtered by timestamp
+                    sortedMCPs.sort((a, b) => b.stars - a.stars).slice(0, 5); // Just show top 5 for demo
+                } else if (filter === 'all-time') {
+                    sortedMCPs.sort((a, b) => b.stars - a.stars);
+                }
+
+                mcpListContainer.innerHTML = ''; // Clear list
+
+                if(sortedMCPs.length === 0) {
+                     mcpListContainer.innerHTML = '<p class="text-gray-500 p-10 text-center">No MCPs found for this filter.</p>';
+                     return;
+                }
+
+                sortedMCPs.forEach(mcp => {
+                    const tagsHtml = mcp.tags.map(tag => 
+                        `<span class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium px-2.5 py-0.5 rounded-full">${tag}</span>`
+                    ).join(' ');
+
+                    const cardHtml = `
+                        <div class="mcp-card bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden p-5 flex flex-col h-full">
+                            <!-- Card Header: Icon, Name, Stars -->
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-start space-x-3">
+                                    <!-- Logo/Icon Placeholder -->
+                                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                                        ${mCPLogo(mcp.name)}
+                                    </div>
+                                    
+                                    <!-- Text Details -->
+                                    <div>
+                                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                            <a href="#" class="hover:underline">${mcp.name}</a>
+                                        </h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">by ${mcp.developer}</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stars -->
+                                <div class="flex-shrink-0 flex items-center space-x-1 text-yellow-400 dark:text-yellow-500">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <span class="text-sm font-medium text-gray-600 dark:text-gray-400">${(mcp.stars / 1000).toFixed(1)}k</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Description -->
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">
+                                ${mcp.description}
+                            </p>
+                            
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-2">
+                                ${tagsHtml}
+                            </div>
+                        </div>
+                    `;
+                    mcpListContainer.insertAdjacentHTML('beforeend', cardHtml);
+                });
+            }
+
+            // --- Helper for Logo Placeholder ---
+            function mCPLogo(name) {
+                const parts = name.split(' ');
+                if (parts.length > 1) {
+                    return parts[0][0] + parts[1][0];
+                }
+                return name.substring(0, 2);
+            }
+
+            // --- Filter Tab Logic ---
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    // Render MCPs based on filter
+                    renderMCPs(tab.dataset.filter);
+                });
+            });
+
+            // --- Upvote Logic (Event Delegation) ---
+            // REMOVED - Stars are now static data, not interactive votes.
+            // mcpListContainer.addEventListener('click', (e) => { ... });
+
+
+            // --- Initial Render ---
+            renderMCPs('today'); // Load "Top Today" by default
+
+        });
+    </script>
+</body>
+</html>
+
