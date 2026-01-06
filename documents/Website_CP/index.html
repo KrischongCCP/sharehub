@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grand Hudson Tower Limited - Your trusted partner for wealth management, investment planning, and financial growth in Hong Kong.">
+    <title>Grand Hudson | Wealth Management Hong Kong</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Consent Modal -->
+    <div class="consent-modal" id="consentModal">
+        <div class="consent-overlay"></div>
+        <div class="consent-container">
+            <div class="consent-left">
+                <h1>Welcome to Grand Hudson</h1>
+
+                <div class="consent-field">
+                    <label>1. CONFIRM YOUR LOCATION:</label>
+                    <div class="consent-select-wrapper">
+                        <select id="consentLocation" class="consent-select">
+                            <option value="HK" selected>Hong Kong</option>
+                            <option value="MO">Macau</option>
+                            <option value="SG">Singapore</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="consent-field">
+                    <label>2. ROLE:</label>
+                    <div class="consent-role-options">
+                        <button class="consent-role-btn active" data-role="individual">INDIVIDUAL INVESTOR</button>
+                        <button class="consent-role-btn" data-role="professional">PROFESSIONAL INVESTOR</button>
+                    </div>
+                </div>
+
+                <div class="consent-legal">
+                    <h3>Important Legal Information</h3>
+                    <div class="consent-legal-content">
+                        <p>This website is intended for Hong Kong investors only. Your use of this website confirms that you have read and agree to the <strong>Terms and Conditions of Use</strong> of this website.</p>
+
+                        <p>If you are an individual investor, please contact your financial advisers or Grand Hudson Tower Limited for specific information and documents as disclosed in the relevant offering documents, including but not limited to: financial reports, past performance information, product key facts statements, and dealing prices.</p>
+
+                        <h4>Terms and Conditions of Use</h4>
+                        <p>Please read the following before proceeding, as it explains certain restrictions imposed by law on the distribution of this information.</p>
+
+                        <h4>General Terms</h4>
+                        <p>The information on this website is approved for publication by Grand Hudson Tower Limited and includes information about our wealth management products and services. Grand Hudson Tower Limited is licensed by the Securities and Futures Commission of Hong Kong to conduct Type 1 (dealing in securities), Type 4 (advising on securities) and Type 9 (asset management) regulated activities.</p>
+
+                        <p>Neither this website nor any documents contained in it constitutes investment advice or an offer or solicitation to sell or a solicitation of an offer to buy any investment product in any jurisdiction in which an offer, solicitation, purchase or sale would be unlawful under the securities law of that jurisdiction.</p>
+
+                        <p>By accessing this website you represent that you are permitted by the laws of your jurisdiction of residence to access this site and the information contained herein.</p>
+
+                        <p>You are advised to exercise caution. If you are in any doubt about any of the contents of this website, you should talk to your financial adviser or seek independent professional advice if you do not have an adviser.</p>
+
+                        <h4>General Risk Factors</h4>
+                        <ul>
+                            <li>Investments involve risk. Past performance is no guide to or guarantee of future returns.</li>
+                            <li>The price of shares and the income from them can fall as well as rise and you may not get back the amount originally invested.</li>
+                            <li>Income receivable may vary from the amount of income projected at the time of making the investment.</li>
+                            <li>Exchange rate fluctuations may affect the value of an investment and any income derived from it.</li>
+                            <li>If you exercise any right to redeem, you may not get back the amount initially invested if the share price has fallen since you invested.</li>
+                        </ul>
+
+                        <h4>Limitations of Liability</h4>
+                        <p>We make no warranty or representation of any kind (whether express, implied or statutory) regarding this website or the materials and information contained or referred to on each page. To the fullest extent permitted by law, we disclaim any and all liability and will not be liable for any injury, loss, damage or expense arising directly or indirectly from your use of this website.</p>
+
+                        <h4>Privacy</h4>
+                        <p>Please review our Privacy Policy to learn about our information collection practices and the measures we take to preserve the privacy and security of your information.</p>
+
+                        <h4>Law and Jurisdiction</h4>
+                        <p>These Terms and Conditions of Use shall be governed by and interpreted in accordance with the laws of Hong Kong Special Administrative Region, and the courts of Hong Kong shall have exclusive jurisdiction to hear all disputes arising in connection with these Terms and Conditions.</p>
+                    </div>
+                </div>
+
+                <button class="consent-agree-btn" id="consentAgreeBtn">I AGREE</button>
+            </div>
+            <div class="consent-right">
+                <div class="consent-right-content">
+                    <h2>Trusted Wealth Management Since 1998</h2>
+                    <p>A focus on Asia—and providing comprehensive wealth management solutions for our clients—is what we believe distinguishes us among financial advisers. Our insights into investment opportunities and risks are backed by proprietary research, a collaborative culture and over 25 years of experience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">
+                    <!-- Grand Hudson Building Icon Logo -->
+                    <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="20" width="6" height="16" fill="#D4A02E"/>
+                        <rect x="12" y="14" width="6" height="22" fill="#B8860B"/>
+                        <rect x="20" y="8" width="6" height="28" fill="#D4A02E"/>
+                        <rect x="28" y="12" width="6" height="24" fill="#F5C451"/>
+                    </svg>
+                    <span class="logo-text">Grand</span>
+                    <span class="logo-subtext">Hudson</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Solutions</a></li>
+                    <li><a href="family-office.html">Family Office</a></li>
+                    <li><a href="support.html">Customer Support</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <div class="lang-toggle">
+                        <button class="lang-btn active">EN</button>
+                        <span class="lang-divider">|</span>
+                        <button class="lang-btn">繁</button>
+                    </div>
+                    <a href="#login" class="btn btn-secondary">Login</a>
+                    <a href="products.html" class="btn btn-primary">Buy Online</a>
+                </div>
+
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Build Your Legacy.<br>Secure Your Future.</h1>
+                        <p class="hero-subtitle">Comprehensive wealth management solutions designed to help you grow, protect, and pass on your financial success for generations to come.</p>
+                        <div class="hero-buttons">
+                            <a href="#buy" class="btn btn-primary btn-lg">Buy Online Now</a>
+                            <a href="#solutions" class="btn btn-outline btn-lg">Explore Our Plans</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-indicators">
+            <button class="indicator active" aria-label="Slide 1"></button>
+            <button class="indicator" aria-label="Slide 2"></button>
+            <button class="indicator" aria-label="Slide 3"></button>
+        </div>
+    </section>
+
+    <!-- Your Financial Needs -->
+    <section class="financial-needs" id="needs">
+        <div class="container">
+            <h2 class="section-title">Your Financial Needs</h2>
+            <p class="section-intro">Whatever your financial goals, we have tailored solutions to help you achieve them.</p>
+
+            <div class="needs-grid">
+                <a href="#regular-income" class="need-card">
+                    <div class="need-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>Regular Income</h3>
+                    <p>Create a steady stream of income to support your lifestyle and retirement goals.</p>
+                </a>
+
+                <a href="#savings" class="need-card">
+                    <div class="need-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0H5m14 0h2m-16 0H3"/>
+                            <path d="M9 7h6M9 11h6M9 15h4"/>
+                        </svg>
+                    </div>
+                    <h3>Savings and Investment</h3>
+                    <p>Grow your wealth systematically with flexible investment options and competitive returns.</p>
+                </a>
+
+                <a href="#protection" class="need-card">
+                    <div class="need-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Protection</h3>
+                    <p>Safeguard your family and assets against life's uncertainties with comprehensive coverage.</p>
+                </a>
+
+                <a href="#succession" class="need-card">
+                    <div class="need-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Wealth Succession</h3>
+                    <p>Plan the seamless transfer of your wealth to the next generation with our legacy solutions.</p>
+                </a>
+
+                <a href="#tips" class="need-card">
+                    <div class="need-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <path d="M12 17h.01"/>
+                        </svg>
+                    </div>
+                    <h3>Financial Tips</h3>
+                    <p>Access expert insights and guidance to make informed decisions about your financial future.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parent Company / Credibility -->
+    <section class="credibility" id="about">
+        <div class="container">
+            <div class="credibility-content">
+                <div class="credibility-text">
+                    <h2 class="section-title">Backed by Strength and Stability</h2>
+                    <p class="credibility-intro">Grand Hudson is part of a leading financial services group with a proven track record of excellence and stability in the Asian markets.</p>
+
+                    <ul class="credibility-list">
+                        <li>
+                            <span class="credibility-icon">📊</span>
+                            <span>Over HKD 50 billion in assets under management across the Asia-Pacific region</span>
+                        </li>
+                        <li>
+                            <span class="credibility-icon">🌏</span>
+                            <span>Serving more than 500,000 clients across Hong Kong, Macau, and Greater China</span>
+                        </li>
+                        <li>
+                            <span class="credibility-icon">📈</span>
+                            <span>Consistent year-over-year growth in client portfolios and satisfaction</span>
+                        </li>
+                    </ul>
+
+                    <div class="credibility-badges">
+                        <div class="badge">
+                            <strong>Top 10</strong>
+                            <span>Wealth Manager in Hong Kong by Industry Publications</span>
+                        </div>
+                        <div class="badge">
+                            <strong>A Rating</strong>
+                            <span>Strong Financial Strength from Leading International Agencies</span>
+                        </div>
+                        <div class="badge">
+                            <strong>Award Winner</strong>
+                            <span>Recognised for Excellence in Customer Service 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="credibility-image">
+                    <div class="image-placeholder">
+                        <span>Corporate Image</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Solutions -->
+    <section class="products" id="solutions">
+        <div class="container">
+            <h2 class="section-title">Recommended Solutions</h2>
+            <p class="section-intro">Discover our most popular wealth management solutions tailored for your financial success.</p>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <h3>Prosperity Builder Savings Plan</h3>
+                    <p class="product-tagline">Grow your wealth steadily with guaranteed returns and flexible options.</p>
+                    <ul class="product-benefits">
+                        <li>Guaranteed cash value with potential for additional returns</li>
+                        <li>Flexible premium payment terms from 5 to 20 years</li>
+                        <li>Multi-currency options including USD, HKD, and RMB</li>
+                    </ul>
+                    <a href="#prosperity" class="btn btn-text">Learn More →</a>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge featured">Featured</div>
+                    <h3>Legacy Plus Succession Plan</h3>
+                    <p class="product-tagline">Designed to help you build and transfer wealth across generations.</p>
+                    <ul class="product-benefits">
+                        <li>Efficient wealth transfer with potential tax advantages</li>
+                        <li>Change of insured option for multi-generational planning</li>
+                        <li>Comprehensive life coverage with living benefits</li>
+                    </ul>
+                    <a href="#legacy" class="btn btn-text">Learn More →</a>
+                </div>
+
+                <div class="product-card">
+                    <h3>Income Secure Retirement Plan</h3>
+                    <p class="product-tagline">Enjoy a steady income stream throughout your retirement years.</p>
+                    <ul class="product-benefits">
+                        <li>Guaranteed monthly income starting from your chosen retirement age</li>
+                        <li>Protection benefits during the accumulation phase</li>
+                        <li>Optional enhanced coverage for critical illness</li>
+                    </ul>
+                    <a href="#income" class="btn btn-text">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="news" id="blog">
+        <div class="container">
+            <h2 class="section-title">Latest News</h2>
+
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder small">News Image</div>
+                    </div>
+                    <div class="news-content">
+                        <time datetime="2026-01-15">2026.01.15</time>
+                        <h3>Grand Hudson Launches New Digital Wealth Platform</h3>
+                        <p>We are pleased to announce the launch of our enhanced digital platform, offering clients seamless access to portfolio management and real-time investment insights.</p>
+                        <a href="#news1" class="btn btn-text">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder small">News Image</div>
+                    </div>
+                    <div class="news-content">
+                        <time datetime="2026-01-08">2026.01.08</time>
+                        <h3>2026 Market Outlook: Opportunities in Asian Markets</h3>
+                        <p>Our investment team shares key insights on emerging opportunities and strategies for navigating the evolving Asian financial landscape in the year ahead.</p>
+                        <a href="#news2" class="btn btn-text">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <div class="image-placeholder small">News Image</div>
+                    </div>
+                    <div class="news-content">
+                        <time datetime="2025-12-20">2025.12.20</time>
+                        <h3>Grand Hudson Recognised for Excellence in Customer Service</h3>
+                        <p>We are honoured to receive the Customer Service Excellence Award at the Hong Kong Financial Services Awards, reflecting our commitment to client satisfaction.</p>
+                        <a href="#news3" class="btn btn-text">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Ready to Start Your Financial Journey?</h2>
+                <p>Our team of experienced advisors is here to help you achieve your wealth management goals.</p>
+                <div class="contact-buttons">
+                    <a href="#consultation" class="btn btn-primary btn-lg">Book a Consultation</a>
+                    <a href="tel:+85228001234" class="btn btn-outline btn-lg">Call +852 2800 1234</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <svg class="logo-icon" width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="20" width="6" height="16" fill="#D4A02E"/>
+                            <rect x="12" y="14" width="6" height="22" fill="#B8860B"/>
+                            <rect x="20" y="8" width="6" height="28" fill="#D4A02E"/>
+                            <rect x="28" y="12" width="6" height="24" fill="#F5C451"/>
+                        </svg>
+                        <span class="logo-text">Grand</span>
+                        <span class="logo-subtext">Hudson</span>
+                    </a>
+                    <p>Your trusted partner for wealth management in Hong Kong.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#careers">Careers</a></li>
+                            <li><a href="blog.html">News</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="products.html">Solutions</a></li>
+                            <li><a href="family-office.html">Family Office</a></li>
+                            <li><a href="products.html#investment">Investment</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="support.html#faq">FAQ</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="contact.html#branches">Branch Locator</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Regulatory</h4>
+                        <ul>
+                            <li><a href="https://www.sfc.hk/en/Regulatory-functions/Intermediaries/Licensing/Register-of-licensed-persons-and-registered-institutions" target="_blank" rel="noopener">SFC Public Register</a></li>
+                            <li><a href="https://www.sfc.hk/en/Regulatory-functions/Products/List-of-publicly-offered-investment-products" target="_blank" rel="noopener">Product Documents</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="#facebook" aria-label="Facebook">FB</a>
+                            <a href="#linkedin" aria-label="LinkedIn">IN</a>
+                            <a href="#youtube" aria-label="YouTube">YT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#terms">Terms of Use</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#disclaimer">Important Disclaimer</a>
+                </div>
+                <p class="footer-compliance">Grand Hudson Tower Limited is licensed by the Securities and Futures Commission of Hong Kong. Verify our licence status on the <a href="https://www.sfc.hk/en/Regulatory-functions/Intermediaries/Licensing/Register-of-licensed-persons-and-registered-institutions" target="_blank" rel="noopener">SFC Public Register</a>. Investment involves risks. Past performance is not indicative of future results.</p>
+                <p class="footer-copyright">&copy; 2026 Grand Hudson Tower Limited. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

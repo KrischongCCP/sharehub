@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Grand Hudson Tower Limited. Get in touch with our team for wealth management inquiries, appointments, or customer support.">
+    <title>Contact Us | Grand Hudson Hong Kong</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="20" width="6" height="16" fill="#D4A02E"/>
+                        <rect x="12" y="14" width="6" height="22" fill="#B8860B"/>
+                        <rect x="20" y="8" width="6" height="28" fill="#D4A02E"/>
+                        <rect x="28" y="12" width="6" height="24" fill="#F5C451"/>
+                    </svg>
+                    <span class="logo-text">Grand</span>
+                    <span class="logo-subtext">Hudson</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Solutions</a></li>
+                    <li><a href="family-office.html">Family Office</a></li>
+                    <li><a href="support.html">Customer Support</a></li>
+                    <li><a href="contact.html" class="active">Contact Us</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <div class="lang-toggle">
+                        <button class="lang-btn active">EN</button>
+                        <span class="lang-divider">|</span>
+                        <button class="lang-btn">繁</button>
+                    </div>
+                    <a href="#login" class="btn btn-secondary">Login</a>
+                    <a href="products.html" class="btn btn-primary">Buy Online</a>
+                </div>
+
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Contact Us</span>
+            </nav>
+            <h1>Contact Us</h1>
+            <p>We're here to help. Reach out to our team for any inquiries.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form & Info -->
+    <section class="content-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below and our team will get back to you within 1 business day.</p>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+852">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="products">Product Information</option>
+                                <option value="consultation">Book a Consultation</option>
+                                <option value="existing">Existing Policy Query</option>
+                                <option value="claims">Claims Inquiry</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletter">
+                                <span>I would like to receive updates and newsletters from Grand Hudson</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="privacy" required>
+                                <span>I agree to the <a href="#privacy">Privacy Policy</a> and consent to Grand Hudson contacting me *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="contact-info-wrapper">
+                    <div class="contact-info-card">
+                        <h3>Get in Touch</h3>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+85228001234">+852 2800 1234</a></p>
+                                <p class="contact-note">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p><a href="mailto:info@cpfinancial.com.hk">info@cpfinancial.com.hk</a></p>
+                                <p class="contact-note">We respond within 1 business day</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Head Office</h4>
+                                <p>
+                                    28/F, Grand Hudson Tower<br>
+                                    88 Queensway<br>
+                                    Admiralty, Hong Kong
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Book an Appointment</h4>
+                                <p>Meet with a financial advisor at your convenience</p>
+                                <a href="#appointment" class="btn btn-secondary btn-sm">Schedule Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <h3>Quick Links</h3>
+                        <ul class="quick-links">
+                            <li><a href="support.html#faq">Frequently Asked Questions</a></li>
+                            <li><a href="support.html#branches">Find a Branch</a></li>
+                            <li><a href="products.html">View Our Solutions</a></li>
+                            <li><a href="#claims">Submit a Claim</a></li>
+                            <li><a href="#login">Client Portal Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branch Locations -->
+    <section class="content-section alt-bg" id="branches">
+        <div class="container">
+            <h2 class="section-title">Our Branches</h2>
+            <p class="section-intro">Visit us at any of our convenient locations across Hong Kong.</p>
+
+            <div class="branches-grid">
+                <div class="branch-card">
+                    <h4>Central</h4>
+                    <p>12/F, Central Building<br>1-3 Pedder Street, Central</p>
+                    <p class="branch-hours">Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    <a href="#map-central" class="btn btn-text">Get Directions →</a>
+                </div>
+
+                <div class="branch-card">
+                    <h4>Tsim Sha Tsui</h4>
+                    <p>8/F, TST Financial Centre<br>18 Salisbury Road, Tsim Sha Tsui</p>
+                    <p class="branch-hours">Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    <a href="#map-tst" class="btn btn-text">Get Directions →</a>
+                </div>
+
+                <div class="branch-card">
+                    <h4>Causeway Bay</h4>
+                    <p>15/F, Times Square Tower 2<br>1 Matheson Street, Causeway Bay</p>
+                    <p class="branch-hours">Mon-Sat: 10:00 AM - 7:00 PM</p>
+                    <a href="#map-cwb" class="btn btn-text">Get Directions →</a>
+                </div>
+
+                <div class="branch-card">
+                    <h4>Mongkok</h4>
+                    <p>6/F, Grand Century Place<br>193 Prince Edward Road West, Mongkok</p>
+                    <p class="branch-hours">Mon-Sat: 10:00 AM - 7:00 PM</p>
+                    <a href="#map-mk" class="btn btn-text">Get Directions →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-placeholder">
+            <p>Interactive Map</p>
+            <span>Google Maps integration would go here</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-icon">
+                            <span></span><span></span><span></span>
+                        </span>
+                        <span class="logo-text">Grand</span>
+                        <span class="logo-subtext">Hudson</span>
+                    </a>
+                    <p>Your trusted partner for wealth management in Hong Kong.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#careers">Careers</a></li>
+                            <li><a href="blog.html">News</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="products.html">Solutions</a></li>
+                            <li><a href="family-office.html">Family Office</a></li>
+                            <li><a href="products.html#investment">Investment</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="support.html#faq">FAQ</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="support.html#branches">Branch Locator</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Regulatory</h4>
+                        <ul>
+                            <li><a href="https://www.sfc.hk/en/Regulatory-functions/Intermediaries/Licensing/Register-of-licensed-persons-and-registered-institutions" target="_blank" rel="noopener">SFC Public Register</a></li>
+                            <li><a href="https://www.sfc.hk/en/Regulatory-functions/Products/List-of-publicly-offered-investment-products" target="_blank" rel="noopener">Product Documents</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="#facebook" aria-label="Facebook">FB</a>
+                            <a href="#linkedin" aria-label="LinkedIn">IN</a>
+                            <a href="#youtube" aria-label="YouTube">YT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#terms">Terms of Use</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#disclaimer">Important Disclaimer</a>
+                </div>
+                <p class="footer-compliance">Grand Hudson Tower Limited is licensed by the Securities and Futures Commission of Hong Kong. Verify our licence status on the <a href="https://www.sfc.hk/en/Regulatory-functions/Intermediaries/Licensing/Register-of-licensed-persons-and-registered-institutions" target="_blank" rel="noopener">SFC Public Register</a>. Investment involves risks. Past performance is not indicative of future results.</p>
+                <p class="footer-copyright">&copy; 2026 Grand Hudson Tower Limited. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
