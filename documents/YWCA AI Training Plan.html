@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YWCA × ByteDance × AWS | AI Culture Transformation 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .tier-tab.active { border-bottom: 4px solid #3b82f6; color: #1e3a8a; font-weight: 700; }
+        .step-line::before { content: ''; position: absolute; left: 1.25rem; top: 0; bottom: 0; width: 2px; background: #e5e7eb; z-index: 0; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">Y</div>
+                    <span class="font-extrabold text-xl tracking-tight uppercase">YWCA <span class="text-blue-600">AI 2026</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#summary" class="hover:text-blue-600 transition">Summary</a>
+                    <a href="#tiers" class="hover:text-blue-600 transition">Programme</a>
+                    <a href="#roadmap" class="hover:text-blue-600 transition">Roadmap</a>
+                    <a href="#governance" class="hover:text-blue-600 transition">Governance</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-[10px] font-bold px-2 py-1 bg-slate-100 rounded text-slate-500 uppercase">Sponsors</span>
+                    <div class="flex space-x-2">
+                        <div class="h-6 w-16 bg-slate-200 rounded animate-pulse"></div>
+                        <div class="h-6 w-12 bg-slate-200 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden pt-16 pb-24 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm font-medium mb-6">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Culture Transformation Proposal</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                    From Ground to Board: <br/><span class="text-blue-200 underline decoration-blue-400">Building an AI-Ready</span> YWCA
+                </h1>
+                <p class="text-xl text-blue-100 mb-10 leading-relaxed">
+                    A comprehensive 12-month transformation programme co-sponsored by <strong>ByteDance (Arkclaw)</strong> and <strong>AWS</strong>. Transitioning from isolated pilots to governed, organisation-wide capability.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#tiers" class="bg-white text-blue-700 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition shadow-lg flex items-center">
+                        Explore the Programme <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-400 rounded-full blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 right-1/4 -mb-24 w-64 h-64 bg-purple-400 rounded-full blur-3xl opacity-20"></div>
+    </header>
+
+    <!-- Executive Summary Stats -->
+    <section id="summary" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-4xl font-extrabold text-slate-900 mb-2">3-Tier</h3>
+                    <p class="text-slate-500 font-medium">Architecture for Citizens, Champions, and Leaders.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-4xl font-extrabold text-slate-900 mb-2">100%</h3>
+                    <p class="text-slate-500 font-medium">Agentic AI focus using ByteDance Arkclaw & AWS Kiro.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                        <i data-lucide="target" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-4xl font-extrabold text-slate-900 mb-2">Measurable</h3>
+                    <p class="text-slate-500 font-medium">Direct lift in service capacity and donor engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flagship Events Detail -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold mb-4">Flagship Programme Events</h2>
+                <p class="text-lg text-slate-600">High-impact touchpoints designed to drive adoption and showcase innovation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Event 1 -->
+                <div class="p-8 border border-slate-200 rounded-3xl bg-slate-50">
+                    <h4 class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Month 1: Launch</h4>
+                    <h3 class="text-2xl font-bold mb-4">YWCA AI Day</h3>
+                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">A high-energy plenary to demystify AI. Features live "Agent vs Human" workflow demos and the launch of the "AI Story Wall."</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-xs font-semibold text-slate-500"><i data-lucide="clock" class="w-3 h-3 mr-2"></i> 4-Hour Plenary</div>
+                        <div class="flex items-center text-xs font-semibold text-slate-500"><i data-lucide="user" class="w-3 h-3 mr-2"></i> All Staff Presence</div>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="p-8 border border-slate-200 rounded-3xl bg-slate-900 text-white">
+                    <h4 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">Month 5: Sprint</h4>
+                    <h3 class="text-2xl font-bold mb-4">Community Hackathon</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">1-day "Vibe Coding" marathon using AWS Kiro. Teams build functional bots for volunteer matching and donor reporting without writing code.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-xs font-semibold text-slate-400"><i data-lucide="clock" class="w-3 h-3 mr-2"></i> 10-Hour Sprint</div>
+                        <div class="flex items-center text-xs font-semibold text-slate-400"><i data-lucide="cpu" class="w-3 h-3 mr-2"></i> Prototyping Focus</div>
+                    </div>
+                </div>
+                <!-- Event 3 -->
+                <div class="p-8 border border-slate-200 rounded-3xl bg-slate-50">
+                    <h4 class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Month 12: Impact</h4>
+                    <h3 class="text-2xl font-bold mb-4">The AI Showcase</h3>
+                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">Graduation ceremony and pilot exhibition. Top Champion projects are integrated into the 2027 strategic roadmap.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-xs font-semibold text-slate-500"><i data-lucide="clock" class="w-3 h-3 mr-2"></i> Full Day Expo</div>
+                        <div class="flex items-center text-xs font-semibold text-slate-500"><i data-lucide="award" class="w-3 h-3 mr-2"></i> Board Certification</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Tier Audience Tracker -->
+    <section id="tiers" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold mb-4 text-slate-900">3-Tier Audience Architecture</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Custom learning paths designed to build capability from the frontline to the executive boardroom.</p>
+            </div>
+
+            <div class="flex border-b border-slate-200 mb-12">
+                <button onclick="showTier('citizens')" id="tab-citizens" class="tier-tab active flex-1 py-4 text-center text-lg transition">AI Citizens</button>
+                <button onclick="showTier('champions')" id="tab-champions" class="tier-tab flex-1 py-4 text-center text-lg transition">AI Champions</button>
+                <button onclick="showTier('leaders')" id="tab-leaders" class="tier-tab flex-1 py-4 text-center text-lg transition">AI Leaders</button>
+            </div>
+
+            <!-- Tier: Citizens -->
+            <div id="content-citizens" class="tier-content grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-bold uppercase tracking-wider mb-4">Target: All Staff</span>
+                    <h3 class="text-3xl font-bold mb-6">Democratising AI Literacy</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">Focuses on personal productivity and the ethical use of AI tools in daily social service tasks. Every staff member gains the confidence to use AI as a second brain.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-blue-600 mr-3 mt-1"></i> <span><strong>Generative AI Essentials:</strong> Understanding the "What" and "How" of LLMs.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-blue-600 mr-3 mt-1"></i> <span><strong>Advanced Prompting:</strong> Context-aware prompt engineering for NGO scenarios.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-blue-600 mr-3 mt-1"></i> <span><strong>Daily AI Habits:</strong> Integrating AI into routine reporting and admin.</span></li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-blue-600 text-white p-8 rounded-2xl shadow-xl">
+                        <h4 class="font-bold mb-4 flex items-center"><i data-lucide="award" class="mr-2"></i> The "AI Citizen" Badge</h4>
+                        <p class="text-blue-100 text-sm italic mb-4">"Awarded upon completion of the core 3-workshop series and contribution to the AI Story Wall."</p>
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-blue-600 bg-blue-400"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-blue-600 bg-blue-300"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-blue-600 bg-blue-200"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-blue-600 flex items-center justify-center text-[10px] font-bold bg-white text-blue-600">+450</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tier: Champions (Hidden by Default) -->
+            <div id="content-champions" class="tier-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-md text-xs font-bold uppercase tracking-wider mb-4">Target: Programme Leads</span>
+                    <h3 class="text-3xl font-bold mb-6">Designing the Future State</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">Champions are trained in "Agentic Workflows." They don't just prompt bots; they design RAG-based assistants that process real-time YWCA data for complex problem solving.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-purple-600 mr-3 mt-1"></i> <span><strong>RAG Architecture Lab:</strong> Connecting models to local knowledge bases.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-purple-600 mr-3 mt-1"></i> <span><strong>Agentic Orchestration:</strong> Using Arkclaw to build multi-step agents.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-purple-600 mr-3 mt-1"></i> <span><strong>Pilot Leadership:</strong> Managing a 3-month AI implementation project.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-2xl">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <i data-lucide="terminal" class="w-8 h-8 text-purple-400"></i>
+                        <h4 class="text-xl font-bold">Champion Workflow Prototypes</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white/10 rounded-lg text-xs flex justify-between">
+                            <span>Elderly Case Summariser Agent</span>
+                            <span class="text-purple-400">Active</span>
+                        </div>
+                        <div class="p-3 bg-white/10 rounded-lg text-xs flex justify-between">
+                            <span>Volunteer Matching RAG Bot</span>
+                            <span class="text-purple-400">Active</span>
+                        </div>
+                        <div class="p-3 bg-white/10 rounded-lg text-xs flex justify-between">
+                            <span>Bilingual Outreach Generator</span>
+                            <span class="text-purple-400">In Test</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tier: Leaders (Hidden by Default) -->
+            <div id="content-leaders" class="tier-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-md text-xs font-bold uppercase tracking-wider mb-4">Target: C-Suite & Directors</span>
+                    <h3 class="text-3xl font-bold mb-6">Governing the AI Era</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">Strategic oversight focuses on long-term sustainability. Leaders ensure AI projects align with YWCA values and navigate the regulatory landscape of data privacy.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-amber-600 mr-3 mt-1"></i> <span><strong>Governance Principles:</strong> Establishing the "Human-in-the-Loop" policy.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-amber-600 mr-3 mt-1"></i> <span><strong>AI Ethics Framework:</strong> Managing bias in social service algorithms.</span></li>
+                        <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 text-amber-600 mr-3 mt-1"></i> <span><strong>Strategic Roadmapping:</strong> 2-year transformation planning.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white border-2 border-slate-100 p-8 rounded-3xl shadow-sm">
+                    <h4 class="text-lg font-bold mb-4">Leadership Focus Areas</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center text-sm">
+                            <i data-lucide="shield" class="w-4 h-4 mr-3 text-amber-600"></i>
+                            <span class="text-slate-500">Data Residency & Privacy Compliance</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i data-lucide="activity" class="w-4 h-4 mr-3 text-amber-600"></i>
+                            <span class="text-slate-500">Service Impact Assessment</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i data-lucide="layers" class="w-4 h-4 mr-3 text-amber-600"></i>
+                            <span class="text-slate-500">Resource Scalability & Sustainability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap" class="py-24 bg-slate-900 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-4xl font-extrabold mb-4">The 12-Month Journey</h2>
+                <p class="text-slate-400 text-lg">A phased rollout ensures deep cultural integration before technical scaling.</p>
+            </div>
+
+            <div class="relative space-y-12 before:absolute before:left-8 before:top-2 before:bottom-2 before:w-px before:bg-slate-700">
+                <!-- Month 1 -->
+                <div class="relative pl-16">
+                    <div class="absolute left-6 top-1 w-4 h-4 rounded-full bg-blue-500 ring-8 ring-slate-900"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-2"><span class="text-2xl font-bold text-blue-500">Month 1</span></div>
+                        <div class="md:col-span-10">
+                            <h4 class="text-xl font-bold mb-2">Phase 1: Spark Curiosity</h4>
+                            <p class="text-slate-400 leading-relaxed">The programme kicks off with **AI Day**. This is about high-visibility excitement. We showcase "impossible" demos—like AI generating a 12-month programme budget in 30 seconds—to break the barrier of skepticism.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 3-5 -->
+                <div class="relative pl-16">
+                    <div class="absolute left-6 top-1 w-4 h-4 rounded-full bg-purple-500 ring-8 ring-slate-900"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-2"><span class="text-2xl font-bold text-purple-500">Month 3-5</span></div>
+                        <div class="md:col-span-10">
+                            <h4 class="text-xl font-bold mb-2">Phase 2: Capability Forge</h4>
+                            <p class="text-slate-400 leading-relaxed">Intensive training begins. Citizens master prompting, while Champions enter the **AWS AI Hackathon**. By the end of Month 5, YWCA has its first 8 functional AI prototypes built by its own staff.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 8-10 -->
+                <div class="relative pl-16">
+                    <div class="absolute left-6 top-1 w-4 h-4 rounded-full bg-emerald-500 ring-8 ring-slate-900"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-2"><span class="text-2xl font-bold text-emerald-500">Month 8-10</span></div>
+                        <div class="md:col-span-10">
+                            <h4 class="text-xl font-bold mb-2">Phase 3: Production Pilots</h4>
+                            <p class="text-slate-400 leading-relaxed">The best prototypes move to live testing. These are "Sandboxed" production environments where AI assists with real beneficiary intake and outreach under strict human oversight.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 12 -->
+                <div class="relative pl-16">
+                    <div class="absolute left-6 top-1 w-4 h-4 rounded-full bg-yellow-500 ring-8 ring-slate-900"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-2"><span class="text-2xl font-bold text-yellow-500">Month 12</span></div>
+                        <div class="md:col-span-10">
+                            <h4 class="text-xl font-bold mb-2">Phase 4: Impact Showcase</h4>
+                            <p class="text-slate-400 leading-relaxed">Final celebration. We present the data on time saved, lives touched, and service quality improved. The **AI Roadmap for 2027** is formally adopted by the Board.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Learning Experiences -->
+    <section class="py-24 bg-white overflow-hidden relative border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="bg-slate-100 p-8 rounded-3xl border-4 border-slate-200">
+                        <div class="flex items-center justify-between mb-8">
+                            <h4 class="font-bold text-slate-800 uppercase tracking-widest text-xs">The Gamification Layer</h4>
+                            <span class="px-2 py-1 bg-blue-600 text-white text-[10px] font-bold rounded">LIVE LEADERBOARD</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm">
+                                <div class="flex items-center"><div class="w-8 h-8 bg-amber-400 rounded-full mr-3"></div> <span class="text-sm font-bold text-slate-700">Elderly Care Team</span></div>
+                                <span class="text-blue-600 font-bold">12,450 XP</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm">
+                                <div class="flex items-center"><div class="w-8 h-8 bg-slate-400 rounded-full mr-3"></div> <span class="text-sm font-bold text-slate-700">Youth Education</span></div>
+                                <span class="text-blue-600 font-bold">11,200 XP</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm">
+                                <div class="flex items-center"><div class="w-8 h-8 bg-orange-400 rounded-full mr-3"></div> <span class="text-sm font-bold text-slate-700">Operations Hub</span></div>
+                                <span class="text-blue-600 font-bold">9,800 XP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="gamepad-2" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-4xl font-extrabold mb-6">AWS Cloud Quest: <br/>The AI League</h2>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        To sustain momentum between workshops, we use **AWS Cloud Quest**. Staff earn points by completing missions in a virtual city. Department leaderboards encourage healthy competition, while digital badges provide instant recognition for skill mastery.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900">100+</div>
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Skill Missions</p>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900">Quarterly</div>
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Grand Awards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnerships Summary -->
+    <section class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-white p-10 rounded-3xl shadow-sm">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white"><i data-lucide="bot" class="w-6 h-6"></i></div>
+                        <h3 class="text-xl font-bold">ByteDance Arkclaw Role</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Provides the core **Agentic Platform**. This allows YWCA staff to build autonomous assistants that interact with Feishu/Lark, handling multi-step processes like invoice processing or service guide translation 24/7.</p>
+                    <ul class="text-xs space-y-2 font-semibold text-slate-500 uppercase tracking-wider">
+                        <li>• Multi-Model Integration (Doubao, Kimi)</li>
+                        <li>• 7x24 Autonomous Execution</li>
+                        <li>• Zero-Code Agent Building</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-10 rounded-3xl shadow-sm">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center text-white"><i data-lucide="cloud" class="w-6 h-6"></i></div>
+                        <h3 class="text-xl font-bold">AWS Partnership Role</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Provides the **Educational Backbone**. Leveraging the AWS Champion Authorized curriculum and AWS Kiro for "Vibe Coding," AWS enables rapid technical literacy across all skill levels.</p>
+                    <ul class="text-xs space-y-2 font-semibold text-slate-500 uppercase tracking-wider">
+                        <li>• Role-Playing Gamification</li>
+                        <li>• Natural Language Development (Kiro)</li>
+                        <li>• Cloud Practitioner Certification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Governance Section -->
+    <section id="governance" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-4xl font-extrabold mb-8 text-slate-900 leading-tight">Safety, Ethics, and <br/>Human Oversight</h2>
+                    <p class="text-slate-600 mb-10 text-lg">AI in social service requires a higher standard of care. Our framework ensures we never compromise beneficiary trust for technological efficiency.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white shadow-sm border border-slate-200 rounded-xl flex items-center justify-center mr-6">
+                                <i data-lucide="shield-check" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Human-in-the-Loop</h4>
+                                <p class="text-slate-500 text-sm">Every AI output affecting a beneficiary must have a human review step. AI suggests; humans decide.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white shadow-sm border border-slate-200 rounded-xl flex items-center justify-center mr-6">
+                                <i data-lucide="lock" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Sovereign Data Residency</h4>
+                                <p class="text-slate-500 text-sm">Utilizing Volcano Engine and AWS local zones to ensure data never leaves authorized borders.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 flex-shrink-0 bg-white shadow-sm border border-slate-200 rounded-xl flex items-center justify-center mr-6">
+                                <i data-lucide="eye" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Algorithmic Accountability</h4>
+                                <p class="text-slate-500 text-sm">Regular audits of Champion projects to detect and mitigate bias in social welfare triage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-6">Implementation Pillars</h3>
+                    <div class="space-y-6">
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h5 class="text-xs font-bold uppercase tracking-widest text-blue-600 mb-1">Culture</h5>
+                            <p class="text-sm text-slate-600">Addressing staff anxiety through hands-on play and transparent communication about AI as an augmentation tool.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h5 class="text-xs font-bold uppercase tracking-widest text-purple-600 mb-1">Capability</h5>
+                            <p class="text-sm text-slate-600">Graduated learning paths ensuring no one is left behind, from simple prompts to complex agentic architecture.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h5 class="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-1">Impact</h5>
+                            <p class="text-sm text-slate-600">Focusing on measurable lifts in service delivery speed and donor personalization to prove strategic value.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl">
+                            <h5 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-1">Governance</h5>
+                            <p class="text-sm text-slate-600">Standardizing AI ethical guidelines across all YWCA branches and departments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <footer class="bg-slate-900 text-white py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-extrabold mb-8">Ready to Build an AI-Ready YWCA?</h2>
+            <p class="text-slate-400 mb-12 max-w-2xl mx-auto">Join us in transforming social service delivery through cultural change and agentic AI. Let's make 2026 the year of measurable impact.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6">
+                <button class="bg-blue-600 px-10 py-4 rounded-xl font-bold hover:bg-blue-500 transition shadow-lg w-full md:w-auto">Request Full Programme Details</button>
+                <button class="bg-white/10 border border-white/20 px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition w-full md:w-auto">Contact Sponsor Team</button>
+            </div>
+            
+            <div class="mt-24 pt-12 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                <p>&copy; 2026 YWCA Culture Transformation Programme</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <span>ByteDance (Arkclaw) Official Partner</span>
+                    <span>AWS Authorized Training Partner</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Tier Tab Logic
+        function showTier(tier) {
+            // Reset all tabs
+            document.querySelectorAll('.tier-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Reset all content
+            document.querySelectorAll('.tier-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Set active
+            document.getElementById('tab-' + tier).classList.add('active');
+            document.getElementById('content-' + tier).classList.remove('hidden');
+            
+            // Re-render icons for dynamic content
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
