@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw: The ROI Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; font-size: 18px; }
+        .slide { display: none; min-height: 85vh; }
+        .slide.active { display: flex; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .loop-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 5s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+        
+        #progress { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        .diagram-container { transform: scale(0.75); }
+        @media (min-width: 768px) { .diagram-container { transform: scale(0.9); } }
+        @media (min-width: 1024px) { .diagram-container { transform: scale(1.05); } }
+
+        .node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .node:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); }
+        
+        .proxy-label { pointer-events: auto; cursor: help; transition: all 0.2s; }
+        .proxy-label:hover { filter: drop-shadow(0 0 6px rgba(0,0,0,0.15)); }
+
+        .diagram-node { transition: all 0.3s ease; }
+        .diagram-node:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-2 md:p-6">
+
+    <!-- Slide Container -->
+    <div class="max-w-7xl w-full bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden relative">
+        
+        <!-- Progress Bar -->
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-slate-100 z-50">
+            <div id="progress" class="h-full bg-purple-600" style="width: 25%;"></div>
+        </div>
+
+        <!-- Slide 1: AI Ecosystem Architecture -->
+        <section id="slide-1" class="slide active flex-col md:flex-row h-[700px]">
+            <div class="w-full md:w-80 bg-slate-900 text-white p-8 flex flex-col shrink-0 border-r border-slate-800">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="p-2 bg-emerald-500 rounded-lg text-slate-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black tracking-tight leading-none">AI ECOSYSTEM</h1>
+                        <p class="text-emerald-400 text-xs font-bold uppercase tracking-widest mt-1">Architecture v2.1</p>
+                    </div>
+                </div>
+                <div id="info-panel" class="flex-1 space-y-5 overflow-y-auto pr-1 custom-scrollbar">
+                    <div class="h-full flex flex-col justify-center items-center text-center opacity-40 pt-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <p class="text-base font-medium px-4 leading-relaxed">Interactive Canvas: Hover over any node or proxy label to inspect specifications.</p>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-slate-800 mt-4">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-widest">
+                        <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>System Status: Live</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 relative bg-slate-50 overflow-hidden flex flex-col">
+                <div class="absolute top-6 left-8 z-30 flex gap-3 bg-white/80 backdrop-blur p-2 rounded-xl border border-slate-200 shadow-sm">
+                    <button onclick="setTab('all')" id="tab-all" class="tab-btn px-8 py-3 rounded-xl text-[22px] font-bold uppercase tracking-wider transition-all bg-slate-900 text-white shadow-md">All Layers</button>
+                    <button onclick="setTab('consumer')" id="tab-consumer" class="tab-btn px-8 py-3 rounded-xl text-[22px] font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-slate-600">Consumer</button>
+                    <button onclick="setTab('platform')" id="tab-platform" class="tab-btn px-8 py-3 rounded-xl text-[22px] font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-slate-600">Platform</button>
+                    <button onclick="setTab('data')" id="tab-data" class="tab-btn px-8 py-3 rounded-xl text-[22px] font-bold uppercase tracking-wider transition-all text-slate-400 hover:text-slate-600">Data</button>
+                </div>
+                <div class="flex-1 flex items-center justify-center relative p-8">
+                    <div class="diagram-container relative w-[800px] h-[550px] transition-transform">
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 550">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+                                </marker>
+                            </defs>
+                            <g id="connections">
+                                <!-- Baseline arrow thickness (stroke-width: 3) -->
+                                <path id="path-chatbot" d="M 180 250 L 100 180" fill="none" stroke="#818cf8" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-agents" d="M 180 250 L 320 180" fill="none" stroke="#818cf8" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-llm" d="M 110 380 L 110 280 L 160 280" fill="none" stroke="#fbbf24" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-rag" d="M 230 310 L 230 380" fill="none" stroke="#10b981" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                
+                                <path id="path-mcp-in" d="M 320 275 L 430 275" fill="none" stroke="#10b981" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-mcp-agent" d="M 470 240 L 380 180" fill="none" stroke="#10b981" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                
+                                <path id="path-coding" d="M 600 150 L 530 240" fill="none" stroke="#818cf8" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-app" d="M 580 275 L 640 275" fill="none" stroke="#10b981" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                
+                                <path id="path-web" d="M 720 310 L 720 480 L 610 480" fill="none" stroke="#fbbf24" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-file" d="M 720 310 L 720 410 L 610 410" fill="none" stroke="#fbbf24" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                                <path id="path-db" d="M 720 310 L 720 340 L 610 340" fill="none" stroke="#fbbf24" stroke-width="3" class="opacity-30 transition-all duration-500" marker-end="url(#arrowhead)" />
+                            </g>
+                            <g id="proxy-labels">
+                                <g class="proxy-label" onmouseenter="hoverNode('llm_proxy')" onmouseleave="unhoverNode()">
+                                    <rect x="75" y="325" width="85" height="22" rx="6" fill="white" fill-opacity="0.95" stroke="#fbbf24" stroke-width="2" />
+                                    <text x="117" y="340" text-anchor="middle" class="text-[11px] font-black fill-amber-700 uppercase">LLM Proxy</text>
+                                </g>
+                                
+                                <g class="proxy-label" onmouseenter="hoverNode('mcp_proxy')" onmouseleave="unhoverNode()">
+                                    <rect x="345" y="266" width="85" height="22" rx="6" fill="white" fill-opacity="0.95" stroke="#10b981" stroke-width="2" />
+                                    <text x="387" y="281" text-anchor="middle" class="text-[11px] font-black fill-emerald-700 uppercase">MCP Proxy</text>
+                                </g>
+                            </g>
+                        </svg>
+                        
+                        <div class="layer-consumer transition-all duration-500">
+                            <div class="node absolute left-[20px] top-[125px] w-40 h-16 bg-indigo-50 border-2 border-indigo-200 border-opacity-40 text-indigo-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('chatbot')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">Chatbot</span>
+                            </div>
+                            <div class="node absolute left-[280px] top-[125px] w-40 h-16 bg-indigo-50 border-2 border-indigo-200 border-opacity-40 text-indigo-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('agents')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">AI Agents</span>
+                            </div>
+                            <div class="node absolute left-[580px] top-[125px] w-40 h-16 bg-indigo-50 border-2 border-indigo-200 border-opacity-40 text-indigo-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('coding')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">AI Coding</span>
+                            </div>
+                        </div>
+
+                        <div class="layer-platform transition-all duration-500">
+                            <div class="node absolute left-[140px] top-[245px] w-44 h-20 bg-emerald-50 border-2 border-emerald-300 border-opacity-40 text-emerald-800 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('studio')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">AI Studio</span>
+                            </div>
+                            <div class="node absolute left-[430px] top-[245px] w-44 h-20 bg-emerald-50 border-2 border-emerald-300 border-opacity-40 text-emerald-800 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('mcp')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">MCP Hub</span>
+                            </div>
+                            <div class="node absolute left-[640px] top-[245px] w-44 h-20 bg-emerald-50 border-2 border-emerald-300 border-opacity-40 text-emerald-800 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('app')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">Business App</span>
+                            </div>
+                        </div>
+
+                        <div class="layer-data transition-all duration-500">
+                            <div class="node absolute left-[40px] top-[385px] w-40 h-16 bg-amber-50 border-2 border-amber-300 border-opacity-40 text-amber-800 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('llm')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M11 9h2"/><path d="M11 13h2"/><path d="M11 17h2"/><path d="M15 9h2"/><path d="M15 13h2"/><path d="M15 17h2"/><path d="M7 9h2"/><path d="M7 13h2"/><path d="M7 17h2"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">LLM Models</span>
+                            </div>
+                            <div class="node absolute left-[210px] top-[385px] w-40 h-16 bg-amber-50 border-2 border-amber-300 border-opacity-40 text-amber-800 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('rag')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">RAG Engine</span>
+                            </div>
+                            <div class="node absolute left-[450px] top-[320px] w-44 h-16 bg-amber-50 border-2 border-amber-200 border-opacity-40 text-amber-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('db')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">Structured DB</span>
+                            </div>
+                            <div class="node absolute left-[450px] top-[390px] w-44 h-16 bg-amber-50 border-2 border-amber-200 border-opacity-40 text-amber-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('file')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">File Store</span>
+                            </div>
+                            <div class="node absolute left-[450px] top-[460px] w-44 h-16 bg-amber-50 border-2 border-amber-200 border-opacity-40 text-amber-700 rounded-lg flex items-center justify-center gap-3 cursor-pointer z-10" onmouseenter="hoverNode('web')" onmouseleave="unhoverNode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <span class="text-[12px] font-bold uppercase tracking-wider">External Web</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Core Components -->
+        <section id="slide-2" class="slide flex-col p-10 md:p-16">
+            <header class="mb-10">
+                <p class="text-purple-600 font-black tracking-widest text-sm mb-2 uppercase">Slide 2: Role Definitions</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 leading-tight">Core Components: From "Talking" to "Doing"</h2>
+            </header>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="flex bg-purple-50/50 border border-purple-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-2 bg-purple-600 shrink-0"></div>
+                        <div class="p-6"><h3 class="text-purple-700 font-bold text-xl uppercase tracking-tight mb-2">OpenClaw</h3><p class="text-slate-700 text-lg leading-relaxed">OpenClaw is a local-first AI agent and personal assistant platform that orchestrates LLMs, Skills, MCP tools, RAG, and Memory into a full agent loop from "talking" to "doing."</p></div>
+                    </div>
+                    <div class="flex bg-blue-50/50 border border-blue-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-2 bg-blue-500 shrink-0"></div>
+                        <div class="p-6"><h3 class="text-blue-700 font-bold text-xl uppercase tracking-tight mb-2">LLM (Reasoning Brain)</h3><p class="text-slate-700 text-lg leading-relaxed">The LLM is the reasoning brain inside OpenClaw. It interprets user intent, plans actions, and decides when to call which tools.</p></div>
+                    </div>
+                    <div class="flex bg-emerald-50/50 border border-emerald-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-2 bg-emerald-500 shrink-0"></div>
+                        <div class="p-6"><h3 class="text-emerald-700 font-bold text-xl uppercase tracking-tight mb-2">MCP (Tool Bus)</h3><p class="text-slate-700 text-lg leading-relaxed">MCP establishes a unified "tool bus" between LLMs and external tools—often described as the "USB port of the AI world."</p></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="bg-slate-50 rounded-[48px] p-8 border border-slate-100 shadow-inner w-full flex justify-center">
+                        <svg viewBox="0 0 400 400" class="w-full max-w-[360px] h-auto">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#a21caf;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="200" cy="200" r="140" fill="none" stroke="#e2e8f0" stroke-width="4" stroke-dasharray="8 8" />
+                            <circle cx="200" cy="200" r="140" fill="none" stroke="url(#grad1)" stroke-width="8" class="loop-path" stroke-linecap="round" />
+                            <g>
+                                <circle cx="200" cy="60" r="38" fill="white" stroke="#e2e8f0" stroke-width="2" />
+                                <text x="200" y="66" text-anchor="middle" font-size="14" font-weight="900" fill="#475569">INPUT</text>
+                            </g>
+                            <g>
+                                <circle cx="340" cy="200" r="38" fill="white" stroke="#e2e8f0" stroke-width="2" />
+                                <text x="340" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#475569">REASON</text>
+                            </g>
+                            <g>
+                                <circle cx="200" cy="340" r="38" fill="white" stroke="#e2e8f0" stroke-width="2" />
+                                <text x="200" y="346" text-anchor="middle" font-size="14" font-weight="900" fill="#475569">EXECUTE</text>
+                            </g>
+                            <g>
+                                <circle cx="60" cy="200" r="38" fill="white" stroke="#e2e8f0" stroke-width="2" />
+                                <text x="60" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#475569">RESULT</text>
+                            </g>
+                            <text x="200" y="202" text-anchor="middle" font-size="28" font-weight="900" fill="#a21caf">AGENTIC</text>
+                            <text x="200" y="232" text-anchor="middle" font-size="20" font-weight="700" fill="#64748b">LOOP</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Collaborative Workflow Dependencies -->
+        <section id="slide-3" class="slide flex-col p-6 md:p-12 overflow-y-auto">
+            <header class="mb-6">
+                <p class="text-purple-600 font-bold tracking-widest text-sm mb-2 uppercase">Slide 3: Platform Architecture</p>
+                <h2 class="text-3xl font-extrabold text-slate-800">Dependencies: The Collaborative Workflow</h2>
+                <div class="mt-4 p-4 bg-purple-600 text-white rounded-2xl shadow-lg border-l-8 border-purple-800">
+                    <p class="text-lg font-bold italic">“OpenClaw drives the LLM, LLM calls tools via MCP, and Skill organizes business capabilities.”</p>
+                </div>
+            </header>
+
+            <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+                <!-- Textual Details -->
+                <div class="w-full lg:w-1/3 space-y-4">
+                    <div class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-purple-200 transition-colors">
+                        <h4 class="font-bold text-slate-800 text-base mb-1 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-purple-600 rounded-full"></span> Platform Management
+                        </h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Handles model routing, session persistence, RAG (Retrieval-Augmented Generation), and Memory state maintenance.</p>
+                    </div>
+                    <div class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-blue-200 transition-colors">
+                        <h4 class="font-bold text-slate-800 text-base mb-1 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-blue-600 rounded-full"></span> Brain Logic (Intelligence)
+                        </h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Translates abstract Skill instructions into concrete logical plans and sequential MCP tool calls.</p>
+                    </div>
+                    <div class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-emerald-200 transition-colors">
+                        <h4 class="font-bold text-slate-800 text-base mb-1 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-emerald-600 rounded-full"></span> Unified Execution
+                        </h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Uses the MCP standard protocol as a universal "USB port" to access external databases, APIs, and file systems.</p>
+                    </div>
+                </div>
+
+                <!-- Stack Diagram -->
+                <div class="w-full lg:w-2/3 bg-slate-50 rounded-3xl p-6 border border-slate-200 relative min-h-[400px]">
+                    <svg viewBox="0 0 600 380" class="w-full h-auto">
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+                            </marker>
+                            <filter id="cardShadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/></filter>
+                        </defs>
+
+                        <!-- OpenClaw Shell -->
+                        <rect x="20" y="20" width="560" height="340" rx="20" fill="white" stroke="#e2e8f0" stroke-width="2" />
+                        <text x="40" y="45" font-size="12" font-weight="900" fill="#a21caf" opacity="0.5">OPENCLAW RUNTIME (DRIVER)</text>
+
+                        <!-- Skill Module -->
+                        <g transform="translate(60, 80)" class="diagram-node">
+                            <rect width="140" height="70" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="2" filter="url(#cardShadow)"/>
+                            <text x="70" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">SKILL</text>
+                            <text x="70" y="55" text-anchor="middle" font-size="10" fill="#b45309">Workflow Pack</text>
+                        </g>
+
+                        <!-- LLM Brain -->
+                        <g transform="translate(260, 60)" class="diagram-node">
+                            <rect width="240" height="110" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2" filter="url(#cardShadow)"/>
+                            <circle cx="45" cy="55" r="25" fill="#dbeafe" />
+                            <path d="M35 55 Q45 35 55 55 T75 55" fill="none" stroke="#3b82f6" stroke-width="2" />
+                            <text x="145" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e40af">LLM (BRAIN)</text>
+                            <text x="145" y="80" text-anchor="middle" font-size="11" fill="#3b82f6">Reasoning & Planning</text>
+                        </g>
+
+                        <!-- MCP Tool Bus -->
+                        <g transform="translate(60, 220)" class="diagram-node">
+                            <rect width="480" height="60" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2" filter="url(#cardShadow)"/>
+                            <text x="240" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#065f46">MCP TOOL BUS (Unified Interface)</text>
+                        </g>
+
+                        <!-- External Entities -->
+                        <g transform="translate(100, 310)">
+                            <rect width="80" height="30" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+                            <text x="40" y="20" text-anchor="middle" font-size="10" fill="#64748b">DBs</text>
+                        </g>
+                        <g transform="translate(260, 310)">
+                            <rect width="80" height="30" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+                            <text x="40" y="20" text-anchor="middle" font-size="10" fill="#64748b">APIs</text>
+                        </g>
+                        <g transform="translate(420, 310)">
+                            <rect width="80" height="30" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+                            <text x="40" y="20" text-anchor="middle" font-size="10" fill="#64748b">FILES</text>
+                        </g>
+
+                        <!-- Flow Arrows -->
+                        <path d="M 200 115 L 250 115" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow)" />
+                        <text x="225" y="105" text-anchor="middle" font-size="8" fill="#94a3b8">Context</text>
+
+                        <path d="M 380 170 L 380 210" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+                        <text x="415" y="195" text-anchor="middle" font-size="9" font-weight="bold" fill="#64748b">CALL TOOLS</text>
+
+                        <path d="M 140 280 L 140 305" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2" />
+                        <path d="M 300 280 L 300 305" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2" />
+                        <path d="M 460 280 L 460 305" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2" />
+                    </svg>
+                    <div class="mt-4 flex justify-center gap-8">
+                        <span class="flex items-center gap-1 text-[10px] text-slate-400 uppercase font-bold"><span class="w-2 h-2 bg-purple-600 rounded-full"></span> Orchestration</span>
+                        <span class="flex items-center gap-1 text-[10px] text-slate-400 uppercase font-bold"><span class="w-2 h-2 bg-blue-600 rounded-full"></span> Intelligence</span>
+                        <span class="flex items-center gap-1 text-[10px] text-slate-400 uppercase font-bold"><span class="w-2 h-2 bg-emerald-600 rounded-full"></span> Execution</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="bg-slate-50 p-4 border-t border-slate-100 flex items-center justify-between mt-auto">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">OpenClaw Framework Architecture</span>
+                <span class="text-[10px] text-slate-300">© 2024 OpenClaw Strategy</span>
+            </div>
+        </section>
+
+        <!-- Slide 4: Governance & Guardrails (Combined) -->
+        <section id="slide-4" class="slide flex-col p-10 md:p-16 overflow-y-auto">
+            <header class="mb-10">
+                <p class="text-purple-600 font-black tracking-widest text-sm mb-2 uppercase">Slide 4: Governance & Guardrails</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 leading-tight">Operating Framework: Dos and Don'ts</h2>
+            </header>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Column 1: Must-Dos -->
+                <div class="space-y-6">
+                    <h3 class="text-emerald-700 font-black text-xl uppercase tracking-widest mb-6 flex items-center gap-4">
+                        <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white text-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                        Governance: The Must-Dos
+                    </h3>
+                    <div class="p-6 bg-emerald-50/50 border border-emerald-100 rounded-3xl flex gap-6">
+                        <div class="text-emerald-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Review Sources & Permissions</h4><p class="text-lg text-slate-600 leading-relaxed">Audit Skill sources. Beware of prompt injection, tool poisoning, or unsafe community handling.</p></div>
+                    </div>
+                    <div class="p-6 bg-emerald-50/50 border border-emerald-100 rounded-3xl flex gap-6">
+                        <div class="text-emerald-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Apply Least Privilege</h4><p class="text-lg text-slate-600 leading-relaxed">Limit API keys and OAuth scopes. Use scoped permissions and detailed execution logging.</p></div>
+                    </div>
+                    <div class="p-6 bg-emerald-50/50 border border-emerald-100 rounded-3xl flex gap-6">
+                        <div class="text-emerald-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Human-in-the-Loop</h4><p class="text-lg text-slate-600 leading-relaxed">Require explicit approval for high-risk actions: system commands or production file deletion.</p></div>
+                    </div>
+                </div>
+
+                <!-- Column 2: What to Avoid -->
+                <div class="space-y-6">
+                    <h3 class="text-rose-700 font-black text-xl uppercase tracking-widest mb-6 flex items-center gap-4">
+                        <div class="w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center text-white text-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                        Guardrails: What to Avoid
+                    </h3>
+                    <div class="p-6 bg-rose-50/50 border border-rose-100 rounded-3xl flex gap-6">
+                        <div class="text-rose-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Treat as Fully Correct</h4><p class="text-lg text-slate-600 leading-relaxed">It is not an autonomous employee. Model reasoning can be misapplied or logically incorrect.</p></div>
+                    </div>
+                    <div class="p-6 bg-rose-50/50 border border-rose-100 rounded-3xl flex gap-6">
+                        <div class="text-rose-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Install Untrusted Skills</h4><p class="text-lg text-slate-600 leading-relaxed">Avoid mass installation, specifically skills involving browser automation or shell commands.</p></div>
+                    </div>
+                    <div class="p-6 bg-rose-50/50 border border-rose-100 rounded-3xl flex gap-6">
+                        <div class="text-rose-500 shrink-0 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                        <div><h4 class="font-black text-slate-800 text-xl mb-1.5">Ungoverned Action</h4><p class="text-lg text-slate-600 leading-relaxed">Never allow direct action on production environments without strict audit logging and isolation.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls -->
+        <div class="bg-slate-50 p-6 border-t border-slate-100 flex items-center justify-between z-50">
+            <button onclick="prevSlide()" class="px-10 py-3 rounded-full font-black text-slate-400 hover:text-purple-600 hover:bg-purple-50 transition-all text-lg uppercase tracking-widest">Prev</button>
+            <div id="slide-indicator" class="text-lg font-black text-slate-400 uppercase tracking-tighter">Slide <span class="text-slate-800" id="current-page">1</span> / 4</div>
+            <button onclick="nextSlide()" class="px-12 py-3 bg-purple-600 rounded-full font-black text-white hover:bg-purple-700 transition-all shadow-lg shadow-purple-200 text-lg uppercase tracking-widest">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        const nodeData = {
+            chatbot: { title: "Enterprise Chatbot", desc: "User-facing interfaces that utilize LLMs for conversational support.", details: ["Customer Support", "Knowledge Base"], paths: ['path-chatbot'] },
+            agents: { title: "AI Agents", desc: "Autonomous entities executing complex workflows.", details: ["Reasoning Loops", "Tool Calling"], paths: ['path-agents', 'path-mcp-agent'] },
+            coding: { title: "AI Coding", desc: "AI for code generation, refactoring, and agentic development.", details: ["VS Code", "Auto-completion"], paths: ['path-coding', 'path-app-code'] },
+            studio: { title: "AI Studio Platform", desc: "Central hub for governance and prompts.", details: ["Prompt Eng", "Model Eval"], paths: ['path-chatbot', 'path-agents', 'path-llm', 'path-rag', 'path-mcp-in'] },
+            mcp: { title: "MCP Server", desc: "Standardized access to data sources.", details: ["Auth Delegation", "Routing"], paths: ['path-mcp-in', 'path-mcp-agent', 'path-app'] },
+            app: { title: "Business App", desc: "Software that feeds or consumes AI insights.", details: ["ERP", "CRM Data"], paths: ['path-app', 'path-app-code', 'path-web', 'path-file', 'path-db'] },
+            llm: { title: "Foundation Models", desc: "GPT-4, Claude, Gemini core intelligence.", details: ["Token Mgmt", "Latency Control"], paths: ['path-llm'] },
+            rag: { title: "RAG Engine", desc: "Retrieval system providing factual context.", details: ["Vector DB", "Semantic Search"], paths: ['path-rag', 'path-rag-db', 'path-rag-file', 'path-rag-web'] },
+            db: { title: "Structured DB", desc: "SQL/NoSQL relational data.", details: ["PostgreSQL", "Warehouse"], paths: ['path-db', 'path-rag-db'] },
+            file: { title: "File Store", desc: "Critical enterprise docs and knowledge.", details: ["PDF Extraction", "OCR"], paths: ['path-file', 'path-rag-file'] },
+            web: { title: "External Web", desc: "Live internet/API services.", details: ["Search APIs", "News Feeds"], paths: ['path-web', 'path-rag-web'] },
+            llm_proxy: { title: "LLM Proxy", desc: "Secure gateway for model access.", details: ["Authentication", "Rate Limiting"], paths: ['path-llm'] },
+            mcp_proxy: { title: "MCP Proxy", desc: "Intermediary for standardized tool bus communication.", details: ["Payload Validation", "Security Audit"], paths: ['path-mcp-in'] }
+        };
+
+        function hoverNode(id) {
+            const data = nodeData[id];
+            if (!data) return;
+            document.getElementById('info-panel').innerHTML = `
+                <div class="animate-in fade-in slide-in-from-left-2 duration-300">
+                    <h2 class="text-emerald-400 font-black uppercase text-sm mb-3 tracking-widest">${data.title}</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed mb-6">${data.desc}</p>
+                    <div class="space-y-3">
+                        ${data.details.map(d => `
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                <span class="text-sm text-slate-400 font-black uppercase tracking-tight">${d}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.querySelectorAll('#connections path').forEach(p => p.style.opacity = '0.05');
+            data.paths.forEach(pathId => {
+                const el = document.getElementById(pathId);
+                if (el) { 
+                    el.style.opacity = '1'; 
+                    el.style.strokeWidth = '6'; // Highlight thickness
+                    el.style.stroke = '#10b981';
+                }
+            });
+        }
+
+        function unhoverNode() {
+            document.getElementById('info-panel').innerHTML = `<div class="h-full flex flex-col justify-center items-center text-center opacity-40 pt-10"><p class="text-base font-bold uppercase tracking-widest">Hover Nodes</p></div>`;
+            document.querySelectorAll('#connections path').forEach(p => { 
+                p.style.opacity = '0.3'; 
+                p.style.strokeWidth = '3'; // Restored baseline width
+                if (p.id.includes('chatbot') || p.id.includes('agents') || p.id.includes('coding') || p.id.includes('app-code')) p.style.stroke = '#818cf8';
+                else if (p.id.includes('llm') || p.id.includes('web') || p.id.includes('file') || p.id.includes('db') || p.id.includes('rag-db') || p.id.includes('rag-file') || p.id.includes('rag-web')) p.style.stroke = '#fbbf24';
+                else p.style.stroke = '#10b981';
+            });
+        }
+
+        function setTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => { 
+                btn.classList.remove('bg-slate-900', 'text-white', 'shadow-md'); 
+                btn.classList.add('text-slate-400'); 
+            });
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-slate-900', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-400');
+            }
+            
+            ['consumer', 'platform', 'data'].forEach(l => {
+                const el = document.querySelector(`.layer-${l}`);
+                if (el) {
+                    if (tab === 'all' || tab === l) el.style.opacity = '1'; else el.style.opacity = '0.1';
+                }
+            });
+        }
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            document.getElementById('current-page').innerText = currentSlide;
+            document.getElementById('progress').style.width = `${(currentSlide / totalSlides) * 100}%`;
+        }
+
+        function nextSlide() { currentSlide = (currentSlide < totalSlides) ? currentSlide + 1 : 1; updateSlide(); }
+        function prevSlide() { currentSlide = (currentSlide > 1) ? currentSlide - 1 : totalSlides; updateSlide(); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
