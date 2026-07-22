@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight - Customer Account Strategy & Go-To-Market Playbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        insight: {
+                            magenta: '#c40047',
+                            'magenta-hover': '#a8003d',
+                            'magenta-dark': '#8a0032',
+                            tint: '#fdf2f6',
+                            border: '#f5d0e0',
+                            blue: '#0072ce',
+                            'blue-light': '#e8f4fd',
+                            dark: '#1a1a1a',
+                            gray: '#555555'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #1a1a1a;
+            overflow: hidden;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+            transform: translateY(8px);
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .white-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+        .white-card:hover {
+            border-color: #f5d0e0;
+            box-shadow: 0 4px 14px -2px rgba(196, 0, 71, 0.08);
+            transform: translateY(-2px);
+        }
+        .insight-tint-card {
+            background-color: #fdf2f6;
+            border: 1px solid #f5d0e0;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #eaeaea;
+        }
+        .glass-footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #eaeaea;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .gradient-heading {
+            color: #c40047;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-between select-none bg-slate-50 text-slate-900">
+
+    <!-- Top Header Bar -->
+    <header class="h-14 px-6 flex items-center justify-between glass-header z-20 shadow-sm">
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center gap-1.5 font-extrabold text-xl text-slate-900 tracking-tight">
+                <i class="fa-solid fa-hashtag text-insight-magenta text-lg"></i>
+                <span>Insight</span>
+                <span class="text-xs font-normal text-slate-400 pl-1 border-l border-slate-300 ml-1">Account Strategy</span>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <button id="index-btn" onclick="toggleIndexDrawer()" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-insight-magenta bg-white hover:bg-insight-tint transition border border-slate-200 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-list-ul text-insight-magenta"></i> Index
+            </button>
+            <button id="overview-btn" onclick="toggleOverview()" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-insight-magenta bg-white hover:bg-insight-tint transition border border-slate-200 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-grid-2"></i> Grid
+            </button>
+            <button id="notes-btn" onclick="toggleNotes()" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-insight-magenta bg-white hover:bg-insight-tint transition border border-slate-200 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-note-sticky text-amber-500"></i> Notes
+            </button>
+            <button id="fullscreen-btn" onclick="toggleFullscreen()" class="p-1.5 text-slate-500 hover:text-slate-800 transition rounded-full hover:bg-slate-100">
+                <i class="fa-solid fa-expand text-sm"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 relative overflow-hidden flex items-center justify-center p-4 md:p-8 bg-slate-50/80">
+
+        <!-- SLIDE 1: Executive Title Slide -->
+        <section class="slide active w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="1">
+            <div class="flex-1 flex flex-col justify-center items-center text-center px-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-insight-tint text-insight-magenta border border-insight-border mb-6 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-insight-magenta animate-pulse"></span>
+                    Insight 2026 Account Strategy & Portfolio Alignment
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight text-slate-900">
+                    Maximizing Growth Across <span class="gradient-heading">ISV, Global & Local</span> Enterprise Portfolios
+                </h1>
+                
+                <p class="text-base md:text-lg text-slate-600 max-w-3xl mb-10 leading-relaxed font-normal">
+                    Targeted sell strategy aligning Developer Productivity (GitHub Copilot), Multi-Cloud Security (MDC), Modern Workplace (M365 E5), and Data Analytics (Azure Fabric).
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-left">
+                    <div class="insight-tint-card p-5 rounded-2xl border-t-4 border-t-insight-magenta">
+                        <div class="w-10 h-10 rounded-full bg-white text-insight-magenta flex items-center justify-center mb-3 text-lg font-bold shadow-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-1">5 ISV & Dev Houses</h3>
+                        <p class="text-xs text-slate-600">Targeting GitHub Copilot dev stack, Azure DevOps & multi-cloud security (MDC).</p>
+                    </div>
+
+                    <div class="insight-tint-card p-5 rounded-2xl border-t-4 border-t-insight-blue">
+                        <div class="w-10 h-10 rounded-full bg-white text-insight-blue flex items-center justify-center mb-3 text-lg font-bold shadow-sm">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-1">2 Global Accounts</h3>
+                        <p class="text-xs text-slate-600">Navigating EU-led EA (Deluxe) vs HK Local Buying Authority & Renewal (Santa Fe).</p>
+                    </div>
+
+                    <div class="insight-tint-card p-5 rounded-2xl border-t-4 border-t-emerald-600">
+                        <div class="w-10 h-10 rounded-full bg-white text-emerald-600 flex items-center justify-center mb-3 text-lg font-bold shadow-sm">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-1">4 Local Enterprise Accounts</h3>
+                        <p class="text-xs text-slate-600">Accelerating GL20 compliance (AGBA), Azure Fabric data hub, and M365 Copilot.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-hashtag text-insight-magenta"></i> Insight Hong Kong / Greater China Region</span>
+                <span>Press <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 shadow-sm">Space</kbd> or <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 shadow-sm">→</kbd> to navigate</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Table of Contents / Clear Index Slide -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="2">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-insight-magenta uppercase tracking-wider">Executive Agenda</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Deck Table of Contents & Structure</h2>
+                    </div>
+                    <span class="text-xs text-slate-600 bg-white px-3.5 py-1 rounded-full border border-slate-200 shadow-sm">6 Strategy Sections</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-4">
+                    <!-- Chapter 1 -->
+                    <div onclick="showSlide(3)" class="white-card p-5 rounded-2xl cursor-pointer hover:border-insight-magenta group transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="w-8 h-8 rounded-full bg-insight-tint text-insight-magenta font-extrabold flex items-center justify-center text-sm">01</span>
+                            <span class="text-xs font-semibold text-slate-400 group-hover:text-insight-magenta transition flex items-center gap-1">Slide 3 <i class="fa-solid fa-circle-chevron-right text-insight-magenta text-sm"></i></span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-insight-magenta transition">Classification Matrix</h3>
+                        <p class="text-xs text-slate-600 mb-3">Segmentation mapping of all 11 customer accounts across 3 distinct operating categories.</p>
+                        <div class="flex flex-wrap gap-1 text-[10px]">
+                            <span class="bg-insight-tint text-insight-magenta px-2 py-0.5 rounded-full font-medium">5 ISVs</span>
+                            <span class="bg-insight-blue-light text-insight-blue px-2 py-0.5 rounded-full font-medium">2 Global</span>
+                            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-medium">4 Local</span>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 2 -->
+                    <div onclick="showSlide(4)" class="white-card p-5 rounded-2xl cursor-pointer hover:border-insight-magenta group transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="w-8 h-8 rounded-full bg-insight-tint text-insight-magenta font-extrabold flex items-center justify-center text-sm">02</span>
+                            <span class="text-xs font-semibold text-slate-400 group-hover:text-insight-magenta transition flex items-center gap-1">Slide 4 <i class="fa-solid fa-circle-chevron-right text-insight-magenta text-sm"></i></span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-insight-magenta transition">ISV & Dev Strategy</h3>
+                        <p class="text-xs text-slate-600 mb-3">Targeting dev teams with GitHub Copilot pilots, multi-cloud MDC SecOps, and Azure Marketplace.</p>
+                        <div class="flex flex-wrap gap-1 text-[10px]">
+                            <span class="bg-insight-tint text-insight-magenta px-2 py-0.5 rounded-full font-medium">30-60 Day Pilot</span>
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-medium">MDC AWS+Azure</span>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 3 -->
+                    <div onclick="showSlide(5)" class="white-card p-5 rounded-2xl cursor-pointer hover:border-insight-blue group transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="w-8 h-8 rounded-full bg-insight-blue-light text-insight-blue font-extrabold flex items-center justify-center text-sm">03</span>
+                            <span class="text-xs font-semibold text-slate-400 group-hover:text-insight-blue transition flex items-center gap-1">Slide 5 <i class="fa-solid fa-circle-chevron-right text-insight-blue text-sm"></i></span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-insight-blue transition">Global Accounts Playbook</h3>
+                        <p class="text-xs text-slate-600 mb-3">Dual engagement model: EU EA support (Deluxe / Insight NL) & HK local buying authority (Santa Fe).</p>
+                        <div class="flex flex-wrap gap-1 text-[10px]">
+                            <span class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full font-medium">Insight NL Co-sell</span>
+                            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-medium">March Renewal</span>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 4 -->
+                    <div onclick="showSlide(6)" class="white-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 group transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 font-extrabold flex items-center justify-center text-sm">04</span>
+                            <span class="text-xs font-semibold text-slate-400 group-hover:text-emerald-600 transition flex items-center gap-1">Slide 6 <i class="fa-solid fa-circle-chevron-right text-emerald-600 text-sm"></i></span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-emerald-600 transition">Local Enterprise & AGBA Case</h3>
+                        <p class="text-xs text-slate-600 mb-3">Modern Workplace, GL20 regulatory compliance, and Azure Fabric data hub implementation.</p>
+                        <div class="flex flex-wrap gap-1 text-[10px]">
+                            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-medium">Purview GL20</span>
+                            <span class="bg-insight-blue-light text-insight-blue px-2 py-0.5 rounded-full font-medium">Azure Fabric</span>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 5 -->
+                    <div onclick="showSlide(7)" class="white-card p-5 rounded-2xl cursor-pointer hover:border-insight-magenta group transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="w-8 h-8 rounded-full bg-insight-tint text-insight-magenta font-extrabold flex items-center justify-center text-sm">05</span>
+                            <span class="text-xs font-semibold text-slate-400 group-hover:text-insight-magenta transition flex items-center gap-1">Slide 7 <i class="fa-solid fa-circle-chevron-right text-insight-magenta text-sm"></i></span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-insight-magenta transition">Tactical Roadmap & Summary</h3>
+                        <p class="text-xs text-slate-600 mb-3">30-60-90 day milestone roadmap and consolidated attach product summary matrix.</p>
+                        <div class="flex flex-wrap gap-1 text-[10px]">
+                            <span class="bg-insight-tint text-insight-magenta px-2 py-0.5 rounded-full font-medium">30-60-90 Days</span>
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-medium">Attach Matrix</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Index Callout -->
+                    <div class="bg-insight-tint border border-insight-border p-5 rounded-2xl flex flex-col justify-between shadow-sm">
+                        <div>
+                            <span class="text-[11px] font-bold text-insight-magenta uppercase tracking-wider">Quick Navigation Tip</span>
+                            <h4 class="text-sm font-bold text-slate-900 mt-1 mb-2">Interactive Deck Access</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Click any section card above or use the top <span class="text-insight-magenta font-semibold">Index</span> button anytime to quickly navigate across customer plays.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-insight-border text-[11px] text-slate-500 flex items-center gap-2">
+                            <i class="fa-solid fa-keyboard text-insight-magenta"></i> Shortcut: Press <kbd class="px-1 py-0.5 bg-white text-slate-700 rounded border border-slate-300">I</kbd> for Index
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Table of Contents & Deck Blueprint</span>
+                <span>Section 1 of 5</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Customer Classification Matrix -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="3">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-insight-magenta uppercase tracking-wider">Segmentation Framework</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">1. Customer Portfolio Classification</h2>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-600 bg-white px-3.5 py-1 rounded-full border border-slate-200 shadow-sm">11 Accounts Mapped</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-4">
+                    <!-- ISV / Partner Column -->
+                    <div class="white-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-insight-magenta">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-insight-magenta text-sm"></i> ISV / Partner
+                                </h3>
+                                <span class="text-xs font-bold bg-insight-tint text-insight-magenta px-2.5 py-0.5 rounded-full border border-insight-border">5 Accounts</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4">Dev-centric SaaS vendors and engineering houses with multi-cloud requirements.</p>
+                            
+                            <ul class="space-y-2 text-xs">
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">SleekFlow</span>
+                                    <span class="text-[10px] font-semibold text-insight-magenta bg-insight-tint px-2 py-0.5 rounded-full border border-insight-border">Multi-Cloud (AWS+Azure)</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">2046 Labs Limited</span>
+                                    <span class="text-[10px] font-semibold text-insight-magenta bg-insight-tint px-2 py-0.5 rounded-full border border-insight-border">Multi-Cloud (AWS+Azure)</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">imBee Limited</span>
+                                    <span class="text-[10px] font-semibold text-slate-600 bg-white px-2 py-0.5 rounded-full border border-slate-200">SaaS ISV</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">CBX Software Limited</span>
+                                    <span class="text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">Programming House</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">RR Donnelley Asia Printing</span>
+                                    <span class="text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">Programming House</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-insight-magenta font-semibold">
+                            <strong>Key Driver:</strong> GitHub Copilot & Multi-Cloud SecOps (MDC)
+                        </div>
+                    </div>
+
+                    <!-- Global Case Column -->
+                    <div class="white-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-insight-blue">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-earth-americas text-insight-blue text-sm"></i> Global Case
+                                </h3>
+                                <span class="text-xs font-bold bg-insight-blue-light text-insight-blue px-2.5 py-0.5 rounded-full border border-sky-200">2 Accounts</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4">Multinational entities requiring alignment between Global HQ and HK local authority.</p>
+
+                            <ul class="space-y-3 text-xs">
+                                <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold text-slate-800">DELUXE BASE HOLDING LTD</span>
+                                        <span class="text-[10px] font-bold text-insight-magenta bg-insight-tint px-2 py-0.5 rounded-full border border-insight-border">Insight Netherlands EA</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-600">Insight Netherlands owned. HK drives adoption & workload discovery.</p>
+                                </li>
+                                <li class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold text-slate-800">Santa Fe Group Limited</span>
+                                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">HK Local Buy</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-600">UK HQ, but HK holds local purchasing authority. Renewal in March.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-insight-blue font-semibold">
+                            <strong>Key Driver:</strong> Copilot for M365 & EA Upsell (ME7/ME E5)
+                        </div>
+                    </div>
+
+                    <!-- Local Case Column -->
+                    <div class="white-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-600">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-building-user text-emerald-600 text-sm"></i> Local Case
+                                </h3>
+                                <span class="text-xs font-bold bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full border border-emerald-200">4 Accounts</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4">Hong Kong centric organizations with strong regional regulatory & analytics priorities.</p>
+
+                            <ul class="space-y-2.5 text-xs">
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-slate-800 block">CONVOY (AGBA)</span>
+                                        <span class="text-[10px] text-slate-500">Agency Ops / GL20</span>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Modern Workplace</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">FORTUNE PHARMACAL CO LTD</span>
+                                    <span class="text-[10px] text-slate-600 bg-white px-2 py-0.5 rounded-full border border-slate-200">HK Enterprise</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <span class="font-bold text-slate-800">RDM Management Consulting</span>
+                                    <span class="text-[10px] text-slate-600 bg-white px-2 py-0.5 rounded-full border border-slate-200">Shanghai Sub</span>
+                                </li>
+                                <li class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold text-slate-800 block">Bank of Communications</span>
+                                        <span class="text-[10px] text-slate-500">HK Branch</span>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">License-Only</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-emerald-700 font-semibold">
+                            <strong>Key Driver:</strong> Azure Fabric, Security Compliance & Copilot
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Note: Bank of Communications is office-license only currently, operationally handled as Local HK.</span>
+                <span>Section 2 of 5</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: ISV & Dev Partner Strategy -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="4">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-insight-magenta uppercase tracking-wider">Dev Productivity & Multi-Cloud</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">2. ISV & Dev Partner Sell Strategy</h2>
+                    </div>
+                    <span class="text-xs text-insight-magenta font-semibold bg-insight-tint px-3.5 py-1 rounded-full border border-insight-border">Targets: SleekFlow, 2046 Labs, imBee, CBX, RR Donnelley</span>
+                </div>
+
+                <!-- 3 Positioning Pillars -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                    <div class="insight-tint-card p-4 rounded-xl border-l-4 border-l-insight-magenta">
+                        <div class="text-insight-magenta text-xs font-bold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-code-branch text-sm"></i> Modern Dev Stack
+                        </div>
+                        <p class="text-xs text-slate-600">GitHub Enterprise + Azure DevOps + Azure unified CI/CD integration across multi-cloud environments.</p>
+                    </div>
+
+                    <div class="white-card p-4 rounded-xl border-l-4 border-l-insight-blue">
+                        <div class="text-insight-blue text-xs font-bold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-sm"></i> Secure Multi-Cloud
+                        </div>
+                        <p class="text-xs text-slate-600">Microsoft Defender for Cloud (MDC) securing both AWS and Azure workloads natively.</p>
+                    </div>
+
+                    <div class="white-card p-4 rounded-xl border-l-4 border-l-emerald-600">
+                        <div class="text-emerald-700 text-xs font-bold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> AI-Assisted Development
+                        </div>
+                        <p class="text-xs text-slate-600">GitHub Copilot for Business to accelerate velocity, reduce bug times, and elevate codebase quality.</p>
+                    </div>
+                </div>
+
+                <!-- Concrete Execution Motions Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Motion 1 -->
+                    <div class="white-card p-4 rounded-xl">
+                        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm mb-2">
+                            <span class="w-6 h-6 rounded-full bg-insight-tint text-insight-magenta flex items-center justify-center text-xs">1</span>
+                            GitHub Copilot Pilot Motion
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                            <li><strong>30–60 Day Pilot:</strong> Target in-house engineering teams (SleekFlow, 2046 Labs, CBX, RR Donnelley, imBee).</li>
+                            <li><strong>Core Bundle:</strong> GitHub Enterprise + Copilot for Business + Dependabot + Secret Scanning.</li>
+                            <li><strong>Tactic:</strong> Start with 10–20 "Champion" developers.</li>
+                            <li><strong>KPI Metrics:</strong> Measure PR throughput, cycle time, and bug reduction deltas.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Motion 2 -->
+                    <div class="white-card p-4 rounded-xl">
+                        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm mb-2">
+                            <span class="w-6 h-6 rounded-full bg-insight-blue-light text-insight-blue flex items-center justify-center text-xs">2</span>
+                            Multi-Cloud DevSecOps
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                            <li>Offer a <strong>"Multi-cloud DevSecOps Assessment"</strong> discovering Azure & AWS CI/CD pipelines.</li>
+                            <li>Propose: <strong>Azure DevOps or GitHub Actions</strong> as primary pipeline engine.</li>
+                            <li>Implement <strong>MDC</strong> to harden Kubernetes, VMs, and Storage across AWS & Azure.</li>
+                            <li>Deliver centralized security posture management for client compliance audits.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Motion 3 -->
+                    <div class="white-card p-4 rounded-xl">
+                        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm mb-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">3</span>
+                            Marketplace & Co-Sell
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                            <li>Focus on <strong>SleekFlow, 2046 Labs, imBee</strong>.</li>
+                            <li>Guide listing & optimization on <strong>Azure Marketplace</strong> to unlock ISV Co-sell incentives.</li>
+                            <li><strong>Infra Bundling:</strong> Attach AKS (Kubernetes) & Azure Databases to SaaS engines.</li>
+                            <li>Tie cloud infrastructure costs directly to SaaS revenue growth.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Goal: Land developer productivity value first, then scale Azure infrastructure footprint.</span>
+                <span>Section 3 of 5</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Global Case Strategy -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="5">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-insight-blue uppercase tracking-wider">Multinational Accounts</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">3. Global Case Sell Strategy</h2>
+                    </div>
+                    <span class="text-xs font-semibold text-insight-blue bg-insight-blue-light px-3.5 py-1 rounded-full border border-sky-200">Dual Engagement Playbook</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+                    <!-- Deluxe Base -->
+                    <div class="insight-tint-card p-6 rounded-2xl border-l-4 border-l-insight-magenta flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-slate-900">DELUXE BASE HOLDING LTD</h3>
+                                <span class="text-xs font-bold bg-white text-insight-magenta px-2.5 py-1 rounded-full border border-insight-border">Insight NL Owned EA</span>
+                            </div>
+                            
+                            <p class="text-xs text-slate-600 mb-4">No direct HQ ownership in HK; primary Enterprise Agreement owned by Insight Netherlands / EU team.</p>
+
+                            <div class="space-y-3.5 text-xs">
+                                <div class="bg-white p-3.5 rounded-xl border border-insight-border">
+                                    <h4 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                        <i class="fa-solid fa-handshake text-insight-magenta"></i> Engagement Model
+                                    </h4>
+                                    <p class="text-slate-600">Support Insight Netherlands lead team by providing local HK execution, user adoption workshops, and consumption enablement.</p>
+                                </div>
+
+                                <div class="bg-white p-3.5 rounded-xl border border-insight-border">
+                                    <h4 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                        <i class="fa-solid fa-arrow-up-right-dots text-insight-magenta"></i> Selling Focus
+                                    </h4>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                        <li>Upsell into EA constructs: <strong>ME E5 / ME7</strong> (Security & Compliance).</li>
+                                        <li>Position <strong>Copilot for M365</strong> as high-value attach to ME7 licenses.</li>
+                                        <li>Run HK-specific security workshops aligned to APAC cross-border data regulations.</li>
+                                        <li>Pilot replicable Azure app modernization & data platform workloads.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-insight-border text-xs text-insight-magenta font-semibold">
+                            Primary Action: Establish co-sell sync with Insight Netherlands team.
+                        </div>
+                    </div>
+
+                    <!-- Santa Fe Group -->
+                    <div class="white-card p-6 rounded-2xl border-l-4 border-l-emerald-600 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-slate-900">Santa Fe Group Limited</h3>
+                                <span class="text-xs font-bold bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full border border-emerald-200">HK Local Purchasing</span>
+                            </div>
+
+                            <p class="text-xs text-slate-600 mb-4">UK Headquartered global company, but HK entity holds local purchasing authority with monthly billing.</p>
+
+                            <div class="space-y-3.5 text-xs">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                                            <i class="fa-solid fa-calendar-check text-emerald-600"></i> Short-Term Focus (Renewal: MAR)
+                                        </h4>
+                                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Timed with Renewal</span>
+                                    </div>
+                                    <p class="text-slate-600">Land <strong>Copilot for M365</strong> across existing M365 deployment during March local renewal cycle.</p>
+                                </div>
+
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                                        <i class="fa-solid fa-chart-line text-emerald-600"></i> Mid-Term Azure Expansion
+                                    </h4>
+                                    <p class="text-slate-600 mb-1">Conduct "Azure Usage Exploration Workshop":</p>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                        <li>Identify logistics, inventory & relocation workloads for migration.</li>
+                                        <li>Leverage HK local wins to pitch standard global templates back to UK HQ IT.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-emerald-800 font-semibold">
+                            Primary Action: Prepare Copilot business case for March renewal presentation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Tailored engagement: Aligning regional authority with global governance models.</span>
+                <span>Section 4 of 5</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Local Case Strategy & AGBA Deep-Dive -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="6">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Hong Kong Market Focus</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">4. Local Case Strategy & AGBA Deep-Dive</h2>
+                    </div>
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200">Baseline Play: M365 + Azure Fabric + Security</span>
+                </div>
+
+                <!-- Deep Dive Box for AGBA -->
+                <div class="white-card p-5 rounded-2xl border-l-4 border-l-emerald-600 mb-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-base">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </span>
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900">AGBA (ex-Convoy Financial Services)</h3>
+                                <p class="text-xs text-slate-600">Agency operations, O365 + EXO, medium Azure PaaS/containers, strict GL20 compliance</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">Financial Services Playbook</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2 text-emerald-700 flex items-center gap-2">
+                                <i class="fa-solid fa-lock"></i> Modern Workplace & Security (GL20)
+                            </h4>
+                            <ul class="space-y-1.5 text-slate-600">
+                                <li>• Upgrade to <strong>M365 E5 / Defender Suite</strong> (Endpoint, Identity, Office).</li>
+                                <li>• Deploy <strong>Microsoft Purview</strong> for Insurance GL20 data loss prevention & compliance auditing.</li>
+                                <li>• <strong>Copilot for M365:</strong> Speed proposal drafting, compliance docs, and agent communication.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2 text-insight-blue flex items-center gap-2">
+                                <i class="fa-solid fa-database"></i> Data Platform & Azure Fabric
+                            </h4>
+                            <ul class="space-y-1.5 text-slate-600">
+                                <li>• Map existing containerized PaaS workloads to a centralized data engine.</li>
+                                <li>• Deploy <strong>Azure Fabric / Synapse</strong> as core data hub for agency leads & transaction records.</li>
+                                <li>• Deliver <strong>Power BI PoC</strong>: Agent performance & operational KPI dashboard.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Remaining Local Accounts -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="white-card p-4 rounded-xl">
+                        <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-pills text-insight-magenta"></i> Fortune Pharmacal
+                        </h4>
+                        <p class="text-slate-500 mb-2">HK-centric manufacturing enterprise.</p>
+                        <p class="text-slate-700">Target: M365 E3/E5 security upgrade, Azure data infrastructure for supply chain visibility.</p>
+                    </div>
+
+                    <div class="white-card p-4 rounded-xl">
+                        <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-briefcase text-insight-blue"></i> RDM Consulting
+                        </h4>
+                        <p class="text-slate-500 mb-2">Shanghai subsidiary presence.</p>
+                        <p class="text-slate-700">Target: Cross-border productivity standard, M365 Copilot for advisory productivity.</p>
+                    </div>
+
+                    <div class="white-card p-4 rounded-xl">
+                        <h4 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns text-amber-600"></i> Bank of Communications
+                        </h4>
+                        <p class="text-slate-500 mb-2">HK Branch (Office License-only).</p>
+                        <p class="text-slate-700">Target: Transition license footprint into operational Azure hybrid trial & security posture review.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Key Value Driver: Tying regulatory security compliance directly to business intelligence gains.</span>
+                <span>Section 5 of 5</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Tactical Execution Roadmap & Summary Matrix -->
+        <section class="slide w-full max-w-7xl h-full max-h-[820px] flex-col justify-between" data-slide="7">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-insight-magenta uppercase tracking-wider">Execution Playbook</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">5. Tactical Execution Roadmap</h2>
+                    </div>
+                    <span class="text-xs font-semibold text-insight-magenta bg-insight-tint px-3.5 py-1 rounded-full border border-insight-border">30-60-90 Day Milestones</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-4">
+                    <!-- Phase 1 -->
+                    <div class="white-card p-5 rounded-2xl border-t-4 border-t-insight-blue">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-insight-blue">Phase 1 (Days 1–30)</span>
+                            <i class="fa-solid fa-play text-xs text-insight-blue"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Pilots & Discovery Workshops</h3>
+                        <ul class="text-xs text-slate-600 space-y-2.5">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-blue mt-0.5"></i>
+                                <span><strong>ISV Copilot Pilots:</strong> Launch 10–20 champion developer trials at SleekFlow & CBX.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-blue mt-0.5"></i>
+                                <span><strong>Santa Fe Renewal:</strong> Present Copilot M365 ROI case ahead of March deadline.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-blue mt-0.5"></i>
+                                <span><strong>DevSecOps Assessment:</strong> Initiate discovery across AWS & Azure pipelines.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="white-card p-5 rounded-2xl border-t-4 border-t-insight-magenta">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-insight-magenta">Phase 2 (Days 31–60)</span>
+                            <i class="fa-solid fa-chart-line text-xs text-insight-magenta"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">PoC Execution & Co-Sell</h3>
+                        <ul class="text-xs text-slate-600 space-y-2.5">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-magenta mt-0.5"></i>
+                                <span><strong>AGBA Fabric PoC:</strong> Deliver agency KPI dashboard prototype on Azure Fabric.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-magenta mt-0.5"></i>
+                                <span><strong>Deluxe Base Sync:</strong> Align with Insight Netherlands team on local ME7 adoption.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-insight-magenta mt-0.5"></i>
+                                <span><strong>Marketplace Listings:</strong> Guide imBee & SleekFlow onto Azure Marketplace.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="white-card p-5 rounded-2xl border-t-4 border-t-emerald-600">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-emerald-700">Phase 3 (Days 61–90)</span>
+                            <i class="fa-solid fa-flag-checkered text-xs text-emerald-600"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 mb-2">Commercial Scaling</h3>
+                        <ul class="text-xs text-slate-600 space-y-2.5">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>Scale Developer Seats:</strong> Convert Copilot pilots to full organization deployment.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>GL20 Compliance Lock:</strong> Finalize AGBA M365 E5 & Purview subscription expansions.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-regular fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>MDC Deployment:</strong> Land cross-cloud Defender protection contracts.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Summary Attach Matrix Table -->
+                <div class="white-card p-4 rounded-xl overflow-x-auto mt-4">
+                    <table class="w-full text-xs text-left">
+                        <thead>
+                            <tr class="text-slate-500 border-b border-slate-200">
+                                <th class="pb-2 font-bold">Segment</th>
+                                <th class="pb-2 font-bold">Primary Core Product</th>
+                                <th class="pb-2 font-bold">Attach Opportunity</th>
+                                <th class="pb-2 font-bold">Key Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700">
+                            <tr>
+                                <td class="py-2.5 text-insight-magenta font-bold">ISV / Dev Partner</td>
+                                <td class="py-2.5">GitHub Enterprise + Copilot</td>
+                                <td class="py-2.5">Defender for Cloud (MDC) + AKS</td>
+                                <td class="py-2.5 text-emerald-700 font-semibold">PR Velocity + Bug Delta</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 text-insight-blue font-bold">Global Accounts</td>
+                                <td class="py-2.5">ME E5 / ME7 + Copilot M365</td>
+                                <td class="py-2.5">Azure Data Workloads</td>
+                                <td class="py-2.5 text-emerald-700 font-semibold">Renewal On-Time %</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 text-emerald-700 font-bold">Local Enterprise</td>
+                                <td class="py-2.5">M365 E5 + Purview (GL20)</td>
+                                <td class="py-2.5">Azure Fabric + Power BI</td>
+                                <td class="py-2.5 text-emerald-700 font-semibold">Azure ACR Growth</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-xs text-slate-500 flex justify-between items-center border-t border-slate-200 pt-3">
+                <span>Execution framework aligned for Q1/Q2 fiscal strategy.</span>
+                <span>End of Presentation</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Footer Navigation Bar -->
+    <footer class="h-14 px-6 flex items-center justify-between glass-footer z-20 shadow-inner">
+        <div class="flex items-center space-x-2 text-xs text-slate-500">
+            <span>Slide</span>
+            <span id="current-slide-num" class="font-bold text-slate-900 text-sm">1</span>
+            <span>of</span>
+            <span id="total-slides-num" class="font-bold text-slate-500 text-sm">7</span>
+        </div>
+
+        <!-- Slide Selector Pills -->
+        <div class="hidden md:flex items-center space-x-1.5" id="slide-pills">
+            <!-- Dynamically generated pills -->
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <button onclick="prevSlide()" class="p-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition border border-slate-200 shadow-sm" id="prev-btn">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button onclick="nextSlide()" class="px-5 py-2 rounded-full bg-insight-magenta hover:bg-insight-magenta-hover text-white font-bold text-xs transition shadow-md flex items-center gap-2" id="next-btn">
+                <span>Next</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Slide Index Flyout Drawer -->
+    <div id="index-drawer" class="fixed inset-y-0 left-0 w-80 bg-white shadow-2xl border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-list-ul text-sky-600"></i>
+                <h3 class="font-bold text-sm text-slate-900">Presentation Index</h3>
+            </div>
+            <button onclick="toggleIndexDrawer()" class="text-slate-400 hover:text-slate-700 p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="p-4 overflow-y-auto flex-1 custom-scrollbar space-y-2" id="index-list">
+            <!-- Dynamically populated index items -->
+        </div>
+
+        <div class="p-4 border-t border-slate-200 bg-slate-50 text-[11px] text-slate-500 flex justify-between items-center">
+            <span>Microsoft APAC Strategy</span>
+            <span>7 Slides</span>
+        </div>
+    </div>
+
+    <!-- Speaker Notes Panel -->
+    <div id="notes-modal" class="fixed bottom-16 right-6 w-96 bg-white rounded-2xl border border-slate-200 shadow-2xl p-5 z-30 hidden">
+        <div class="flex items-center justify-between mb-3 border-b border-slate-200 pb-2">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-sky-700 flex items-center gap-2">
+                <i class="fa-solid fa-note-sticky text-amber-500"></i> Speaker Talking Points
+            </h4>
+            <button onclick="toggleNotes()" class="text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div id="notes-content" class="text-xs text-slate-600 leading-relaxed max-h-60 overflow-y-auto custom-scrollbar">
+            <!-- Dynamic notes -->
+        </div>
+    </div>
+
+    <!-- Grid Overview Modal -->
+    <div id="overview-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden p-6 md:p-10 overflow-y-auto">
+        <div class="max-w-6xl mx-auto bg-slate-50 p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-200">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Navigation Overview</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Slide Grid View</h2>
+                </div>
+                <button onclick="toggleOverview()" class="p-2 rounded-xl bg-white text-slate-600 hover:text-slate-900 border border-slate-200 shadow-sm">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="overview-grid">
+                <!-- Dynamic grid cards -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Speaker notes mapping
+        const speakerNotes = {
+            1: "Opening title slide formatted in Insight brand guidelines. Highlight Insight's expertise across GitHub Copilot, Multi-Cloud SecOps, and Azure Fabric.",
+            2: "Table of Contents & Deck Blueprint. Click any card or use the Index button in the top navigation bar.",
+            3: "Customer Classification Mapping across 11 accounts. DELUXE BASE is aligned with Insight Netherlands EA team; Santa Fe is HK local decision authority.",
+            4: "ISV Strategy: Focus heavily on the 30-60 day GitHub Copilot pilot with 10-20 champion developers.",
+            5: "Global Accounts: Dual engagement between Insight Netherlands EA ownership (Deluxe) vs HK local purchasing (Santa Fe March renewal).",
+            6: "Local Enterprise & AGBA Deep Dive: Show how AGBA combines Modern Workplace (Purview GL20) with Azure Fabric.",
+            7: "Execution Roadmap: Review the 30-60-90 day timeline milestones and attach summary matrix."
+        };
+
+        const slideTitles = [
+            "Executive Overview",
+            "Deck Table of Contents",
+            "Classification Matrix",
+            "ISV & Dev Partner Playbook",
+            "Global Accounts Strategy",
+            "Local Enterprise & AGBA",
+            "Tactical Execution Roadmap"
+        ];
+
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function initPresentation() {
+            document.getElementById('total-slides-num').textContent = totalSlides;
+            renderPills();
+            renderIndexDrawer();
+            renderOverviewGrid();
+            showSlide(currentSlide);
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    closeAllModals();
+                } else if (e.key.toLowerCase() === 'i') {
+                    toggleIndexDrawer();
+                } else if (e.key.toLowerCase() === 'o') {
+                    toggleOverview();
+                } else if (e.key.toLowerCase() === 'n') {
+                    toggleNotes();
+                }
+            });
+        }
+
+        function showSlide(index) {
+            if (index < 1) index = 1;
+            if (index > totalSlides) index = totalSlides;
+
+            currentSlide = index;
+
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+            }
+
+            document.getElementById('current-slide-num').textContent = currentSlide;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            
+            const nextBtn = document.getElementById('next-btn');
+            if (currentSlide === totalSlides) {
+                nextBtn.innerHTML = '<span>Restart</span> <i class="fa-solid fa-rotate-right text-xs"></i>';
+            } else {
+                nextBtn.innerHTML = '<span>Next</span> <i class="fa-solid fa-chevron-right text-xs"></i>';
+            }
+
+            updatePills();
+            updateIndexActiveState();
+
+            document.getElementById('notes-content').textContent = speakerNotes[currentSlide] || "No notes available for this slide.";
+        }
+
+        function nextSlide() {
+            if (currentSlide === totalSlides) {
+                showSlide(1);
+            } else {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function renderPills() {
+            const container = document.getElementById('slide-pills');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const button = document.createElement('button');
+                button.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-insight-magenta w-6' : 'bg-slate-300 hover:bg-slate-400'}`;
+                button.onclick = () => showSlide(i);
+                button.title = slideTitles[i - 1];
+                container.appendChild(button);
+            }
+        }
+
+        function updatePills() {
+            const container = document.getElementById('slide-pills');
+            const buttons = container.querySelectorAll('button');
+            buttons.forEach((btn, idx) => {
+                if (idx + 1 === currentSlide) {
+                    btn.className = 'w-6 h-2.5 rounded-full bg-insight-magenta transition-all duration-300';
+                } else {
+                    btn.className = 'w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition-all duration-300';
+                }
+            });
+        }
+
+        function renderIndexDrawer() {
+            const container = document.getElementById('index-list');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const item = document.createElement('div');
+                item.className = `p-3 rounded-xl cursor-pointer border transition flex items-center justify-between index-item-${i} ${i === currentSlide ? 'bg-insight-tint border-insight-border text-insight-magenta font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'}`;
+                item.onclick = () => {
+                    showSlide(i);
+                    toggleIndexDrawer();
+                };
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-white text-slate-700 border border-slate-200 font-bold text-xs flex items-center justify-center">${i}</span>
+                        <span class="text-xs font-semibold">${slideTitles[i - 1]}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                `;
+                container.appendChild(item);
+            }
+        }
+
+        function updateIndexActiveState() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const item = document.querySelector(`.index-item-${i}`);
+                if (item) {
+                    if (i === currentSlide) {
+                        item.className = 'p-3 rounded-xl cursor-pointer border transition flex items-center justify-between index-item-' + i + ' bg-insight-tint border-insight-border text-insight-magenta font-bold shadow-sm';
+                    } else {
+                        item.className = 'p-3 rounded-xl cursor-pointer border transition flex items-center justify-between index-item-' + i + ' bg-white border-slate-200 text-slate-700 hover:bg-slate-50';
+                    }
+                }
+            }
+        }
+
+        function renderOverviewGrid() {
+            const grid = document.getElementById('overview-grid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const card = document.createElement('div');
+                card.className = `white-card p-5 rounded-2xl cursor-pointer hover:border-insight-magenta transition flex flex-col justify-between h-44 ${i === currentSlide ? 'ring-2 ring-insight-magenta border-insight-magenta' : ''}`;
+                card.onclick = () => {
+                    showSlide(i);
+                    toggleOverview();
+                };
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-insight-magenta uppercase">Slide ${i}</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">${slideTitles[i - 1]}</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 line-clamp-2">${speakerNotes[i]}</p>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function toggleIndexDrawer() {
+            const drawer = document.getElementById('index-drawer');
+            drawer.classList.toggle('-translate-x-full');
+        }
+
+        function toggleNotes() {
+            const modal = document.getElementById('notes-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function toggleOverview() {
+            const modal = document.getElementById('overview-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function closeAllModals() {
+            document.getElementById('index-drawer').classList.add('-translate-x-full');
+            document.getElementById('notes-modal').classList.add('hidden');
+            document.getElementById('overview-modal').classList.add('hidden');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.warn(`Fullscreen error: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        window.onload = function() {
+            initPresentation();
+        };
+    </script>
+</body>
+</html>
