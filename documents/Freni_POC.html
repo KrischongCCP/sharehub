@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POC Presentation Deck - Integrated Care Management | Freni Care</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            blue: '#2563eb',
+                            teal: '#0d9488',
+                            emerald: '#059669',
+                            rose: '#e11d48',
+                            amber: '#d97706',
+                            purple: '#7c3aed'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03)',
+                        'card-hover': '0 12px 28px -4px rgba(2, 132, 199, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px) scale(0.99);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .slide-container.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .glass-panel-white {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+
+        .card-white {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s ease;
+        }
+
+        .card-white:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Strict Language Switcher rules */
+        body.hide-zh .zh-text {
+            display: none !important;
+        }
+
+        /* Pulse animations */
+        @keyframes radar-pulse {
+            0% { transform: scale(0.2); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .radar-ring {
+            animation: radar-pulse 3s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between select-none relative bg-slate-100">
+
+    <!-- Navigation Header -->
+    <header class="h-16 border-b border-slate-200 px-4 md:px-6 flex items-center justify-between z-30 glass-panel-white shadow-sm">
+        <div class="flex items-center space-x-3 md:space-x-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-blue-700 flex items-center justify-center shadow-md shadow-brand-500/20 text-white font-bold text-lg shrink-0">
+                <i class="fa-solid fa-house-medical"></i>
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-[11px] uppercase tracking-wider font-bold px-2 py-0.5 rounded bg-brand-50 text-brand-700 border border-brand-200">POC Plan <span class="zh-text">試行計劃</span></span>
+                    <span class="text-xs text-slate-500 font-semibold hidden sm:inline">Freni Care & Attention Home <span class="zh-text">輝能護老院</span></span>
+                </div>
+                <h1 class="text-xs md:text-sm font-bold text-slate-900 truncate max-w-xs md:max-w-md lg:max-w-xl">
+                    Integrated Care Management System <span class="zh-text font-semibold">院舍綜合管理系統</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Header Controls -->
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <!-- Language Switcher Button -->
+            <button onclick="toggleLanguage()" id="langToggleBtn" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 transition flex items-center space-x-1.5 shadow-sm">
+                <i class="fa-solid fa-language text-brand-600"></i>
+                <span id="langBtnText">Bilingual (中英雙語)</span>
+            </button>
+
+            <button onclick="toggleViewMode()" id="viewModeBtn" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition flex items-center space-x-1.5 hidden sm:flex">
+                <i class="fa-solid fa-list-ul text-brand-600"></i>
+                <span id="viewModeBtnText">Overview Mode</span>
+            </button>
+            
+            <button onclick="openOverviewModal()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition flex items-center space-x-1.5">
+                <i class="fa-solid fa-grip-vertical text-brand-600"></i>
+                <span class="hidden md:inline">Index</span>
+            </button>
+
+            <button onclick="toggleFullScreen()" class="p-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition">
+                <i class="fa-solid fa-expand text-slate-600" id="fullscreenIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Deck Body -->
+    <main class="flex-1 relative overflow-hidden flex flex-col justify-center items-center p-4 md:p-8" id="mainDeckArea">
+
+        <!-- SLIDE 1: Executive Summary -->
+        <section class="slide-container active w-full max-w-7xl h-full flex-col justify-between" id="slide-1">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 01 // Overview <span class="zh-text">行政摘要</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Executive Summary & Key Goals <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">行政摘要與項目目標</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Smart Care Digital Transformation Plan for Freni Care & Attention Home <span class="zh-text">輝能護老院智慧轉型計劃</span></p>
+                </div>
+                <div class="hidden lg:flex items-center space-x-2 text-xs text-slate-600 bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-sm font-medium">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Client: Freni Care <span class="zh-text">輝能護老院</span></span>
+                </div>
+            </div>
+
+            <!-- 3 Pillars -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Card 1 -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-4 text-xl shadow-sm">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">
+                            1. Low Implementation Risk <span class="zh-text block text-xs font-semibold text-brand-700 mt-0.5">低實施風險驗證</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                            Test core clinical workflows and smart IoT sensors in a single-room setup before full facility rollout.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-1">在全院全面鋪開前，於單人房環境先行驗證核心護理流程與智慧設備。</span>
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between font-medium">
+                        <span>Risk Safeguard <span class="zh-text">可控風險</span></span>
+                        <span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Pre-validated <span class="zh-text">先行驗證</span></span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 mb-4 text-xl shadow-sm">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">
+                            2. Focused Core Scope <span class="zh-text block text-xs font-semibold text-brand-700 mt-0.5">聚焦三大核心場景</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                            High-precision focus on three vital daily operational priorities: <strong class="text-slate-900">Drug Verification (eMAR)</strong>, <strong class="text-slate-900">Daily Care Logs</strong>, and <strong class="text-slate-900">Bed Safety Alerts</strong>.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-1">聚焦三大每日護理關鍵：電子藥物核對 (eMAR)、日常護理記錄及床邊安全告警。</span>
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between font-medium">
+                        <span>Key Modules <span class="zh-text">核心模組</span></span>
+                        <span class="text-purple-600 font-bold">3 Core Priorities <span class="zh-text">三大優先</span></span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-4 text-xl shadow-sm">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">
+                            3. Full SWD Compliance <span class="zh-text block text-xs font-semibold text-brand-700 mt-0.5">全面符合社署規管標準</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                            Engineered strictly to meet the Hong Kong Social Welfare Department (<strong class="text-emerald-700">SWD</strong>) Code of Practice and licensing standards (<strong class="text-slate-900">Cap. 459</strong>).
+                            <span class="zh-text block text-[11px] text-slate-500 mt-1">嚴格按照香港社會福利署 (SWD) 安老院舍條例 (第459章) 實務守則開發設計。</span>
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-between font-medium">
+                        <span>Compliance <span class="zh-text">社署合規</span></span>
+                        <span class="text-emerald-600 font-bold">HK Cap. 459 Standard</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Footer -->
+            <div class="mt-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs text-slate-500 uppercase tracking-wider font-bold mb-2 flex items-center justify-between">
+                    <span><i class="fa-solid fa-user-group text-brand-600 mr-1.5"></i> Delivery Team <span class="zh-text">項目執行團隊</span></span>
+                    <span class="text-slate-500">Prepared for <span class="zh-text">簡報對象</span>: <strong class="text-slate-900 font-bold">Nurse Ida Sze & Clinical Stakeholders</strong></span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center space-x-2.5">
+                        <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">CC</div>
+                        <div>
+                            <div class="font-bold text-slate-900">Chris Chong</div>
+                            <div class="text-[10px] text-slate-500 font-medium">Senior Solution Manager <span class="zh-text">高級解決方案經理</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center space-x-2.5">
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">RC</div>
+                        <div>
+                            <div class="font-bold text-slate-900">Ross Chiu</div>
+                            <div class="text-[10px] text-slate-500 font-medium">Project Lead <span class="zh-text">項目負責人</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center space-x-2.5">
+                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">MC</div>
+                        <div>
+                            <div class="font-bold text-slate-900">Max Cheung</div>
+                            <div class="text-[10px] text-slate-500 font-medium">Technical Lead <span class="zh-text">技術總監</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex items-center space-x-2.5">
+                        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">WC</div>
+                        <div>
+                            <div class="font-bold text-slate-900">William Chan</div>
+                            <div class="text-[10px] text-slate-500 font-medium">Clinical Consultant / RN <span class="zh-text">護理顧問 / 註冊護士</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: 3 Core Proposed Solutions -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-2">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 02 // Proposed Solutions <span class="zh-text">解決方案概覽</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Three Core Proposed Solutions <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">三大核心擬議解決方案</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Integrated Digital Care Ecosystem tailored for Freni Care & Attention Home <span class="zh-text">輝能護老院智慧照護生態</span></p>
+                </div>
+                <div class="hidden sm:flex items-center space-x-2 text-xs text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full border border-brand-200 shadow-sm font-bold">
+                    <i class="fa-solid fa-cubes text-brand-600"></i>
+                    <span>Modular Solution Architecture <span class="zh-text">模組化架構</span></span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Solution 1: CMS Core -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-brand-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 text-xl shadow-sm">
+                                <i class="fa-solid fa-hospital-user"></i>
+                            </div>
+                            <span class="px-2.5 py-0.5 text-[10px] font-mono font-bold bg-brand-100 text-brand-800 rounded-full border border-brand-200 uppercase">1. Core Platform <span class="zh-text">核心系統</span></span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-0.5">Care Management System (CMS)</h3>
+                        <p class="text-xs text-brand-700 font-semibold mb-3"><span class="zh-text font-bold text-slate-800">安老院舍管理系統</span></p>
+                        
+                        <div class="text-[11px] font-bold text-slate-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-layer-group text-brand-600 mr-1.5"></i> Core Modules <span class="zh-text">核心功能模組</span>:
+                        </div>
+                        <ul class="space-y-1.5 text-xs text-slate-600">
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-pills text-brand-600 text-xs"></i>
+                                <span><strong>Medication Management (eMAR)</strong> <span class="zh-text block text-[10px] text-slate-500">藥物管理系統</span></span>
+                            </li>
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-tablet-screen-button text-purple-600 text-xs"></i>
+                                <span><strong>Daily Care Tablet Logging</strong> <span class="zh-text block text-[10px] text-slate-500">日常護理記錄</span></span>
+                            </li>
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-clipboard-user text-indigo-600 text-xs"></i>
+                                <span><strong>Individual Care Planning (ICP)</strong> <span class="zh-text block text-[10px] text-slate-500">個人護理計劃</span></span>
+                            </li>
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-user-doctor text-cyan-600 text-xs"></i>
+                                <span><strong>Multi-Disciplinary Assessment</strong> <span class="zh-text block text-[10px] text-slate-500">跨專業團隊評估</span></span>
+                            </li>
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-clock-rotate-left text-amber-600 text-xs"></i>
+                                <span><strong>Ward Rounds & Shift Handover</strong> <span class="zh-text block text-[10px] text-slate-500">巡房與排班交更</span></span>
+                            </li>
+                            <li class="p-2 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center space-x-2">
+                                <i class="fa-solid fa-file-export text-emerald-600 text-xs"></i>
+                                <span><strong>SWD Cap.459 Compliance Reports</strong> <span class="zh-text block text-[10px] text-slate-500">社署合規報表匯出</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-medium flex items-center justify-between">
+                        <span>Digital Foundation <span class="zh-text">數位基座</span></span>
+                        <span class="text-brand-600 font-bold">Facility-Wide Platform</span>
+                    </div>
+                </div>
+
+                <!-- Solution 2: Sleep Monitor JHK-B1 -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-cyan-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 text-xl shadow-sm">
+                                <i class="fa-solid fa-bed-pulse"></i>
+                            </div>
+                            <span class="px-2.5 py-0.5 text-[10px] font-mono font-bold bg-cyan-100 text-cyan-800 rounded-full border border-cyan-200 uppercase">2. IoT Sensor <span class="zh-text">床邊感測</span></span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-0.5">Smart Sleep & Vital Monitor</h3>
+                        <p class="text-xs text-cyan-700 font-semibold mb-3">JHK-B1 Bed Monitor <span class="zh-text font-bold text-slate-800">（睡眠監測儀）</span></p>
+                        
+                        <div class="text-[11px] font-bold text-slate-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-heart-pulse text-cyan-600 mr-1.5"></i> Highlights <span class="zh-text">關鍵特色</span>:
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200/80">
+                                <div class="font-bold text-slate-900 mb-0.5"><i class="fa-solid fa-wave-square text-emerald-600 mr-1"></i> Continuous Non-Contact Vitals <span class="zh-text text-slate-600 text-[11px] font-normal block">連續生命體徵監測</span></div>
+                                <p class="text-slate-600 text-[11px]">Real-time tracking of respiration, pulse, and restlessness without wearables.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">不需佩帶裝置，即時追蹤呼吸、心跳及體動速率。</span></p>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200/80">
+                                <div class="font-bold text-rose-700 mb-0.5"><i class="fa-solid fa-bell text-rose-600 mr-1"></i> Out-of-Bed Timeout Alarm <span class="zh-text text-slate-600 text-[11px] font-normal block">離床過久自動告警</span></div>
+                                <p class="text-slate-600 text-[11px]">Detects absent resident and alerts nurse station automatically upon timeout.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">即時偵測長者離床，超時自動發送護士站提醒。</span></p>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200/80">
+                                <div class="font-bold text-indigo-700 mb-0.5"><i class="fa-solid fa-moon text-indigo-600 mr-1"></i> Nightly Sleep Quality Analytics <span class="zh-text text-slate-600 text-[11px] font-normal block">夜間睡眠品質分析</span></div>
+                                <p class="text-slate-600 text-[11px]">Generates deep/light sleep cycles and turn-over trends for clinical review.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">生成深淺睡眠及翻身圖表，輔助護理評估。</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-medium flex items-center justify-between">
+                        <span>Mounting 1m Above Mattress</span>
+                        <span class="text-cyan-600 font-bold">1.5m Range Coverage</span>
+                    </div>
+                </div>
+
+                <!-- Solution 3: Fall Radar JHK-F1 -->
+                <div class="card-white p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-rose-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 text-xl shadow-sm">
+                                <i class="fa-solid fa-radar"></i>
+                            </div>
+                            <span class="px-2.5 py-0.5 text-[10px] font-mono font-bold bg-rose-100 text-rose-800 rounded-full border border-rose-200 uppercase">3. Radar Device <span class="zh-text">雷達偵測</span></span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-0.5">Fall Detection Radar</h3>
+                        <p class="text-xs text-rose-700 font-semibold mb-3">JHK-F1 60GHz mmWave <span class="zh-text font-bold text-slate-800">（跌倒報警監測）</span></p>
+                        
+                        <div class="text-[11px] font-bold text-slate-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-shield-halved text-rose-600 mr-1.5"></i> Highlights <span class="zh-text">關鍵特色</span>:
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200/80">
+                                <div class="font-bold text-rose-700 mb-0.5"><i class="fa-solid fa-person-falling text-rose-600 mr-1"></i> Sudden Fall Detection <span class="zh-text text-slate-600 text-[11px] font-normal block">跌倒姿態即時捕捉</span></div>
+                                <p class="text-slate-600 text-[11px]">Captures rapid height drops and dispatches alerts to nurses in seconds.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">快速辨識急劇高度變化，60s 內發送救援通知。</span></p>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200/80">
+                                <div class="font-bold text-amber-700 mb-0.5"><i class="fa-solid fa-user-clock text-amber-600 mr-1"></i> Prolonged Static Dwell Alarm <span class="zh-text text-slate-600 text-[11px] font-normal block">長時間靜止不動告警</span></div>
+                                <p class="text-slate-600 text-[11px]">Triggers high-priority alerts if resident remains motionless beyond threshold.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">無動作停留超過設定時間（如 5 分鐘）自動報警。</span></p>
+                            </div>
+                            <div class="p-2.5 bg-emerald-50 rounded-lg border border-emerald-200 text-emerald-900">
+                                <div class="font-bold mb-0.5"><i class="fa-solid fa-lock text-emerald-700 mr-1"></i> 100% Camera-Free Privacy <span class="zh-text text-emerald-800 text-[11px] font-normal block">無鏡頭隱私保護</span></div>
+                                <p class="text-emerald-800 text-[11px]">Radio wave sensing with zero optical lenses, respecting privacy in washrooms.
+                                <span class="zh-text block text-[11px] text-emerald-700 mt-0.5">毫米波訊號偵測，無影像鏡頭，維護尊嚴。</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-medium flex items-center justify-between">
+                        <span>4m × 4m Coverage</span>
+                        <span class="text-rose-600 font-bold">180cm Side-Wall Mount</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Phase 1 — Smart Drug & Daily Care Logs -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-3">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 03 // Core Modules <span class="zh-text">核心模組</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 1 — Smart Drug & Daily Care Logs <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第一階段：智能藥物核對與日常護理記錄</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Medication Administration Records (eMAR) and Point-of-Care Tablet Logging <span class="zh-text">簡化電子派藥與點對點護理記錄</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold font-mono">
+                    Phase 1 Modules
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Card 1: Drug & eMAR -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-pills text-brand-600 text-lg"></i>
+                                <span>eDrug & Medication Management (eMAR) <span class="zh-text block text-xs text-brand-700">電子藥物管理系統</span></span>
+                            </h3>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200">HK Drug DB</span>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-brand-700 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-comments"></i>
+                                    <span>Co-designed with Nurse Ida Sze <span class="zh-text">護士團隊共同設計</span></span>
+                                </div>
+                                <p class="text-slate-600">Tailored through hands-on workshops to match Freni Home's actual daily nursing rounds and MAR verification habits.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">經實地研討優化，完全貼合輝能護老院日常巡房與派藥核對習慣。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-rose-600 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-user-shield"></i>
+                                    <span>Strict Licensing Role Control <span class="zh-text">嚴格社署牌照權限</span></span>
+                                </div>
+                                <p class="text-slate-600 mb-2">Restricting drug authorization rights strictly to verified roles as required by SWD licensing rules:
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">按社署牌照規定，僅限獲授權角色進行藥物簽發與核對：</span></p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2.5 py-1 rounded bg-rose-100 border border-rose-200 text-rose-800 text-[11px] font-bold">Registered Nurse (RN) <span class="zh-text">註冊護士</span></span>
+                                    <span class="px-2.5 py-1 rounded bg-amber-100 border border-amber-200 text-amber-800 text-[11px] font-bold">Enrolled Nurse (EN) <span class="zh-text">登記護士</span></span>
+                                    <span class="px-2.5 py-1 rounded bg-blue-100 border border-blue-200 text-blue-800 text-[11px] font-bold">Health Worker (HW) <span class="zh-text">保健員</span></span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-emerald-700 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-database"></i>
+                                    <span>Pre-loaded HK Drug Master Database <span class="zh-text">預載香港藥物資料庫</span></span>
+                                </div>
+                                <p class="text-slate-600">Pre-loaded with all <strong class="text-slate-900 font-mono">14,000+ HK Registered Pharmaceuticals</strong> for quick barcode search.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">內建 14,000+ 香港註冊藥物名冊，支援條碼快速掃描與檢索。</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Daily Care Recording -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-tablet-screen-button text-purple-600 text-lg"></i>
+                                <span>Frontline Care Tablet Logging <span class="zh-text block text-xs text-purple-700">前線平板日常護理記錄</span></span>
+                            </h3>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold border border-purple-200">iPad Ready</span>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-purple-700 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-hand-pointer"></i>
+                                    <span>Touch-Optimized UI <span class="zh-text">大字體單按操作</span></span>
+                                </div>
+                                <p class="text-slate-600">Large touch targets optimized for tablets, allowing staff to complete logs in seconds without typing.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">為平板打造的大按鈕界面，數秒內完成輸入，無需繁瑣打字。</span></p>
+                            </div>
+
+                            <!-- Interactive Grid Box -->
+                            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-white shadow-inner space-y-3">
+                                <div class="text-[11px] font-mono text-slate-300 font-bold uppercase tracking-wider flex justify-between items-center">
+                                    <span><i class="fa-solid fa-list-check text-brand-400 mr-1"></i> Core Daily Parameters Monitored <span class="zh-text">核心記錄項目</span></span>
+                                    <span class="text-emerald-400 text-[10px]">1-Tap Input</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                                    <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700 flex items-center space-x-2">
+                                        <i class="fa-solid fa-heart-pulse text-rose-400 text-sm"></i>
+                                        <div>
+                                            <div class="font-bold text-slate-100">Vital Signs <span class="zh-text">生命體徵</span></div>
+                                            <div class="text-[9px] text-slate-400">BP, Pulse, Temp, SpO2</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700 flex items-center space-x-2">
+                                        <i class="fa-solid fa-glass-water text-cyan-400 text-sm"></i>
+                                        <div>
+                                            <div class="font-bold text-slate-100">Fluid Intake/Output <span class="zh-text">飲水與出入量</span></div>
+                                            <div class="text-[9px] text-slate-400">Hydration Balance</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700 flex items-center space-x-2">
+                                        <i class="fa-solid fa-utensils text-amber-400 text-sm"></i>
+                                        <div>
+                                            <div class="font-bold text-slate-100">Meal Intake <span class="zh-text">進食量</span></div>
+                                            <div class="text-[9px] text-slate-400">Dietary Intake %</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700 flex items-center space-x-2">
+                                        <i class="fa-solid fa-toilet text-indigo-400 text-sm"></i>
+                                        <div>
+                                            <div class="font-bold text-slate-100">Elimination Log <span class="zh-text">排泄記錄</span></div>
+                                            <div class="text-[9px] text-slate-400">Stool & Urine Chart</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Phase 1 — Network & Safeguards -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-4">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 04 // Network & Security <span class="zh-text">網絡與數據保障</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 1 — Reliable Network & Data Safeguards <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第一階段：離線架構與數據防護</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Offline-First PWA Tablet Support & Anti-Overwrite Conflict Protection <span class="zh-text">離線暫存與防資料覆蓋機制</span></p>
+                </div>
+
+                <!-- Network Simulator Button -->
+                <button onclick="toggleNetworkStatus()" id="networkToggleBtn" class="px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-bold flex items-center space-x-2 shadow-sm transition hover:bg-emerald-100">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="networkPulse"></span>
+                    <span id="networkStatusText">Wi-Fi Status: Connected (Online)</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Card 1: Offline PWA -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 text-lg">
+                                <i class="fa-solid fa-wifi"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">1. Works Offline Without Interruption</h3>
+                                <p class="text-xs text-slate-500">Offline-First PWA Architecture <span class="zh-text text-brand-700">漸進式網絡應用離線技術</span></p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-slate-900 mb-1">Zero Downtime During Outages <span class="zh-text text-brand-700 font-semibold text-[11px] block">斷網無縫繼續操作</span></div>
+                                <p class="text-slate-600">Care staff can continue entering vitals and daily logs even during Wi-Fi outages without data loss.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">即使院舍網絡中斷，護理人員仍可在平板電腦上正常輸入資料，不會中斷工作。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-emerald-700 mb-1">Automatic Background Sync <span class="zh-text text-emerald-800 font-semibold text-[11px] block">自動背景同步</span></div>
+                                <p class="text-slate-600">All offline records queue securely on local tablets and auto-sync when online connection restores.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">網絡恢復後，暫存於平板的紀錄將自動同步回中央數據庫。</span></p>
+                            </div>
+
+                            <!-- Live Sync Box -->
+                            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-white" id="syncStatusCard">
+                                <div class="flex items-center justify-between text-xs font-mono mb-2">
+                                    <span>Outbox Queue Status:</span>
+                                    <span class="text-emerald-400 font-bold" id="queueStatusLabel">[0 Pending Items]</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                                    <div class="bg-emerald-400 h-full w-full transition-all duration-500" id="syncBar"></div>
+                                </div>
+                                <p class="text-[11px] text-slate-300 mt-2" id="syncDescription">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Live sync to central database active.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Conflict & Audit -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 text-lg">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">2. Smart Data Conflict Safeguards</h3>
+                                <p class="text-xs text-slate-500">High-Risk Medical Safeguards <span class="zh-text text-amber-700">高風險醫療數據安全防護</span></p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-rose-600 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <span>Anti-Overwrite Protection <span class="zh-text">關鍵數據防覆蓋</span></span>
+                                </div>
+                                <p class="text-slate-600">Critical data like <strong class="text-slate-900">medication administration records</strong> and <strong class="text-slate-900">incidents</strong> are blocked from automatic overwrites.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">派藥與事故等敏感紀錄禁止自動覆蓋，防止失誤。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-amber-700 mb-1 flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-user-nurse"></i>
+                                    <span>Nurse Reconciliation Escalation <span class="zh-text">護士人工覆核確認</span></span>
+                                </div>
+                                <p class="text-slate-600">If conflict occurs offline, system prompts nurse for manual reconciliation.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">若離線修改產生衝突，系統將提醒護士站手動比對核對。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold text-slate-900">100% SWD Audit Trail <span class="zh-text text-slate-600 text-xs font-normal">完整審查軌跡</span></div>
+                                    <div class="text-[11px] text-slate-500">All edits, timestamps, and Staff IDs logged <span class="zh-text">記錄時間與員工編號</span></div>
+                                </div>
+                                <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 font-mono text-[10px] font-bold border border-emerald-200">Immutable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Phase 1 — Smart Room Integration -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-5">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 05 // Smart Room <span class="zh-text">智慧房間配置</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 1 — Non-Contact Vital Signs Monitor <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第一階段：非接觸式生命體徵監測儀</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Single Room Pilot Setup & Bedhead Mounting Guidelines (JHK-B1 Monitor) <span class="zh-text">單人房試行安裝與規格</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-bold">
+                    Device: JHK-B1
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Diagram Panel (Left 7 Cols) -->
+                <div class="lg:col-span-7 card-white p-6 rounded-2xl flex flex-col justify-between relative">
+                    <div class="text-xs font-mono text-brand-700 font-bold mb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-ruler-combined mr-1"></i> Bedhead Mounting Geometry <span class="zh-text">床頭安裝幾何示意圖</span></span>
+                        <span class="text-slate-500">Private Pilot Room</span>
+                    </div>
+
+                    <!-- Clean Mounting Vector Graphic -->
+                    <div class="w-full h-56 bg-slate-900 rounded-xl border border-slate-800 relative flex items-center justify-center p-4">
+                        <div class="absolute left-6 top-4 bottom-4 w-3 bg-slate-700 rounded border-r border-brand-400"></div>
+                        
+                        <div class="absolute left-9 top-10 bg-slate-800 border-2 border-cyan-400 rounded-lg p-2 text-[10px] text-cyan-300 font-mono shadow-md flex items-center space-x-2">
+                            <i class="fa-solid fa-video text-cyan-400 text-base"></i>
+                            <div>
+                                <div class="font-bold text-white">JHK-B1 Sensor</div>
+                                <div>Angle: 45° Downward</div>
+                            </div>
+                        </div>
+
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 200">
+                            <polygon points="65,55 320,170 120,170" fill="rgba(6, 182, 212, 0.15)" stroke="rgba(6, 182, 212, 0.5)" stroke-dasharray="4" />
+                            <line x1="65" y1="55" x2="65" y2="170" stroke="#f59e0b" stroke-dasharray="2" />
+                            <text x="70" y="115" fill="#f59e0b" font-size="10" font-family="monospace" font-weight="bold">Height: 1.0m</text>
+                            <text x="170" y="85" fill="#38bdf8" font-size="10" font-family="monospace" font-weight="bold">45° Downward Direction</text>
+                        </svg>
+
+                        <div class="absolute right-8 bottom-6 w-64 h-12 bg-slate-800 border border-slate-700 rounded-t-xl flex items-center justify-center">
+                            <div class="w-56 h-3 bg-brand-500/40 rounded-full border border-brand-400 flex items-center justify-center text-[9px] text-brand-200 font-bold">
+                                Resident Mattress Surface
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-2 left-32 text-[10px] text-emerald-300 font-mono bg-emerald-950/80 border border-emerald-500/50 px-2.5 py-0.5 rounded-full">
+                            <i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> 1m Clear Zone (No AC Drafts)
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 mt-4 text-xs">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div class="text-slate-500 text-[10px] font-medium">Mounting Height <span class="zh-text">安裝高度</span></div>
+                            <div class="font-bold text-slate-900 font-mono text-sm">1.0 Meter</div>
+                            <div class="text-[10px] text-slate-500">Above mattress <span class="zh-text">床墊上方</span></div>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div class="text-slate-500 text-[10px] font-medium">Tilt Angle <span class="zh-text">傾斜角度</span></div>
+                            <div class="font-bold text-brand-600 font-mono text-sm">45° Downward</div>
+                            <div class="text-[10px] text-slate-500">Targeted at bed <span class="zh-text">對準床面</span></div>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div class="text-slate-500 text-[10px] font-medium">Clearance Zone <span class="zh-text">淨空範圍</span></div>
+                            <div class="font-bold text-emerald-600 font-mono text-sm">1-Meter Radius</div>
+                            <div class="text-[10px] text-slate-500">Free from drafts <span class="zh-text">避開風流</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameters (Right 5 Cols) -->
+                <div class="lg:col-span-5 card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <h3 class="text-base font-bold text-slate-900 mb-3">Installation Specs <span class="zh-text">安裝指引</span></h3>
+
+                    <div class="space-y-3.5 text-xs">
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-brand-700 mb-1"><i class="fa-solid fa-wind mr-1"></i> Interference Prevention <span class="zh-text">避開幹擾源</span></div>
+                            <p class="text-slate-600">Ensure 1-meter radius is free from air conditioner airflow, fans, or metallic curtains.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-0.5">感應器周圍 1 米內須避開冷氣出風口、大型植物或金屬風扇。</span></p>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-amber-700 mb-1"><i class="fa-solid fa-plug mr-1"></i> Power Warmup Mechanism <span class="zh-text">預熱機制</span></div>
+                            <p class="text-slate-600">USB powered with automatic <strong class="text-slate-900 font-mono">60-second hardware pre-heating</strong> before data logging starts.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-0.5">供電後進行 60 秒自動硬體預熱，隨後開始精準取樣。</span></p>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-purple-700 mb-1"><i class="fa-solid fa-network-wired mr-1"></i> Dual Connectivity Modes <span class="zh-text">雙傳輸模式</span></div>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="px-2.5 py-1 bg-purple-100 text-purple-800 border border-purple-200 rounded-md text-[10px] font-mono font-bold">Bluetooth BLE 5.2</span>
+                                <span class="px-2.5 py-1 bg-blue-100 text-blue-800 border border-blue-200 rounded-md text-[10px] font-mono font-bold">2.4G Wi-Fi Gateway</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Phase 1 — Vitals & Nurse Alerts -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-6">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 06 // Nurse Alerts <span class="zh-text">護士站告警</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 1 — Continuous Vitals & Nurse Alerts <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第一階段：床邊數據與護士站告警</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Non-Contact Bed Monitoring (1.5m Range) & Immediate Alarm Escalation <span class="zh-text">1.5 米非接觸監測與即時警報</span></p>
+                </div>
+
+                <button onclick="triggerAlertSimulation()" class="px-3.5 py-1.5 rounded-lg bg-rose-50 border border-rose-300 text-rose-700 text-xs font-bold hover:bg-rose-100 transition flex items-center space-x-2 shadow-sm">
+                    <i class="fa-solid fa-bell animate-bounce text-rose-600"></i>
+                    <span>Simulate Timeout Alert</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Data Capture Panel -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-wave-square text-emerald-600 text-lg"></i>
+                                <span>Tracked Biometric Parameters (1.5m Range) <span class="zh-text block text-xs text-emerald-700">實時數據項目 (1.5米範圍)</span></span>
+                            </h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 text-xs mb-4">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="text-slate-500 text-[10px] font-medium">In-Bed / Out-of-Bed <span class="zh-text">在床/離床</span></div>
+                                <div class="font-extrabold text-slate-900 text-sm mt-0.5" id="bedStatusDisplay">In-Bed (Stable)</div>
+                                <div class="text-[10px] text-emerald-600 mt-1 font-bold"><i class="fa-solid fa-clock mr-1"></i> Exact Timestamp</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="text-slate-500 text-[10px] font-medium">Respiration Rate <span class="zh-text">呼吸頻率</span></div>
+                                <div class="font-extrabold text-emerald-600 text-sm mt-0.5" id="respRateDisplay">16 RPM</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Continuous Tracking</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="text-slate-500 text-[10px] font-medium">Movement Velocity <span class="zh-text">體動速率</span></div>
+                                <div class="font-extrabold text-purple-600 text-sm mt-0.5">0.12 m/s</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Restlessness Index</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="text-slate-500 text-[10px] font-medium">Sleep Stage <span class="zh-text">睡眠階段</span></div>
+                                <div class="font-extrabold text-amber-600 text-sm mt-0.5">Deep Sleep</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Nightly Rest Score</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-white">
+                            <div class="text-[11px] font-mono text-slate-300 mb-1 flex justify-between">
+                                <span>Live Telemetry Waveform:</span>
+                                <span class="text-emerald-400 font-bold">100Hz Active</span>
+                            </div>
+                            <svg class="w-full h-10 text-emerald-400" viewBox="0 0 300 40">
+                                <path d="M0,20 Q15,10 30,20 T60,20 T75,5 T85,35 T95,20 T130,20 T160,20 T175,8 T185,32 T195,20 T240,20 T270,20 T300,20" fill="none" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nurse Dashboard Topology -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-desktop text-brand-600 text-lg"></i>
+                                <span>Nurse Station Dashboard <span class="zh-text block text-xs text-brand-700">護士站即時推播告警</span></span>
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-brand-700 mb-1"><i class="fa-solid fa-bolt mr-1"></i> Real-time Push Instant Transmission <span class="zh-text text-slate-600 font-normal text-xs block">警報即時傳送</span></div>
+                                <p class="text-slate-600">Immediate alert transmission to nurse console and mobile staff apps.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">感應器偵測異常後，即時推播至中央護士站螢幕與護理員隨身裝置。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-rose-600 mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Out-of-Bed Timeout Alert <span class="zh-text text-slate-600 font-normal text-xs block">離床過久超時警報</span></div>
+                                <p class="text-slate-600">Triggers alarm if resident exceeds custom time threshold out of bed.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">長者離床超過預設自訂時間（如夜間 15 分鐘），即時發出警報。</span></p>
+                            </div>
+
+                            <!-- Dynamic Simulated Alert Box -->
+                            <div id="simulatedAlertBox" class="p-4 rounded-xl border bg-emerald-50 border-emerald-200 transition-all duration-300">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-3 h-3 rounded-full bg-emerald-500" id="alertBoxStatusDot"></div>
+                                        <span class="font-bold text-slate-900 text-xs" id="alertBoxTitle">Bed #204 Normal Telemetry</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-500 font-mono font-bold" id="alertBoxTime">Status: OK</span>
+                                </div>
+                                <p class="text-[11px] text-slate-600 mt-2" id="alertBoxMessage">
+                                    Resident in bed. Respiration rate is stable within normal limits (16 RPM).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Phase 2 — End-to-End Operational Workflow Validation -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-7">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 07 // Operational Workflow <span class="zh-text">流程驗證</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 2 — End-to-End Daily Workflow Verification <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第二階段：全流程護理作業驗證</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Unified Resident Journey & Automated Clinical Reminders <span class="zh-text">貫穿長者入會至社署報表匯出</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-mono font-bold">
+                    Phase 2 Matrix
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-between space-y-4 min-h-0 overflow-y-auto py-2">
+                <!-- Lifecycle Flow Box -->
+                <div class="card-white p-5 rounded-2xl">
+                    <div class="text-xs font-mono text-brand-700 uppercase tracking-wider font-bold mb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-route mr-1.5"></i> End-to-End Resident Care Path <span class="zh-text">全流程護理路徑</span></span>
+                        <span class="text-slate-500">Zero Information Silos</span>
+                    </div>
+
+                    <!-- Pipeline Flow Diagram -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+                        <!-- Step 1 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-brand-600 font-bold">STEP 01</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Admission Registration</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Bed Allocation <span class="zh-text">床位分配</span></p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">SWD Bed Class</div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-purple-600 font-bold">STEP 02</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Individual Care Plan (ICP)</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Multi-Disciplinary Assessment</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">ICP Schedule</div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-blue-600 font-bold">STEP 03</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Care Task Dispatch</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Shift Timetable Work</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">Shift Rounds</div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-amber-600 font-bold">STEP 04</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Tablet Bedside Logging</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">1-Tap Vitals & Care Entry</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">Point-of-Care</div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-rose-600 font-bold">STEP 05</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Barcode eMAR Drug Verification</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">RN/EN Nurse Signoff</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">Drug Audit</div>
+                        </div>
+
+                        <!-- Step 6 -->
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-brand-400 transition">
+                            <div>
+                                <span class="text-[10px] font-mono text-emerald-600 font-bold">STEP 06</span>
+                                <h4 class="font-bold text-slate-900 mt-1">Handover & SWD Export</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">1-Click Cap.459 PDF/Excel</p>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-500 font-medium">Audit Export</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Reminders Card -->
+                <div class="card-white p-5 rounded-2xl">
+                    <h3 class="text-sm font-bold text-slate-900 mb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-clock-rotate-left text-brand-600"></i>
+                        <span>Automated Reminders & Stress Testing <span class="zh-text text-brand-700">自動化提醒與壓力測試</span></span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm shrink-0">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900">Pressure-Sore Turning Timers <span class="zh-text text-slate-600 text-[11px] font-normal block">壓瘡防護定期翻身提醒</span></div>
+                                <p class="text-slate-500 text-[11px] mt-0.5">Automated turning schedule alerts across floors for high-risk residents.
+                                <span class="zh-text block text-slate-500">自動提示各樓層護理員為高風險長者按時翻身。</span></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm shrink-0">
+                                <i class="fa-solid fa-bell"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900">Overdue Task Floor Dashboards <span class="zh-text text-slate-600 text-[11px] font-normal block">逾期護理工作看板</span></div>
+                                <p class="text-slate-500 text-[11px] mt-0.5">Highlights delayed medication rounds or missing vitals logs on central screen.
+                                <span class="zh-text block text-slate-500">中央大螢幕高亮顯示未完成或超時之派藥及量度項目。</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: Phase 2 — Fall Radar JHK-F1 -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-8">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 08 // Radar Sensor <span class="zh-text">毫米波雷達</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 2 — Smart 60GHz Fall Detection Radar <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第二階段：60GHz 跌倒報警監測雷達</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Side-Wall Mounting, Grid Boundaries & 100% Camera-Free Privacy (JHK-F1 Sensor) <span class="zh-text">牆掛安裝與無鏡頭隱私防護</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-mono font-bold">
+                    Device: JHK-F1 60GHz
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Radar Spatial Diagram (Left 7 Cols) -->
+                <div class="lg:col-span-7 card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div class="text-xs font-mono text-rose-600 font-bold mb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-radar mr-1"></i> Spatial Grid Boundaries <span class="zh-text">空間邊界設定</span></span>
+                        <span class="text-slate-500">60GHz mmWave Radar</span>
+                    </div>
+
+                    <div class="w-full h-56 bg-slate-900 rounded-xl border border-slate-800 relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute w-48 h-48 rounded-full border border-slate-800"></div>
+                        <div class="absolute w-32 h-32 rounded-full border border-slate-800"></div>
+                        <div class="absolute w-16 h-16 rounded-full border border-slate-800"></div>
+
+                        <!-- Outer 4m x 4m Zone -->
+                        <div class="w-44 h-44 border-2 border-dashed border-indigo-400/60 rounded-xl flex items-center justify-center relative">
+                            <span class="absolute top-1 left-2 text-[9px] font-mono text-indigo-300 font-bold">Static Zone (4m × 4m)</span>
+                            
+                            <!-- Inner 3m x 3m Zone -->
+                            <div class="w-32 h-32 border-2 border-emerald-400 bg-emerald-500/10 rounded-lg flex items-center justify-center relative">
+                                <span class="absolute bottom-1 right-2 text-[9px] font-mono text-emerald-300 font-bold">Micro-Zone (3m × 3m)</span>
+                                
+                                <div class="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[8px] font-bold shadow-lg shadow-rose-500/50 animate-pulse">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-4 text-xs">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div class="text-indigo-700 font-bold text-xs">Static Presence Zone <span class="zh-text">靜止區域</span></div>
+                            <div class="font-mono text-slate-900 text-base font-bold">4m × 4m Grid</div>
+                            <div class="text-[10px] text-slate-500">Room boundary coverage</div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <div class="text-emerald-700 font-bold text-xs">Micro-Movement Zone <span class="zh-text">微動高敏區</span></div>
+                            <div class="font-mono text-slate-900 text-base font-bold">3m × 3m Grid</div>
+                            <div class="text-[10px] text-slate-500">High precision posture sensing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specs (Right 5 Cols) -->
+                <div class="lg:col-span-5 card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <h3 class="text-base font-bold text-slate-900 mb-3">Calibration & Privacy <span class="zh-text">參數與隱私</span></h3>
+
+                    <div class="space-y-3.5 text-xs">
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-rose-700 mb-1"><i class="fa-solid fa-arrows-up-to-line mr-1"></i> Wall Mounting Height <span class="zh-text">牆掛高度</span></div>
+                            <p class="text-slate-600">Installed on side wall at exact height of <strong class="text-slate-900 font-mono">180 cm</strong>.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-0.5">側牆壁掛安裝，標準高度為 180 cm 以達最佳視角。</span></p>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-amber-700 mb-1"><i class="fa-solid fa-sliders mr-1"></i> Precise Radar Calibration <span class="zh-text">精準校準</span></div>
+                            <p class="text-slate-600">Firmware calibrated to restrict measurement variance strictly within <strong class="text-slate-900 font-mono">±5 cm</strong>.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-0.5">韌體寫入校準，將空間誤差控制在 ±5 cm 內。</span></p>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+                            <div class="font-bold text-emerald-700 mb-1"><i class="fa-solid fa-user-lock mr-1"></i> 100% Camera-Free Privacy <span class="zh-text">無鏡頭隱私保護</span></div>
+                            <p class="text-slate-600">60GHz radar uses radio waves—<strong class="text-slate-900">no optical cameras used</strong>, safeguarding resident dignity in toilets & rooms.
+                            <span class="zh-text block text-[11px] text-slate-500 mt-0.5">採用毫米波電波監測，完全無光學鏡頭，保障洗手間與房間隱私。</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: Phase 2 — Radar Safety Scenarios -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-9">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 09 // Alarm Logic <span class="zh-text">告警邏輯</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        Phase 2 — Fall & Immobility Alarm Scenarios <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">第二階段：跌倒與靜止告警場景</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Scenario Matrix: Sudden Fall Detection vs. Prolonged Static Dwell Alerts <span class="zh-text">突發跌倒與長時間靜止告警</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-mono font-bold">
+                    Alarm Logic Engine
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 overflow-y-auto py-2">
+                <!-- Scenario A -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 font-extrabold font-mono text-xs flex items-center justify-center">A</span>
+                                <h3 class="text-base font-bold text-slate-900">Scenario A: Sudden Fall Detection <span class="zh-text block text-xs text-rose-700">場景 A：突發跌倒偵測</span></h3>
+                            </div>
+                            <span class="text-[10px] font-mono bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-bold">Rapid Trajectory</span>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-rose-700 mb-1">Rapid Impact Motion Sensing <span class="zh-text text-slate-600 text-xs font-normal block">捕捉體位劇變</span></div>
+                                <p class="text-slate-600">Radar instantly detects rapid vertical-to-horizontal body drops.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">雷達即時辨識人體高度由站/坐姿急劇降至地面的軌跡。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-amber-700 mb-1">Fast Alert Escalation <span class="zh-text text-slate-600 text-xs font-normal block">快速警報推播</span></div>
+                                <p class="text-slate-600 mb-2">Dispatches emergency alert to nurse console within custom window:
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">於預設時間內將緊急警報推播至護士站：</span></p>
+                                <div class="flex items-center justify-between bg-slate-900 text-white p-2.5 rounded-lg font-mono text-[11px]">
+                                    <span class="text-slate-300">Adjustable Range: 5s – 180s</span>
+                                    <span class="text-emerald-400 font-bold">Default Standard: ≥ 60s</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-emerald-700 mb-1">Auto-Reset on Recovery <span class="zh-text text-slate-600 text-xs font-normal block">自行站立自動復歸</span></div>
+                                <p class="text-slate-600">Clears alert automatically if resident stands up safely.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">若長者隨後自行站立並離開，系統自動清除提示。</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario B -->
+                <div class="card-white p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 font-extrabold font-mono text-xs flex items-center justify-center">B</span>
+                                <h3 class="text-base font-bold text-slate-900">Scenario B: Prolonged Static Dwell <span class="zh-text block text-xs text-amber-700">場景 B：長時間靜止不動</span></h3>
+                            </div>
+                            <span class="text-[10px] font-mono bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">Static Dwell</span>
+                        </div>
+
+                        <div class="space-y-3.5 text-xs">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-amber-700 mb-1">Detects Immobility <span class="zh-text text-slate-600 text-xs font-normal block">監測無動作狀態</span></div>
+                                <p class="text-slate-600">Monitors if resident remains motionless for too long in any posture.
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">持續監測長者是否在洗手或床邊保持無動作超過安全時間。</span></p>
+                            </div>
+
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                <div class="font-bold text-rose-700 mb-1">High-Priority Alert Escalation <span class="zh-text text-slate-600 text-xs font-normal block">高優先級警報</span></div>
+                                <p class="text-slate-600 mb-2">Triggers emergency alert once static position crosses threshold:
+                                <span class="zh-text block text-[11px] text-slate-500 mt-0.5">無動作超時後自動觸發高優先級護士站警報：</span></p>
+                                <div class="flex items-center justify-between bg-slate-900 text-white p-2.5 rounded-lg font-mono text-[11px]">
+                                    <span class="text-slate-300">Adjustable Range: 1 - 60 min</span>
+                                    <span class="text-amber-400 font-bold">Default Threshold: 5 Minutes</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 bg-indigo-50 rounded-xl border border-indigo-200 text-[11px] text-indigo-900 font-medium">
+                                <i class="fa-solid fa-shield-heart text-indigo-600 mr-1"></i> Essential safeguard for silent faints or medical distress.
+                                <span class="zh-text block text-slate-600 mt-0.5">昏厥防護保障。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: POC Timeline & Deliverables -->
+        <section class="slide-container w-full max-w-7xl h-full flex-col justify-between" id="slide-10">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest">Slide 10 // Timeline <span class="zh-text">項目時程</span></span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-0.5">
+                        12-Week POC Schedule & Deliverables <span class="zh-text text-brand-700 font-bold block sm:inline text-xl">12週 POC 試行時程與交付成果</span>
+                    </h2>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Phased Implementation Milestones and Assigned Project Responsibilities <span class="zh-text">階段性進度與團隊職責</span></p>
+                </div>
+                <div class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-bold">
+                    12 Weeks Total
+                </div>
+            </div>
+
+            <div class="flex-1 min-h-0 overflow-y-auto py-2">
+                <div class="card-white rounded-2xl overflow-hidden shadow-sm">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-100 text-slate-700 font-mono text-[11px] border-b border-slate-200">
+                            <tr>
+                                <th class="p-3.5 w-28 font-bold">Timeline <span class="zh-text">時程</span></th>
+                                <th class="p-3.5 font-bold">Milestone Focus <span class="zh-text">里程碑重點</span></th>
+                                <th class="p-3.5 font-bold">Key Deliverables <span class="zh-text">交付產物</span></th>
+                                <th class="p-3.5 font-bold">Assigned Roles <span class="zh-text">負責人員</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3.5 font-mono text-brand-600 font-bold">Weeks 1–2</td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Requirement Mapping Workshops
+                                    <span class="zh-text block text-[11px] font-normal text-slate-500">需求對接與護理流程工作坊</span>
+                                </td>
+                                <td class="p-3.5 text-slate-600">
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block">Interactive UI Wireframes</span>
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block mt-1">eMAR Functional Specs</span>
+                                </td>
+                                <td class="p-3.5 text-slate-500 font-medium">
+                                    Chris Chong, William Chan, Nurse Ida Sze
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3.5 font-mono text-indigo-600 font-bold">Weeks 3–4</td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Single-Room IoT Setup
+                                    <span class="zh-text block text-[11px] font-normal text-slate-500">單人示範房硬體安裝與網絡調測</span>
+                                </td>
+                                <td class="p-3.5 text-slate-600">
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block">Device Mounting Blueprints</span>
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block mt-1">Bluetooth & Gateway Tests</span>
+                                </td>
+                                <td class="p-3.5 text-slate-500 font-medium">
+                                    Ross Chiu, Max Cheung, Network Technicians
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3.5 font-mono text-amber-600 font-bold">Weeks 5–8</td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Phase 1 Verification & Pilot Assessment
+                                    <span class="zh-text block text-[11px] font-normal text-slate-500">第一階段驗證與數據同步測試</span>
+                                </td>
+                                <td class="p-3.5 text-slate-600">
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block">Data Sync Integrity Reports</span>
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block mt-1">eMAR & Bed Alarm Metrics</span>
+                                </td>
+                                <td class="p-3.5 text-slate-500 font-medium">
+                                    All Project Core Members, Anfernee Suen
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-slate-50/80 transition">
+                                <td class="p-3.5 font-mono text-emerald-600 font-bold">Weeks 9–12</td>
+                                <td class="p-3.5 font-bold text-slate-900">
+                                    Phase 2 Matrix Testing
+                                    <span class="zh-text block text-[11px] font-normal text-slate-500">第二階段全流程護理與跌倒雷達測試</span>
+                                </td>
+                                <td class="p-3.5 text-slate-600">
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block">Full Lifecycle Execution Logs</span>
+                                    <span class="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[10px] font-medium inline-block mt-1">Fall Radar Test Matrix</span>
+                                </td>
+                                <td class="p-3.5 text-slate-500 font-medium">
+                                    Engineering Team, Freni Stakeholders
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-3 p-3.5 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-emerald-50 border border-blue-200 flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-lg shadow-sm">
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-slate-900">Full Facility Rollout Readiness Target <span class="zh-text font-semibold text-slate-600">（全院正式上線目標）</span></div>
+                        <div class="text-[11px] text-slate-600 font-medium">Smooth, validated transition from 12-week POC test to full Freni Care facility rollout.
+                        <span class="zh-text block text-slate-500">完成 12 週驗證後平穩轉入全院部署。</span></div>
+                    </div>
+                </div>
+                <button onclick="goToSlide(1)" class="px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold transition shadow-md">
+                    Restart
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Presentation Control Footer -->
+    <footer class="h-16 border-t border-slate-200 px-6 flex items-center justify-between z-30 glass-panel-white shadow-sm">
+        <div class="flex items-center space-x-3">
+            <button onclick="prevSlide()" class="p-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 transition border border-slate-300 shadow-sm disabled:opacity-40 disabled:cursor-not-allowed" id="prevBtn">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button onclick="nextSlide()" class="p-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white transition border border-brand-500 shadow-md shadow-brand-500/20 disabled:opacity-40 disabled:cursor-not-allowed" id="nextBtn">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+            <span class="text-xs font-mono text-slate-500 font-bold ml-2">
+                Slide <span id="currentSlideNum" class="text-slate-900 font-extrabold">1</span> of <span id="totalSlidesNum" class="text-slate-500">10</span>
+            </span>
+        </div>
+
+        <!-- Progress bar line -->
+        <div class="hidden md:flex flex-1 max-w-md mx-6 bg-slate-200 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-brand-600 h-full w-1/10 transition-all duration-300" id="progressBar"></div>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs text-slate-500 font-mono font-medium">
+            <span>Use <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 text-slate-800 font-bold shadow-2xs">←</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 text-slate-800 font-bold shadow-2xs">→</kbd> keys</span>
+        </div>
+    </footer>
+
+    <!-- Overview Slide Drawer Modal -->
+    <div id="overviewModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex-col p-6 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6 max-w-7xl mx-auto w-full">
+            <div>
+                <h2 class="text-xl font-extrabold text-white">Presentation Slide Index <span class="zh-text text-sm text-slate-300 font-normal">簡報頁面索引</span></h2>
+                <p class="text-xs text-slate-300">Click any slide thumbnail to jump directly <span class="zh-text">點擊下方卡片即可跳轉</span></p>
+            </div>
+            <button onclick="closeOverviewModal()" class="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white text-sm transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full" id="overviewGrid">
+            <!-- Dynamically populated via JS -->
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Slide Deck State
+        let currentSlide = 1;
+        const totalSlides = 10;
+        let isOnline = true;
+        let alertSimulated = false;
+        let isBilingual = true;
+
+        const slideTitles = [
+            { en: "Executive Summary & Key Goals", zh: "行政摘要與項目目標" },
+            { en: "Three Core Proposed Solutions", zh: "三大核心擬議解決方案" },
+            { en: "Phase 1 — Smart Drug & Daily Care Logs", zh: "第一階段：智能藥物核對與日常護理記錄" },
+            { en: "Phase 1 — Network & Data Safeguards", zh: "第一階段：網絡與數據保障" },
+            { en: "Phase 1 — Non-Contact Vital Signs Monitor", zh: "第一階段：非接觸式生命體徵監測儀" },
+            { en: "Phase 1 — Continuous Vitals & Nurse Alerts", zh: "第一階段：床邊數據與護士站告警" },
+            { en: "Phase 2 — End-to-End Daily Workflow Verification", zh: "第二階段：全流程護理作業驗證" },
+            { en: "Phase 2 — Smart 60GHz Fall Detection Radar", zh: "第二階段：60GHz 跌倒報警監測雷達" },
+            { en: "Phase 2 — Fall & Immobility Alarm Scenarios", zh: "第二階段：跌倒與靜止告警場景" },
+            { en: "12-Week POC Schedule & Deliverables", zh: "12週 POC 試行時程與交付成果" }
+        ];
+
+        window.onload = function() {
+            updateSlideUI();
+            buildOverviewGrid();
+            
+            // Keyboard Listener
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    closeOverviewModal();
+                }
+            });
+        };
+
+        // Toggle Language Mode (Bilingual vs English Only)
+        function toggleLanguage() {
+            isBilingual = !isBilingual;
+            const btnText = document.getElementById('langBtnText');
+            if (isBilingual) {
+                document.body.classList.remove('hide-zh');
+                btnText.innerText = "Bilingual (中英雙語)";
+            } else {
+                document.body.classList.add('hide-zh');
+                btnText.innerText = "English Only (EN)";
+            }
+            buildOverviewGrid();
+        }
+
+        function updateSlideUI() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const el = document.getElementById(`slide-${i}`);
+                if (el) {
+                    el.classList.remove('active');
+                }
+            }
+
+            const activeEl = document.getElementById(`slide-${currentSlide}`);
+            if (activeEl) {
+                activeEl.classList.add('active');
+            }
+
+            document.getElementById('currentSlideNum').innerText = currentSlide;
+            document.getElementById('totalSlidesNum').innerText = totalSlides;
+
+            const percent = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+
+            document.getElementById('prevBtn').disabled = (currentSlide === 1);
+            document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+        }
+
+        function goToSlide(n) {
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                updateSlideUI();
+                closeOverviewModal();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        // Network State Simulator (Slide 4)
+        function toggleNetworkStatus() {
+            isOnline = !isOnline;
+            const btn = document.getElementById('networkToggleBtn');
+            const statusText = document.getElementById('networkStatusText');
+            const pulse = document.getElementById('networkPulse');
+            const queueLabel = document.getElementById('queueStatusLabel');
+            const syncBar = document.getElementById('syncBar');
+            const syncDesc = document.getElementById('syncDescription');
+
+            if (isOnline) {
+                btn.className = "px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-bold flex items-center space-x-2 shadow-sm transition hover:bg-emerald-100";
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+                statusText.innerText = "Wi-Fi Status: Connected (Online)";
+                queueLabel.innerText = "[0 Pending Items]";
+                queueLabel.className = "text-emerald-400 font-bold";
+                syncBar.className = "bg-emerald-400 h-full w-full transition-all duration-500";
+                syncDesc.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Live sync to central database active. <span class="zh-text">連線正常，即時同步中。</span>`;
+            } else {
+                btn.className = "px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-300 text-rose-700 text-xs font-bold flex items-center space-x-2 shadow-sm transition hover:bg-rose-100";
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-rose-500";
+                statusText.innerText = "Wi-Fi Status: OFFLINE";
+                queueLabel.innerText = "[14 Records Queued]";
+                queueLabel.className = "text-amber-400 font-bold";
+                syncBar.className = "bg-amber-400 h-full w-3/4 transition-all duration-500";
+                syncDesc.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1"></i> Operating offline. Records saved safely on tablet and waiting to auto-sync. <span class="zh-text">離線作業中，資料已安全暫存。</span>`;
+            }
+        }
+
+        // Biometric Alert Simulator (Slide 6)
+        function triggerAlertSimulation() {
+            alertSimulated = !alertSimulated;
+            const box = document.getElementById('simulatedAlertBox');
+            const dot = document.getElementById('alertBoxStatusDot');
+            const title = document.getElementById('alertBoxTitle');
+            const time = document.getElementById('alertBoxTime');
+            const msg = document.getElementById('alertBoxMessage');
+            const bedStatus = document.getElementById('bedStatusDisplay');
+
+            if (alertSimulated) {
+                box.className = "p-4 rounded-xl border bg-rose-50 border-rose-300 transition-all duration-300 shadow-md";
+                dot.className = "w-3 h-3 rounded-full bg-rose-500 animate-ping";
+                title.innerHTML = `Bed #204 - OUT-OF-BED TIMEOUT ALERT <span class="zh-text text-rose-800 text-[11px] block">(204床 離床過久警報)</span>`;
+                title.className = "font-bold text-rose-800 text-xs";
+                time.innerText = "14:23:05 - HIGH PRIORITY";
+                msg.innerHTML = `Resident absent from bed > 15 minutes. Immediate Nurse round required! <span class="zh-text block text-[11px] text-slate-500 mt-0.5">長者離床超過 15 分鐘，請護理員立即巡查！</span>`;
+                bedStatus.innerHTML = `Out-of-Bed <span class="zh-text">離床</span> (ALERT)`;
+                bedStatus.className = "font-extrabold text-rose-600 text-sm mt-0.5";
+            } else {
+                box.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-200 transition-all duration-300";
+                dot.className = "w-3 h-3 rounded-full bg-emerald-500";
+                title.innerHTML = `Bed #204 Normal Telemetry <span class="zh-text text-slate-600 text-[11px] block">204床數據正常</span>`;
+                title.className = "font-bold text-slate-900 text-xs";
+                time.innerText = "Status: OK";
+                msg.innerHTML = `Resident in bed. Respiration rate is stable within normal limits (16 RPM). <span class="zh-text block text-[11px] text-slate-500 mt-0.5">長者在床，呼吸穩定 (16次/分)。</span>`;
+                bedStatus.innerHTML = `In-Bed <span class="zh-text">在床</span> (Stable)`;
+                bedStatus.className = "font-extrabold text-slate-900 text-sm mt-0.5";
+            }
+        }
+
+        // Overview Modal functions
+        function openOverviewModal() {
+            document.getElementById('overviewModal').classList.remove('hidden');
+            document.getElementById('overviewModal').classList.add('flex');
+        }
+
+        function closeOverviewModal() {
+            document.getElementById('overviewModal').classList.add('hidden');
+            document.getElementById('overviewModal').classList.remove('flex');
+        }
+
+        function buildOverviewGrid() {
+            const grid = document.getElementById('overviewGrid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < totalSlides; i++) {
+                const card = document.createElement('div');
+                card.className = `card-white p-4 rounded-xl cursor-pointer transition flex flex-col justify-between ${currentSlide === i+1 ? 'ring-2 ring-brand-600 border-brand-500' : ''}`;
+                card.onclick = function() { goToSlide(i+1); };
+
+                const zhSubtitle = slideTitles[i].zh ? `<span class="zh-text text-brand-700 block text-xs font-normal mt-0.5">${slideTitles[i].zh}</span>` : '';
+
+                card.innerHTML = `
+                    <div>
+                        <span class="text-[10px] font-mono text-brand-600 font-bold">SLIDE ${String(i+1).padStart(2, '0')}</span>
+                        <h4 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">${slideTitles[i].en} ${zhSubtitle}</h4>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                        <span>Freni Care POC</span>
+                        <span class="text-brand-600 font-bold">Jump →</span>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            }
+        }
+
+        // Fullscreen Toggle
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+                document.getElementById('fullscreenIcon').className = "fa-solid fa-compress text-slate-600";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.getElementById('fullscreenIcon').className = "fa-solid fa-expand text-slate-600";
+                }
+            }
+        }
+
+        // Toggle Continuous Scroll / Overview mode
+        function toggleViewMode() {
+            const main = document.getElementById('mainDeckArea');
+            if (main.classList.contains('overflow-y-auto')) {
+                main.classList.remove('overflow-y-auto');
+                updateSlideUI();
+                document.getElementById('viewModeBtnText').innerText = "Overview Mode";
+            } else {
+                for (let i = 1; i <= totalSlides; i++) {
+                    const el = document.getElementById(`slide-${i}`);
+                    if (el) {
+                        el.classList.add('active');
+                        el.classList.add('mb-12');
+                    }
+                }
+                main.classList.add('overflow-y-auto');
+                document.getElementById('viewModeBtnText').innerText = "Slide Deck Mode";
+            }
+        }
+    </script>
+</body>
+</html>
