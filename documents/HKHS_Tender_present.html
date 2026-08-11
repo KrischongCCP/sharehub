@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified HKHS Architecture & Handoff Flow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        .node-card { 
+            position: absolute;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 20; 
+            background: white;
+            cursor: default;
+        }
+        .node-card:hover { 
+            transform: translateY(-4px) scale(1.02); 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); 
+            z-index: 30;
+        }
+        
+        .rfp-highlight { animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+
+        .alert-pulse { animation: alert-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes alert-ring {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        path.animated-flow {
+            stroke-dasharray: 8;
+            animation: flow 1s linear infinite;
+        }
+        @keyframes flow {
+            from { stroke-dashoffset: 16; }
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .zone-bg { z-index: 0; pointer-events: none; }
+        .line-canvas { z-index: 10; }
+        
+        /* Custom scrollbar for wide canvas */
+        .canvas-wrapper::-webkit-scrollbar { height: 10px; }
+        .canvas-wrapper::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        .canvas-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        .canvas-wrapper::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="p-4 md:p-8 text-slate-800">
+
+    <div class="max-w-[1400px] mx-auto mb-6 text-center">
+        <h1 class="text-3xl font-bold text-slate-900 mb-2">HKHS AI Chatbot System Architecture</h1>
+        <p class="text-slate-600 max-w-4xl mx-auto mb-6">
+            Explore the dual views below. The Master Flow maps the complete RAG data pipeline and RFP compliance, while the Handoff Flow details the specialized conversational escalation logic.
+        </p>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center gap-4 mb-2">
+            <button onclick="switchTab('master')" id="btn-master" class="px-6 py-2 rounded-full bg-blue-600 text-white font-semibold shadow-md transition-all">
+                📊 Master Architecture
+            </button>
+            <button onclick="switchTab('handoff')" id="btn-handoff" class="px-6 py-2 rounded-full bg-white text-slate-700 font-semibold shadow-sm border border-slate-200 hover:bg-slate-50 transition-all">
+                🤝 Omnichannel Handoff Flow
+            </button>
+            <button onclick="switchTab('guardrails')" id="btn-guardrails" class="px-6 py-2 rounded-full bg-white text-slate-700 font-semibold shadow-sm border border-slate-200 hover:bg-slate-50 transition-all">
+                🛡️ Tone & Content Guardrails
+            </button>
+        </div>
+    </div>
+
+    <!-- VIEW 1: MASTER ARCHITECTURE -->
+    <div id="view-master" class="w-full overflow-x-auto pb-8 canvas-wrapper block">
+        <div class="relative min-w-[1400px] h-[1380px] mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden" id="diagram-container-master">
+            
+            <svg id="line-canvas-master" class="absolute inset-0 w-full h-full pointer-events-none line-canvas" style="overflow: visible;">
+                <defs>
+                    <marker id="arrow-gray-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" /></marker>
+                    <marker id="arrow-blue-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" /></marker>
+                    <marker id="arrow-gold-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#eab308" /></marker>
+                    <marker id="arrow-red-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" /></marker>
+                    <marker id="arrow-purple-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5cf6" /></marker>
+                    <marker id="arrow-green-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#22c55e" /></marker>
+                </defs>
+            </svg>
+
+            <!-- Zone 1: Data Pipeline -->
+            <div class="absolute zone-bg bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl" style="top: 20px; left: 420px; width: 950px; height: 260px;">
+                <div class="absolute top-4 left-6 text-slate-400 font-bold tracking-widest uppercase text-xs">1. Data Ingestion & Knowledge Base</div>
+            </div>
+            
+            <!-- Zone 2: Core RAG -->
+            <div class="absolute zone-bg bg-blue-50/40 border-2 border-dashed border-blue-200 rounded-3xl" style="top: 310px; left: 30px; width: 1340px; height: 160px;">
+                <div class="absolute top-4 left-6 text-blue-400 font-bold tracking-widest uppercase text-xs">2. Core Conversational AI Engine</div>
+            </div>
+
+            <!-- Zone 3: Fallback -->
+            <div class="absolute zone-bg bg-amber-50/40 border-2 border-dashed border-amber-200 rounded-3xl" style="top: 520px; left: 810px; width: 560px; height: 830px;">
+                <div class="absolute top-4 left-6 text-amber-500 font-bold tracking-widest uppercase text-xs">3. Safe Fallback & Omnichannel Handoff</div>
+            </div>
+
+            <!-- Ops -->
+            <div id="node-dashboard" class="node-card rfp-highlight border-2 border-yellow-400 bg-yellow-50 rounded-xl p-4 flex flex-col items-center" style="top: 40px; left: 60px; width: 256px;" data-id="dashboard">
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase">RFP (e)</div>
+                <span class="text-3xl mb-1">📊</span>
+                <span class="font-bold text-slate-800 text-sm">Monitoring Dashboard</span>
+                <span class="text-[10px] text-slate-600 mt-1">Quality & Freshness Checks</span>
+            </div>
+            
+            <div id="node-admin" class="node-card border-2 border-slate-300 bg-white rounded-xl p-3 flex flex-col items-center" style="top: 180px; left: 108px; width: 160px;" data-id="admin">
+                <span class="text-2xl mb-1">👨‍💻</span>
+                <span class="font-bold text-slate-700 text-xs">System Admin</span>
+            </div>
+
+            <!-- Data & Sync -->
+            <div id="node-web" class="node-card border-2 border-blue-200 bg-blue-50 rounded-xl p-3 flex flex-col items-center" style="top: 60px; left: 450px; width: 192px;" data-id="web">
+                <span class="text-2xl mb-1">🌐</span>
+                <span class="font-bold text-slate-800 text-xs">HKHS Website</span>
+            </div>
+            <div id="node-pdf" class="node-card border-2 border-blue-200 bg-blue-50 rounded-xl p-3 flex flex-col items-center" style="top: 60px; left: 670px; width: 192px;" data-id="pdf">
+                <span class="text-2xl mb-1">📄</span>
+                <span class="font-bold text-slate-800 text-xs">Approved PDFs</span>
+            </div>
+            
+            <div id="node-scheduler" class="node-card border-2 border-emerald-300 bg-emerald-50 rounded-xl p-2 flex flex-col items-center" style="top: 30px; left: 880px; width: 160px;" data-id="scheduler">
+                <span class="text-lg">⏱️</span>
+                <span class="font-bold text-emerald-800 text-[10px]">Sync Scheduler</span>
+            </div>
+
+            <div id="node-websync" class="node-card border-2 border-emerald-400 bg-emerald-100 rounded-xl p-3 flex flex-col items-center" style="top: 180px; left: 450px; width: 192px;" data-id="websync">
+                <span class="text-xl mb-1">🕷️</span>
+                <span class="font-bold text-slate-800 text-xs">Web Crawler/Parser</span>
+            </div>
+            <div id="node-pdfsync" class="node-card border-2 border-emerald-400 bg-emerald-100 rounded-xl p-3 flex flex-col items-center" style="top: 180px; left: 670px; width: 192px;" data-id="pdfsync">
+                <span class="text-xl mb-1">📝</span>
+                <span class="font-bold text-slate-800 text-xs">PDF Text Extractor</span>
+            </div>
+
+            <div id="node-chunk" class="node-card border-2 border-purple-300 bg-purple-50 rounded-xl p-3 flex flex-col items-center" style="top: 180px; left: 900px; width: 160px;" data-id="chunk">
+                <span class="text-xl mb-1">🧩</span>
+                <span class="font-bold text-slate-800 text-xs">Chunk & Embed</span>
+            </div>
+
+            <div id="node-vector" class="node-card border-2 border-purple-400 bg-purple-100 rounded-xl p-3 flex flex-col items-center" style="top: 70px; left: 1150px; width: 176px;" data-id="vector">
+                <span class="text-2xl mb-1">🗄️</span>
+                <span class="font-bold text-slate-800 text-xs">Vector DB</span>
+            </div>
+            <div id="node-meta" class="node-card border-2 border-purple-400 bg-purple-100 rounded-xl p-3 flex flex-col items-center" style="top: 180px; left: 1150px; width: 176px;" data-id="meta">
+                <span class="text-2xl mb-1">🏷️</span>
+                <span class="font-bold text-slate-800 text-xs">Metadata DB</span>
+            </div>
+
+            <!-- RAG Engine -->
+            <div id="node-user" class="node-card border-4 border-slate-200 bg-slate-50 rounded-full p-4 flex flex-col items-center justify-center" style="top: 350px; left: 60px; width: 160px; height: 100px;" data-id="user">
+                <span class="text-3xl mb-1">👤</span>
+                <span class="font-bold text-slate-800 text-sm">User</span>
+            </div>
+
+            <div id="node-retriever" class="node-card rfp-highlight border-2 border-yellow-400 bg-yellow-50 rounded-xl p-4 flex flex-col items-center" style="top: 345px; left: 340px; width: 224px;" data-id="retriever">
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase">RFP (d)</div>
+                <span class="text-3xl mb-1">🔍</span>
+                <span class="font-bold text-slate-800 text-sm">Semantic Retriever</span>
+            </div>
+
+            <div id="node-llm" class="node-card border-2 border-indigo-300 bg-indigo-50 rounded-xl p-4 flex flex-col items-center" style="top: 345px; left: 660px; width: 192px;" data-id="llm">
+                <span class="text-3xl mb-1">🤖</span>
+                <span class="font-bold text-slate-800 text-sm">LLM Engine</span>
+            </div>
+
+            <div id="node-eval" class="node-card border-2 border-slate-900 bg-slate-800 text-white rounded-xl p-4 flex flex-col items-center" style="top: 345px; left: 980px; width: 256px;" data-id="eval">
+                <span class="text-3xl mb-1">⚖️</span>
+                <span class="font-bold text-sm">Confidence Evaluator</span>
+                <span class="text-[10px] text-slate-300 mt-1">Forks based on Retrieval Quality</span>
+            </div>
+
+            <!-- Success Path -->
+            <div id="node-citation" class="node-card rfp-highlight border-2 border-yellow-400 bg-yellow-50 rounded-xl p-4 flex flex-col items-center" style="top: 550px; left: 550px; width: 256px;" data-id="citation">
+                <div class="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-full shadow-md uppercase">RFP (f)</div>
+                <span class="text-3xl mb-1">📑</span>
+                <span class="font-bold text-slate-800 text-sm">Synthesis & Citation</span>
+                <span class="text-xs text-slate-600 mt-1">High Confidence Success</span>
+            </div>
+
+            <!-- Fallback Protocol Container -->
+            <div id="layer-protocol" class="absolute border-2 border-amber-300 bg-white rounded-2xl p-5 shadow-md flex flex-col gap-3 z-10" style="top: 520px; left: 933px; width: 350px;">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-100 border border-amber-400 text-amber-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase shadow-sm whitespace-nowrap">
+                    ⚠️ Trigger Protocol
+                </div>
+                
+                <div id="node-ack" class="node-card relative alert-pulse p-2 rounded-lg bg-white border border-amber-200 shadow-sm flex items-center gap-2 mt-4" style="position: relative; top: auto; left: auto; width: 100%;" data-id="ack">
+                    <span class="text-xl">🛑</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-xs">1. Acknowledge & Disclaimer</span>
+                        <span class="text-[9px] text-slate-500 block leading-tight">"General reference only. Not binding."</span>
+                    </div>
+                </div>
+                
+                <div id="node-links" class="node-card relative p-2 rounded-lg bg-white border border-amber-200 shadow-sm flex items-center gap-2" style="position: relative; top: auto; left: auto; width: 100%;" data-id="links">
+                    <span class="text-xl">🔗</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-xs">2. Official HKHS Links</span>
+                        <span class="text-[9px] text-slate-500 block leading-tight">Provide URLs for self-service.</span>
+                    </div>
+                </div>
+
+                <div id="node-offer" class="node-card relative p-2 rounded-lg bg-white border border-amber-200 shadow-sm flex items-center gap-2" style="position: relative; top: auto; left: auto; width: 100%;" data-id="offer">
+                    <span class="text-xl">🤝</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-xs">3. Offer Human Escalation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Handoff Routing -->
+            <div id="node-context" class="node-card border-2 border-purple-300 bg-purple-50 rounded-xl p-4 flex flex-col items-center" style="top: 920px; left: 958px; width: 300px;" data-id="context">
+                <span class="text-2xl mb-1">📦</span>
+                <span class="font-bold text-purple-900 text-sm">Context Packager</span>
+                <span class="text-[10px] text-purple-700 bg-purple-100 px-2 py-1 rounded mt-1">Generates: [Summary + Transcript]</span>
+            </div>
+
+            <div id="node-phone" class="node-card border-2 border-blue-200 bg-blue-50 rounded-xl p-3 flex flex-col items-center" style="top: 1080px; left: 848px; width: 160px;" data-id="phone">
+                <span class="text-2xl mb-1">📞</span>
+                <span class="font-bold text-slate-800 text-xs">Phone Hotline</span>
+            </div>
+            
+            <div id="node-email" class="node-card border-2 border-blue-200 bg-blue-50 rounded-xl p-3 flex flex-col items-center" style="top: 1080px; left: 1028px; width: 160px;" data-id="email">
+                <span class="text-2xl mb-1">📧</span>
+                <span class="font-bold text-slate-800 text-xs">Email</span>
+            </div>
+
+            <div id="node-form" class="node-card border-2 border-blue-200 bg-blue-50 rounded-xl p-3 flex flex-col items-center" style="top: 1080px; left: 1208px; width: 160px;" data-id="form">
+                <span class="text-2xl mb-1">📝</span>
+                <span class="font-bold text-slate-800 text-xs">Web Form</span>
+            </div>
+
+            <div id="node-agent" class="node-card border-4 border-emerald-300 bg-emerald-50 rounded-full p-4 flex flex-col items-center justify-center" style="top: 1250px; left: 980px; width: 256px;" data-id="agent">
+                <span class="text-3xl mb-1">👨‍💼</span>
+                <span class="font-bold text-emerald-900 text-sm">Human Support Agent</span>
+                <span class="text-[10px] text-emerald-700 mt-1 text-center">Receives User + Packaged Context</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 2: FOCUSED HANDOFF FLOW -->
+    <div id="view-handoff" class="w-full overflow-x-auto pb-8 canvas-wrapper hidden">
+        <!-- Expanded container to 1250px height -->
+        <div class="relative min-w-[1200px] h-[1250px] mx-auto bg-slate-50 rounded-3xl shadow-xl border border-slate-200 overflow-hidden" id="diagram-container-handoff">
+            
+            <svg id="line-canvas-handoff" class="absolute inset-0 w-full h-full pointer-events-none line-canvas" style="overflow: visible;">
+                <defs>
+                    <marker id="arrow-gray-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" /></marker>
+                    <marker id="arrow-red-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" /></marker>
+                    <marker id="arrow-gold-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" /></marker>
+                    <marker id="arrow-purple-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5cf6" /></marker>
+                    <marker id="arrow-blue-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" /></marker>
+                    <marker id="arrow-green-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#22c55e" /></marker>
+                </defs>
+            </svg>
+
+            <!-- Handoff Specific Nodes -->
+            <div id="ho-user" class="node-card border-4 border-slate-200 bg-white rounded-full p-4 flex flex-col items-center justify-center" style="top: 40px; left: 520px; width: 160px; height: 90px;" data-id="user">
+                <span class="text-3xl mb-1">👤</span>
+                <span class="font-bold text-slate-800 text-sm">User Query</span>
+            </div>
+
+            <div id="ho-llm" class="node-card border-2 border-indigo-300 bg-indigo-50 rounded-xl p-4 flex flex-col items-center" style="top: 170px; left: 520px; width: 160px;" data-id="llm">
+                <span class="text-3xl mb-1">🤖</span>
+                <span class="font-bold text-slate-800 text-sm">AI Engine</span>
+            </div>
+
+            <div id="ho-eval" class="node-card border-2 border-slate-900 bg-slate-800 text-white rounded-xl p-4 flex flex-col items-center" style="top: 290px; left: 470px; width: 260px;" data-id="eval">
+                <span class="text-3xl mb-1">⚖️</span>
+                <span class="font-bold text-sm">Confidence Evaluation</span>
+                <span class="text-[10px] text-slate-300 mt-1">Checks retrieval results & LLM certainty</span>
+            </div>
+
+            <!-- Added back the Success Path branch matching reference image -->
+            <div id="ho-success" class="node-card border-2 border-green-200 bg-green-50 rounded-xl p-6 flex flex-col items-center justify-center opacity-70" style="top: 450px; left: 240px; width: 220px; height: 260px;" data-id="success">
+                <span class="text-4xl mb-2">✅</span>
+                <span class="font-bold text-green-800 text-base">Standard Answer</span>
+                <span class="text-xs text-green-600 mt-1">High confidence flow</span>
+            </div>
+
+            <div id="ho-protocol" class="absolute border-2 border-amber-300 bg-white rounded-2xl p-6 shadow-xl flex flex-col gap-4 z-10" style="top: 420px; left: 580px; width: 380px;">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-100 border border-amber-600 text-amber-900 text-xs font-bold px-4 py-1 rounded-full uppercase shadow-md whitespace-nowrap">
+                    ⚠️ Safe Fallback Protocol Triggered
+                </div>
+                
+                <div id="ho-ack" class="node-card relative p-3 rounded-xl bg-slate-50 border border-slate-200 shadow-sm flex items-center gap-3 mt-3" style="position: relative; top: auto; left: auto; width: 100%;" data-id="ack">
+                    <span class="text-2xl">🛑</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-sm">1. Acknowledge & Disclaimer</span>
+                        <span class="text-xs text-slate-500 block leading-tight">State info cannot be confirmed. Emphasize responses are not legally binding.</span>
+                    </div>
+                </div>
+                
+                <div id="ho-links" class="node-card relative p-3 rounded-xl bg-slate-50 border border-slate-200 shadow-sm flex items-center gap-3" style="position: relative; top: auto; left: auto; width: 100%;" data-id="links">
+                    <span class="text-2xl">🔗</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-sm">2. Provide Official Links</span>
+                        <span class="text-xs text-slate-500 block leading-tight">Direct user to relevant HKHS web pages for self-service verification.</span>
+                    </div>
+                </div>
+
+                <div id="ho-offer" class="node-card relative p-3 rounded-xl bg-slate-50 border border-slate-200 shadow-sm flex items-center gap-3" style="position: relative; top: auto; left: auto; width: 100%;" data-id="offer">
+                    <span class="text-2xl">🤝</span>
+                    <div class="text-left">
+                        <span class="font-bold text-slate-800 block text-sm">3. Offer Human Support</span>
+                        <span class="text-xs text-slate-500 block leading-tight">Prompt user to escalate to a human agent via preferred channel.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ho-context" class="node-card border-2 border-purple-400 bg-purple-50 rounded-xl p-4 flex flex-col items-center" style="top: 760px; left: 620px; width: 300px;" data-id="context">
+                <span class="text-3xl mb-1">📦</span>
+                <span class="font-bold text-purple-900 text-sm">Context Packager Engine</span>
+                <span class="text-[11px] text-purple-700 font-medium mt-1 bg-purple-100 px-3 py-1 rounded-full">Generates: [Summary] + [Chat Transcript]</span>
+            </div>
+
+            <!-- Channels with Updated Information Option Text -->
+            <div id="ho-phone" class="node-card border-2 border-blue-300 bg-white rounded-xl p-4 flex flex-col items-center shadow-md hover:border-blue-500" style="top: 890px; left: 350px; width: 220px;" data-id="phone">
+                <span class="text-3xl mb-2">📞</span>
+                <span class="font-bold text-slate-800 text-sm">Telephone Hotline</span>
+                <span class="text-[10px] text-slate-500 text-center mt-1 leading-tight">Provide information option and talk with human</span>
+            </div>
+            
+            <div id="ho-email" class="node-card border-2 border-blue-300 bg-white rounded-xl p-4 flex flex-col items-center shadow-md hover:border-blue-500" style="top: 890px; left: 660px; width: 220px;" data-id="email">
+                <span class="text-3xl mb-2">📧</span>
+                <span class="font-bold text-slate-800 text-sm">Email Routing</span>
+                <span class="text-[10px] text-slate-500 text-center mt-1 leading-tight">Provide information option and talk with human</span>
+            </div>
+
+            <div id="ho-form" class="node-card border-2 border-blue-300 bg-white rounded-xl p-4 flex flex-col items-center shadow-md hover:border-blue-500" style="top: 890px; left: 970px; width: 220px;" data-id="form">
+                <span class="text-3xl mb-2">📝</span>
+                <span class="font-bold text-slate-800 text-sm">Online Enquiry Form</span>
+                <span class="text-[10px] text-slate-500 text-center mt-1 leading-tight">Provide information option and talk with human</span>
+            </div>
+
+            <!-- End Goal -->
+            <div id="ho-agent" class="node-card border-4 border-emerald-400 bg-emerald-50 rounded-full p-4 flex flex-col items-center justify-center shadow-lg" style="top: 1050px; left: 470px; width: 260px;" data-id="agent">
+                <span class="text-4xl mb-2">👨‍💼</span>
+                <span class="font-bold text-emerald-900 text-base">Human Agent Receives</span>
+                <span class="text-[11px] text-emerald-700 mt-1 font-medium bg-emerald-100 px-3 py-1 rounded-full">Seamless Context Transfer</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- VIEW 3: TONE & GUARDRAILS -->
+    <div id="view-guardrails" class="w-full overflow-x-auto pb-8 canvas-wrapper hidden">
+        <div class="relative min-w-[1200px] h-[950px] mx-auto bg-slate-50 rounded-3xl shadow-xl border border-slate-200 overflow-hidden" id="diagram-container-guardrails">
+            
+            <svg id="line-canvas-guardrails" class="absolute inset-0 w-full h-full pointer-events-none line-canvas" style="overflow: visible;">
+                <defs>
+                    <marker id="arrow-gray-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" /></marker>
+                    <marker id="arrow-red-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" /></marker>
+                    <marker id="arrow-gold-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" /></marker>
+                    <marker id="arrow-blue-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" /></marker>
+                    <marker id="arrow-green-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#22c55e" /></marker>
+                </defs>
+            </svg>
+
+            <div id="gr-user" class="node-card border-4 border-slate-200 bg-white rounded-full p-4 flex flex-col items-center justify-center" style="top: 40px; left: 520px; width: 160px; height: 90px;" data-id="gr_user">
+                <span class="text-3xl mb-1">👤</span>
+                <span class="font-bold text-slate-800 text-sm">User Query</span>
+            </div>
+
+            <div id="gr-l1" class="node-card border-2 border-red-300 bg-red-50 rounded-xl p-4 flex flex-col items-center" style="top: 200px; left: 470px; width: 260px;" data-id="gr_l1">
+                <span class="text-3xl mb-1">🛡️</span>
+                <span class="font-bold text-red-900 text-sm">1st Layer: Prompt Shields</span>
+                <span class="text-[10px] text-red-700 mt-1 text-center">Blocks injection attacks & malicious intent</span>
+            </div>
+
+            <div id="gr-l2" class="node-card border-2 border-indigo-400 bg-indigo-50 rounded-xl p-5 flex flex-col items-center" style="top: 380px; left: 420px; width: 360px;" data-id="gr_l2">
+                <div class="absolute -top-3 left-4 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded shadow-md">Answer behavior prompt</div>
+                <span class="text-3xl mb-1">🧠</span>
+                <span class="font-bold text-indigo-900 text-sm">2nd Layer: System Prompt Control</span>
+                <span class="text-[10px] text-indigo-700 mt-2 text-center leading-tight">Configures empathy for sensitive complaints <strong>(RFP c)</strong><br>Prevents hallucination <strong>(RFP b)</strong><br>Refuses & warns against PII collection <strong>(RFP d)</strong></span>
+            </div>
+
+            <div id="gr-l3" class="node-card border-2 border-purple-400 bg-purple-50 rounded-xl p-5 flex flex-col items-center" style="top: 580px; left: 420px; width: 360px;" data-id="gr_l3">
+                <div class="absolute -top-3 right-4 bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-1 rounded border border-purple-300 flex gap-2">
+                    <span>English</span>|<span>繁體中文</span>|<span>简体中文</span>
+                </div>
+                <span class="text-3xl mb-1">🚫</span>
+                <span class="font-bold text-purple-900 text-sm">3rd Layer: Restricted Keywords</span>
+                <span class="text-[10px] text-purple-700 mt-2 text-center">Multi-language keyword scanning blocks out-of-scope topics (e.g. politics, unauthorized fees) <strong>(RFP a)</strong>.</span>
+            </div>
+
+            <div id="gr-pass" class="node-card border-4 border-emerald-400 bg-emerald-50 rounded-xl p-4 flex flex-col items-center justify-center shadow-lg" style="top: 800px; left: 470px; width: 260px;" data-id="gr_pass">
+                <span class="text-4xl mb-2">✅</span>
+                <span class="font-bold text-emerald-900 text-base">Proceed to RAG Engine</span>
+                <span class="text-[11px] text-emerald-700 mt-1 font-medium bg-emerald-100 px-3 py-1 rounded-full">Query is safe and sanitized</span>
+            </div>
+
+            <!-- Side Outcomes -->
+            <div id="gr-attack" class="node-card border-2 border-slate-300 bg-slate-100 rounded-lg p-3 flex items-center gap-3" style="top: 210px; left: 830px; width: 220px;" data-id="gr_reject">
+                <span class="text-2xl">🛑</span><span class="text-xs font-bold text-slate-700">Attack Blocked</span>
+            </div>
+            
+            <div id="gr-pii" class="node-card border-2 border-amber-300 bg-amber-50 rounded-lg p-3 flex items-center gap-3" style="top: 360px; left: 830px; width: 250px;" data-id="gr_reject">
+                <span class="text-2xl">⚠️</span><span class="text-xs font-bold text-amber-800">PII Warning Triggered<br><span class="text-[9px] font-normal leading-tight block mt-1">Refuses input; advises user against sharing HKID/Bank details.</span></span>
+            </div>
+
+            <div id="gr-emotion" class="node-card border-2 border-blue-300 bg-blue-50 rounded-lg p-3 flex items-center gap-3" style="top: 440px; left: 830px; width: 250px;" data-id="gr_escalate">
+                <span class="text-2xl">🤝</span><span class="text-xs font-bold text-blue-800">Empathetic Escalation<br><span class="text-[9px] font-normal leading-tight block mt-1">Routes distress/complaints to human support safely.</span></span>
+            </div>
+
+            <div id="gr-scope" class="node-card border-2 border-slate-300 bg-slate-100 rounded-lg p-3 flex items-center gap-3" style="top: 600px; left: 830px; width: 220px;" data-id="gr_reject">
+                <span class="text-2xl">🛑</span><span class="text-xs font-bold text-slate-700">Topic Refused</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Info Panel -->
+    <div class="max-w-[1400px] mx-auto mt-6">
+        <div class="bg-white border-2 border-slate-200 rounded-2xl shadow-sm p-6 min-h-[140px] flex flex-col justify-center transition-all duration-300" id="info-panel">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl" id="info-icon">💡</div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2" id="info-title">Interactive Element Inspector</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" id="info-desc">
+                        Hover over any component in the active diagram above. The system will dynamically trace the data pathways, highlight related components, and explain how each step fulfills the technical requirements.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentView = 'master';
+
+        const nodeData = {
+            // Master Nodes
+            'dashboard': { icon: '📊', title: 'Monitoring Dashboard (RFP Point e)', desc: 'Transversal QA interface. Allows admins to verify data freshness, track sync failure rates, and review content alignment.' },
+            'admin': { icon: '👨‍💻', title: 'System Admin', desc: 'Human-in-the-loop oversight for managing sync schedules and reviewing dashboard metrics.' },
+            'web': { icon: '🌐', title: 'HKHS Official Website', desc: 'The verified, public-facing data source for general information and guidelines.' },
+            'pdf': { icon: '📄', title: 'Approved PDF Documents', desc: 'Secure, internal, or policy documents ensuring only approved knowledge enters the system.' },
+            'scheduler': { icon: '⏱️', title: 'Sync Scheduler', desc: 'Configurable cron-job that triggers data ingestion pipelines without requiring LLM retraining.' },
+            'websync': { icon: '🕷️', title: 'Website DB Sync', desc: 'Crawls and parses unstructured web HTML into clean, structured data for the embedding process.' },
+            'pdfsync': { icon: '📝', title: 'PDF Sync Engine', desc: 'Extracts both raw text and complex tabular data from PDF files accurately.' },
+            'chunk': { icon: '🧩', title: 'Chunking & Embeddings', desc: 'Splits processed text into semantic chunks and converts them into high-dimensional vector embeddings.' },
+            'vector': { icon: '🗄️', title: 'Vector Database', desc: 'Stores the numerical embeddings for rapid semantic similarity search during user queries.' },
+            'meta': { icon: '🏷️', title: 'Metadata Database', desc: 'Stores contextual info (URLs, filenames, page numbers) linked to vector chunks to ensure rigorous source traceability.' },
+            'user': { icon: '👤', title: 'User / Employee', desc: 'Initiates queries and receives either a strictly cited RAG answer or a safe human escalation.' },
+            'phone': { icon: '📞', title: 'Telephone Routing', desc: 'Provides a Ticket ID. The context payload is stored on the backend against this ID for the agent.' },
+            'email': { icon: '📧', title: 'Email Routing', desc: 'Opens an email draft or sends an internal email containing the packaged context summary.' },
+            'form': { icon: '📝', title: 'Web Form Routing', desc: 'Redirects to the HKHS Contact Form, auto-filling the context payload via session variables.' },
+            'agent': { icon: '👨‍💼', title: 'Human Agent Resolution', desc: 'Receives the query with context, allowing immediate resolution without the user repeating themselves.' },
+            
+            // Guardrail Nodes
+            'gr_user': { icon: '👤', title: 'User Input', desc: 'User submits a query that may contain PII, emotional distress, or out-of-scope topics.' },
+            'gr_l1': { icon: '🛡️', title: '1st Layer: Prompt Shields', desc: 'Defends against prompt injection, jailbreaks, and malicious attacks at the infrastructure level before reaching the core logic.' },
+            'gr_l2': { icon: '🧠', title: '2nd Layer: System Prompt Behavior', desc: 'Configured via the explicit "Answer behavior prompt". Enforces persona, mandates empathy for sensitive queries (RFP c), prevents hallucination (RFP b), and strictly advises against sharing PII (RFP d).' },
+            'gr_l3': { icon: '🚫', title: '3rd Layer: Multi-Language Keyword Blocking', desc: 'Cross-checks queries against "Restricted keywords" across English, 繁體中文, and 简体中文. Instantly blocks out-of-scope topics (RFP a).' },
+            'gr_reject': { icon: '🛑', title: 'Refuse & Redirect', desc: 'Query is blocked. System replies with Fallback message or advises the user against sharing PII (e.g. HKID numbers, full addresses).' },
+            'gr_escalate': { icon: '🤝', title: 'Empathetic Escalation', desc: 'If emotional distress or a complaint is detected by Layer 2, it responds with empathy and triggers the Handoff Flow to a human.' },
+            'gr_pass': { icon: '✅', title: 'Proceed to RAG Engine', desc: 'Query has passed all 3 guardrail layers and is safe to be processed for semantic retrieval.' }
+        };
+
+        const connectionsMaster = [
+            // Data -> Sync -> KB
+            { from: 'node-web', edge1: 'bottom', to: 'node-websync', edge2: 'top', color: '#94a3b8', classes: 'flow-sync' },
+            { from: 'node-pdf', edge1: 'bottom', to: 'node-pdfsync', edge2: 'top', color: '#94a3b8', classes: 'flow-sync' },
+            { from: 'node-scheduler', edge1: 'bottom', to: 'node-websync', edge2: 'top', color: '#34d399', dashed: true, classes: 'flow-sync' },
+            { from: 'node-scheduler', edge1: 'bottom', to: 'node-pdfsync', edge2: 'top', color: '#34d399', dashed: true, classes: 'flow-sync' },
+            { from: 'node-websync', edge1: 'right', to: 'node-chunk', edge2: 'left', color: '#94a3b8', classes: 'flow-sync' },
+            { from: 'node-pdfsync', edge1: 'right', to: 'node-chunk', edge2: 'left', color: '#94a3b8', classes: 'flow-sync' },
+            { from: 'node-chunk', edge1: 'right', to: 'node-vector', edge2: 'left', color: '#a78bfa', classes: 'flow-sync' },
+            { from: 'node-chunk', edge1: 'right', to: 'node-meta', edge2: 'left', color: '#a78bfa', classes: 'flow-sync' },
+
+            // Ops
+            { from: 'node-admin', edge1: 'top', to: 'node-dashboard', edge2: 'bottom', color: '#cbd5e1', classes: 'flow-ops' },
+            { from: 'node-dashboard', edge1: 'right', to: 'node-websync', edge2: 'left', color: '#cbd5e1', dashed: true, classes: 'flow-ops' },
+            { from: 'node-dashboard', edge1: 'right', to: 'node-pdfsync', edge2: 'left', color: '#cbd5e1', dashed: true, classes: 'flow-ops' },
+            { from: 'node-dashboard', edge1: 'top', to: 'node-vector', edge2: 'top', color: '#cbd5e1', dashed: true, classes: 'flow-ops arch-curve' },
+
+            // RAG Core
+            { from: 'node-user', edge1: 'right', to: 'node-retriever', edge2: 'left', color: '#3b82f6', classes: 'flow-rag' },
+            { from: 'node-retriever', edge1: 'top', to: 'node-vector', edge2: 'bottom', color: '#eab308', classes: 'flow-rag' },
+            { from: 'node-vector', edge1: 'bottom', to: 'node-retriever', edge2: 'top', color: '#a78bfa', dashed: true, classes: 'flow-rag' },
+            { from: 'node-meta', edge1: 'bottom', to: 'node-retriever', edge2: 'top', color: '#a78bfa', dashed: true, classes: 'flow-rag' },
+            { from: 'node-retriever', edge1: 'right', to: 'node-llm', edge2: 'left', color: '#94a3b8', classes: 'flow-rag' },
+            { from: 'node-llm', edge1: 'right', to: 'node-eval', edge2: 'left', color: '#94a3b8', classes: 'flow-rag' },
+
+            // Path A: Success
+            { from: 'node-eval', edge1: 'bottom', to: 'node-citation', edge2: 'right', color: '#22c55e', classes: 'flow-rag flow-success' },
+            { from: 'node-citation', edge1: 'left', to: 'node-user', edge2: 'bottom', color: '#eab308', classes: 'flow-rag flow-success' },
+
+            // Path B: Fallback Container connection
+            { from: 'node-eval', edge1: 'bottom', to: 'layer-protocol', edge2: 'top', color: '#ef4444', classes: 'flow-fallback' },
+            { from: 'node-ack', edge1: 'bottom', to: 'node-links', edge2: 'top', color: '#f59e0b', classes: 'flow-fallback' },
+            { from: 'node-links', edge1: 'bottom', to: 'node-offer', edge2: 'top', color: '#f59e0b', classes: 'flow-fallback' },
+            
+            // Handoff Routine
+            { from: 'node-offer', edge1: 'bottom', to: 'node-context', edge2: 'top', color: '#8b5cf6', classes: 'flow-fallback flow-handoff' },
+            { from: 'node-context', edge1: 'bottom', to: 'node-phone', edge2: 'top', color: '#3b82f6', classes: 'flow-fallback flow-handoff' },
+            { from: 'node-context', edge1: 'bottom', to: 'node-email', edge2: 'top', color: '#3b82f6', classes: 'flow-fallback flow-handoff' },
+            { from: 'node-context', edge1: 'bottom', to: 'node-form', edge2: 'top', color: '#3b82f6', classes: 'flow-fallback flow-handoff' },
+            
+            { from: 'node-phone', edge1: 'bottom', to: 'node-agent', edge2: 'top', color: '#22c55e', dashed: true, classes: 'flow-fallback flow-handoff' },
+            { from: 'node-email', edge1: 'bottom', to: 'node-agent', edge2: 'top', color: '#22c55e', dashed: true, classes: 'flow-fallback flow-handoff' },
+            { from: 'node-form', edge1: 'bottom', to: 'node-agent', edge2: 'top', color: '#22c55e', dashed: true, classes: 'flow-fallback flow-handoff' }
+        ];
+
+        const connectionsHandoff = [
+            { from: 'ho-user', edge1: 'bottom', to: 'ho-llm', edge2: 'top', color: '#94a3b8' },
+            { from: 'ho-llm', edge1: 'bottom', to: 'ho-eval', edge2: 'top', color: '#94a3b8' },
+            
+            // Re-added the evaluation split branching logic mapping to the success box
+            { from: 'ho-eval', edge1: 'bottom', to: 'ho-success', edge2: 'top', color: '#cbd5e1', dashed: true },
+            { from: 'ho-eval', edge1: 'bottom', to: 'ho-protocol', edge2: 'top', color: '#ef4444' },
+            
+            { from: 'ho-ack', edge1: 'bottom', to: 'ho-links', edge2: 'top', color: '#f59e0b' },
+            { from: 'ho-links', edge1: 'bottom', to: 'ho-offer', edge2: 'top', color: '#f59e0b' },
+            { from: 'ho-offer', edge1: 'bottom', to: 'ho-context', edge2: 'top', color: '#8b5cf6' },
+            
+            { from: 'ho-context', edge1: 'bottom', to: 'ho-phone', edge2: 'top', color: '#3b82f6' },
+            { from: 'ho-context', edge1: 'bottom', to: 'ho-email', edge2: 'top', color: '#3b82f6' },
+            { from: 'ho-context', edge1: 'bottom', to: 'ho-form', edge2: 'top', color: '#3b82f6' },
+            
+            { from: 'ho-phone', edge1: 'bottom', to: 'ho-agent', edge2: 'top', color: '#22c55e', dashed: true },
+            { from: 'ho-email', edge1: 'bottom', to: 'ho-agent', edge2: 'top', color: '#22c55e', dashed: true },
+            { from: 'ho-form', edge1: 'bottom', to: 'ho-agent', edge2: 'top', color: '#22c55e', dashed: true }
+        ];
+
+        const connectionsGuardrails = [
+            { from: 'gr-user', edge1: 'bottom', to: 'gr-l1', edge2: 'top', color: '#94a3b8' },
+            { from: 'gr-l1', edge1: 'bottom', to: 'gr-l2', edge2: 'top', color: '#94a3b8' },
+            { from: 'gr-l2', edge1: 'bottom', to: 'gr-l3', edge2: 'top', color: '#94a3b8' },
+            { from: 'gr-l3', edge1: 'bottom', to: 'gr-pass', edge2: 'top', color: '#22c55e' },
+            
+            { from: 'gr-l1', edge1: 'right', to: 'gr-attack', edge2: 'left', color: '#ef4444', dashed: true },
+            { from: 'gr-l2', edge1: 'right', to: 'gr-pii', edge2: 'left', color: '#f59e0b', dashed: true },
+            { from: 'gr-l2', edge1: 'right', to: 'gr-emotion', edge2: 'left', color: '#3b82f6', dashed: true },
+            { from: 'gr-l3', edge1: 'right', to: 'gr-scope', edge2: 'left', color: '#ef4444', dashed: true }
+        ];
+
+        function switchTab(tab) {
+            currentView = tab;
+            const btnMaster = document.getElementById('btn-master');
+            const btnHandoff = document.getElementById('btn-handoff');
+            const btnGuardrails = document.getElementById('btn-guardrails');
+            const viewMaster = document.getElementById('view-master');
+            const viewHandoff = document.getElementById('view-handoff');
+            const viewGuardrails = document.getElementById('view-guardrails');
+
+            // Reset all
+            btnMaster.className = btnHandoff.className = btnGuardrails.className = "px-6 py-2 rounded-full bg-white text-slate-700 font-semibold shadow-sm border border-slate-200 hover:bg-slate-50 transition-all";
+            viewMaster.classList.add('hidden');
+            viewHandoff.classList.add('hidden');
+            viewGuardrails.classList.add('hidden');
+
+            if (tab === 'master') {
+                btnMaster.className = "px-6 py-2 rounded-full bg-blue-600 text-white font-semibold shadow-md transition-all";
+                viewMaster.classList.remove('hidden');
+            } else if (tab === 'handoff') {
+                btnHandoff.className = "px-6 py-2 rounded-full bg-amber-500 text-white font-semibold shadow-md transition-all";
+                viewHandoff.classList.remove('hidden');
+            } else if (tab === 'guardrails') {
+                btnGuardrails.className = "px-6 py-2 rounded-full bg-emerald-600 text-white font-semibold shadow-md transition-all";
+                viewGuardrails.classList.remove('hidden');
+            }
+            
+            // Give layout a tiny moment to unhide before drawing lines
+            setTimeout(drawLines, 50);
+        }
+
+        function drawLines() {
+            let svgId, containerId, conns, markerSuffix;
+
+            if (currentView === 'master') {
+                svgId = 'line-canvas-master';
+                containerId = 'diagram-container-master';
+                conns = connectionsMaster;
+                markerSuffix = '-1';
+            } else if (currentView === 'handoff') {
+                svgId = 'line-canvas-handoff';
+                containerId = 'diagram-container-handoff';
+                conns = connectionsHandoff;
+                markerSuffix = '-2';
+            } else {
+                svgId = 'line-canvas-guardrails';
+                containerId = 'diagram-container-guardrails';
+                conns = connectionsGuardrails;
+                markerSuffix = '-3';
+            }
+
+            const svg = document.getElementById(svgId);
+            const container = document.getElementById(containerId);
+            
+            if(!svg || !container) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            
+            Array.from(svg.children).forEach(child => {
+                if(child.tagName !== 'defs') svg.removeChild(child);
+            });
+
+            conns.forEach((conn) => {
+                const el1 = document.getElementById(conn.from);
+                const el2 = document.getElementById(conn.to);
+                if(!el1 || !el2) return;
+
+                const rect1 = el1.getBoundingClientRect();
+                const rect2 = el2.getBoundingClientRect();
+
+                const getCoords = (rect, edge) => {
+                    let x, y;
+                    switch(edge) {
+                        case 'top': x = rect.left + rect.width/2; y = rect.top; break;
+                        case 'bottom': x = rect.left + rect.width/2; y = rect.bottom; break;
+                        case 'left': x = rect.left; y = rect.top + rect.height/2; break;
+                        case 'right': x = rect.right; y = rect.top + rect.height/2; break;
+                    }
+                    // Prevent scroll-offset bugs by using absolute container calculations
+                    return { 
+                        x: x - containerRect.left + container.scrollLeft, 
+                        y: y - containerRect.top + container.scrollTop 
+                    };
+                };
+
+                const pt1 = getCoords(rect1, conn.edge1);
+                const pt2 = getCoords(rect2, conn.edge2);
+
+                let cp1x = pt1.x, cp1y = pt1.y, cp2x = pt2.x, cp2y = pt2.y;
+                const dist = Math.sqrt(Math.pow(pt2.x-pt1.x, 2) + Math.pow(pt2.y-pt1.y, 2));
+                
+                let curviness = Math.min(dist * 0.4, 150);
+                
+                // High arc for dashboard to vector in master view
+                if(conn.classes && conn.classes.includes('arch-curve')) {
+                    curviness = 300; 
+                }
+
+                if (conn.edge1 === 'right') cp1x += curviness;
+                if (conn.edge1 === 'left') cp1x -= curviness;
+                if (conn.edge1 === 'top') cp1y -= curviness;
+                if (conn.edge1 === 'bottom') cp1y += curviness;
+
+                if (conn.edge2 === 'right') cp2x += curviness;
+                if (conn.edge2 === 'left') cp2x -= curviness;
+                if (conn.edge2 === 'top') cp2y -= curviness;
+                if (conn.edge2 === 'bottom') cp2y += curviness;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', `M ${pt1.x} ${pt1.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${pt2.x} ${pt2.y}`);
+                path.setAttribute('stroke', conn.color);
+                path.setAttribute('stroke-width', '2.5');
+                path.setAttribute('fill', 'none');
+                
+                if (conn.dashed) path.setAttribute('stroke-dasharray', '6,6');
+                
+                path.setAttribute('class', `conn-path path-from-${conn.from} path-to-${conn.to} ${conn.classes || ''}`);
+                
+                // Assign correct arrow marker based on line color and current view namespace
+                let baseMarker = 'arrow-gray';
+                if(conn.color === '#ef4444') baseMarker = 'arrow-red';
+                if(conn.color === '#3b82f6') baseMarker = 'arrow-blue';
+                if(conn.color === '#8b5cf6') baseMarker = 'arrow-purple';
+                if(conn.color === '#eab308' || conn.color === '#f59e0b') baseMarker = 'arrow-gold';
+                if(conn.color === '#22c55e') baseMarker = 'arrow-green';
+                
+                if(!conn.dashed || conn.color === '#22c55e') {
+                     path.setAttribute('marker-end', `url(#${baseMarker}${markerSuffix})`);
+                }
+
+                svg.appendChild(path);
+            });
+        }
+
+        window.addEventListener('load', () => setTimeout(drawLines, 100));
+        window.addEventListener('resize', drawLines);
+
+        const infoIcon = document.getElementById('info-icon');
+        const infoTitle = document.getElementById('info-title');
+        const infoDesc = document.getElementById('info-desc');
+        const infoPanel = document.getElementById('info-panel');
+        
+        document.querySelectorAll('.node-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const id = card.getAttribute('data-id');
+                // Lookup node data directly or by stripping 'ho-' prefix for handoff elements
+                const lookupId = id.replace('ho-', '');
+                const data = nodeData[lookupId] || nodeData[id];
+                
+                if (data) {
+                    infoIcon.textContent = data.icon;
+                    infoTitle.textContent = data.title;
+                    infoDesc.innerHTML = data.desc;
+                    infoPanel.classList.add('bg-blue-50', 'border-blue-200');
+                    infoPanel.classList.remove('bg-white', 'border-slate-200');
+                }
+
+                // Dim lines initially
+                document.querySelectorAll('.conn-path').forEach(p => p.style.opacity = '0.15');
+                
+                // Determine which flow family to highlight based on node type
+                let flowClass = '';
+                if(['web', 'pdf', 'scheduler', 'websync', 'pdfsync', 'chunk', 'vector', 'meta'].includes(lookupId)) flowClass = '.flow-sync';
+                if(['dashboard', 'admin'].includes(lookupId)) flowClass = '.flow-ops';
+                if(['user', 'retriever', 'llm', 'eval'].includes(lookupId)) flowClass = '.flow-rag';
+                if(['citation'].includes(lookupId)) flowClass = '.flow-success';
+                if(['ack', 'links', 'offer'].includes(lookupId)) flowClass = '.flow-fallback';
+                if(['context', 'phone', 'email', 'form', 'agent'].includes(lookupId)) flowClass = '.flow-handoff';
+
+                // Also highlight direct connections to the specific node in either view
+                let selectors = `.path-from-${card.id}, .path-to-${card.id}`;
+                if(flowClass) selectors += `, ${flowClass}`;
+                
+                document.querySelectorAll(selectors).forEach(p => {
+                    p.style.opacity = '1';
+                    p.classList.add('animated-flow');
+                    p.setAttribute('stroke-width', '4');
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                infoIcon.textContent = '💡';
+                infoTitle.textContent = 'Interactive Element Inspector';
+                infoDesc.textContent = 'Hover over any component in the active diagram above. The system will dynamically trace the data pathways, highlight related components, and explain how each step fulfills the technical requirements.';
+                infoPanel.classList.remove('bg-blue-50', 'border-blue-200');
+                infoPanel.classList.add('bg-white', 'border-slate-200');
+
+                drawLines(); 
+            });
+        });
+    </script>
+</body>
+</html>
