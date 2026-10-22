@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 550" role="img" aria-labelledby="title desc">
+<title id="title">Community care</title><desc id="desc">An original illustration of a healthcare professional, an older resident, and a family in a leafy neighbourhood.</desc>
+<defs><pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.4" fill="#75aba0" opacity=".4"/></pattern></defs>
+<path d="M102 429C17 368 27 217 108 134S375 27 500 68s210 155 177 269-144 173-291 166S174 482 102 429Z" fill="#dceee4"/>
+<circle cx="550" cy="116" r="59" fill="#f4d8a0"/><circle cx="122" cy="345" r="87" fill="url(#dots)"/>
+<path d="M105 276V197h69v-40h80v119M515 270V160h63v24h46v86" stroke="#b2d4c8" stroke-width="3" fill="none"/><path d="M123 218h11m14 0h11m33-32h12m18 0h12m296 11h12m15 0h12m-39 24h12m15 0h12" stroke="#b2d4c8" stroke-width="7"/>
+<path d="M175 439c30-90 76-152 145-169 105-25 142 126 258 106" stroke="#fffaf0" stroke-width="48" stroke-linecap="round" fill="none"/>
+<ellipse cx="358" cy="463" rx="240" ry="24" fill="#bbd8cb" opacity=".55"/>
+<g fill="none" stroke="#3e7c68" stroke-width="5" stroke-linecap="round"><path d="M104 421v-99m0 59-31-31m31 12 27-32m481 91v-118m0 78-29-31m29-6 27-31"/></g>
+<g fill="#79a995"><ellipse cx="76" cy="340" rx="14" ry="26" transform="rotate(-38 76 340)"/><ellipse cx="131" cy="324" rx="13" ry="24" transform="rotate(32 131 324)"/><ellipse cx="105" cy="307" rx="16" ry="29"/><ellipse cx="586" cy="343" rx="14" ry="24" transform="rotate(-38 586 343)"/><ellipse cx="638" cy="306" rx="13" ry="24" transform="rotate(32 638 306)"/><ellipse cx="612" cy="286" rx="15" ry="27"/></g>
+<g id="doctor">
+<path d="M272 351l-7 103h25l16-102m9-1 12 103h25l-4-107" fill="#235a53"/><path d="M263 450c-17 3-24 8-22 15h51v-15m34 0v15h49c0-8-16-14-27-15" fill="#173e3a"/>
+<path d="M267 228c-17 0-30 17-36 40l-22 47 20 10 30-53 4 87h89l-6-88 27 40 20-14-37-55c-7-10-21-15-35-15Z" fill="#fffdf8" stroke="#c7d7cb" stroke-width="2"/>
+<path d="m287 226 17 44 19-44" fill="#8dbdaf"/><path d="m283 229-9 33 16 10-10 19 21 64m24-126 10 33-15 10 9 19-21 64" fill="none" stroke="#d9e1d8" stroke-width="2"/>
+<path d="M287 206h34v28c-11 12-23 9-34-1Z" fill="#d9a47b"/><ellipse cx="303" cy="180" rx="36" ry="43" fill="#e6b48b"/><path d="M269 176c-5-31 6-54 33-54 28 0 43 20 37 55-5-15-11-24-23-30-12 16-27 17-47 16Z" fill="#263c38"/><path d="M272 167v36c-13-6-11-27 0-28m65-8v35c14-6 12-26 0-27" fill="#e6b48b"/>
+<g fill="#273a34"><circle cx="291" cy="180" r="2.6"/><circle cx="316" cy="180" r="2.6"/></g><path d="M296 199q8 7 16-1" stroke="#a66856" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<path d="M280 235v31c0 20 37 20 37 0v-30" stroke="#326c60" stroke-width="4" fill="none"/><circle cx="317" cy="277" r="7" fill="#326c60"/><rect x="326" y="292" width="16" height="21" rx="2" fill="#dbece4"/><path d="M334 296v12m-6-6h12" stroke="#de866e" stroke-width="3"/>
+<path d="m210 313-9 17c-6 13 7 20 15 6l14-15m145-20 15 12c14 9 21-5 8-12l-8-6" fill="#e6b48b"/>
+</g>
+<g id="older-resident">
+<path d="m162 356-10 92h22l21-87m4-1 5 88h24l-4-94" fill="#6a796f"/><path d="M150 444c-15 5-19 10-18 16h43v-16m28 0v16h44c-1-7-10-12-20-16" fill="#2e4842"/>
+<path d="M173 255c-22 0-31 21-37 56l-7 40 19 5 17-49-4 57h68l-3-57 12 26 19-8-23-49c-4-13-17-21-31-21Z" fill="#d99174"/><path d="M190 263v96" stroke="#b7725f" stroke-width="2"/><circle cx="197" cy="297" r="2" fill="#9e6655"/><circle cx="197" cy="319" r="2" fill="#9e6655"/>
+<path d="M181 241h24v22q-12 12-24 0Z" fill="#e3b38e"/><ellipse cx="192" cy="219" rx="31" ry="37" fill="#edc09b"/><path d="M161 218c-7-24 8-43 30-43s38 15 34 38l-10-19c-13 9-26 5-37 0l-17 24" fill="#eef1e8"/><circle cx="181" cy="218" r="10" stroke="#55746b" stroke-width="2" fill="none"/><circle cx="207" cy="218" r="10" stroke="#55746b" stroke-width="2" fill="none"/><path d="M191 217h6m-10 18q7 5 13-1" stroke="#55746b" stroke-width="2" fill="none"/>
+<path d="m131 349-3 10c-3 15 11 17 15 2l3-9m91-22 7 12c6 10 19 3 13-7l-6-8" fill="#edc09b"/>
+</g>
+<g id="parent">
+<path d="m443 349-7 101h24l16-101m5 0 6 101h23l-1-100" fill="#365e5d"/><path d="M435 447c-16 3-20 11-19 16h46v-16m24 0v16h48c0-7-11-13-25-16" fill="#1c3e3b"/>
+<path d="M451 232c-16 0-24 14-34 31l-32 30 13 17 44-31-5 75h77l-3-75 16 54 20-6-20-72c-6-16-15-23-31-23Z" fill="#518f83"/><path d="M459 212h31v26q-16 12-31-1Z" fill="#ca916e"/><ellipse cx="475" cy="184" rx="34" ry="42" fill="#dca37b"/><path d="M440 189c-8-33 9-53 34-53 30 0 42 26 35 57l-11-30c-12 3-25-2-35-8-7 19-15 27-23 34Z" fill="#343c33"/><circle cx="464" cy="184" r="2.5" fill="#303c32"/><circle cx="489" cy="184" r="2.5" fill="#303c32"/><path d="M467 203q10 7 18-1" stroke="#9b624c" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="m389 292-11 4c-13 3-11 18 3 16l15-5m130 24 3 17c1 13 17 11 16-2l-2-17" fill="#dca37b"/>
+</g>
+<g id="child">
+<path d="m389 392-6 60h17l11-57m5 0 7 57h18l-9-62" fill="#c97b59"/><path d="M382 449c-10 2-17 8-17 13h36v-13m22 0v13h34c-2-7-8-10-17-13" fill="#466259"/>
+<path d="M397 324c-14 0-22 12-24 23l-15 33 15 6 17-28-4 40h49l-2-43 17 25 14-9-27-37c-5-7-12-10-21-10Z" fill="#ebc276"/><path d="M402 311h18v18q-10 9-18-1Z" fill="#dca37b"/><ellipse cx="410" cy="294" rx="25" ry="29" fill="#e4b28a"/><path d="M386 293c-7-21 5-35 24-35 21 0 32 17 25 35l-7-17c-11 4-19 0-28-4l-14 21" fill="#364138"/><circle cx="401" cy="294" r="2" fill="#263c32"/><circle cx="419" cy="294" r="2" fill="#263c32"/><path d="M405 307q5 4 11-1" stroke="#a46950" stroke-width="2" fill="none"/><path d="m360 378-5 7c-6 9 6 16 11 8l7-10m81-8 7 8c6 7 16-2 9-8l-8-7" fill="#e4b28a"/><path d="m408 348 5 5 5-5c8-3 12 6 7 11l-12 11-12-11c-5-5-1-14 7-11Z" fill="#faf1d9"/>
+</g>
+<g fill="#f6fcf7"><rect x="117" y="116" width="86" height="70" rx="20"/><rect x="526" y="210" width="88" height="70" rx="20"/></g><path d="M151 135v32m-16-16h32" stroke="#d68a71" stroke-width="8" stroke-linecap="round"/><path d="M549 243h12l7-13 8 27 7-14h15" stroke="#478778" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="m337 86 4 11 12 1-9 7 2 12-10-6-10 6 3-12-9-8 12-1Z" fill="#e7c786"/><circle cx="594" cy="412" r="7" fill="#d68a71"/><circle cx="157" cy="100" r="5" fill="#8bad9d"/>
+</svg>

@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-22",
+  "version": "2.0 - DHC Reference",
+  "method": "In-app browser UI and read-only DOM checks, plus static filesystem verification",
+  "layout": {
+    "localizedPages": 42,
+    "viewportWidths": [1440, 320],
+    "pageViewportChecks": 84,
+    "issues": [],
+    "assertions": ["one h1", "eight navigation links", "v2 stylesheet present", "no horizontal overflow", "no broken eager images"],
+    "tabletHomepage": {"width": 768, "scrollWidth": 753, "brokenEagerImages": 0}
+  },
+  "functionalChecksPassed": [
+    "Manual banner arrows and dots update photo, copy, counter and destination",
+    "News pagination shows the correct three records",
+    "Announcement opens and Escape closes it",
+    "Compact mobile search opens and Escape closes it",
+    "Language dialog contains three localized routes",
+    "Mobile navigation reaches the provider directory",
+    "Combined profession, district and co-payment filters select fixture 0",
+    "Provider disclosure, empty state and reset to six records work",
+    "Same-page language switching reaches the English provider directory",
+    "Programme filter returns one record and detail dialog opens/closes",
+    "FAQ category filter returns two records",
+    "Invalid enquiry stays unacknowledged; valid fictional inputs show simulated acknowledgement",
+    "Search for services returns two results; markup-like query returns none",
+    "SC contact at 320px supports 21px text, high contrast and grayscale without overflow, with persistence after reload; defaults restored"
+  ],
+  "screenshotsVisuallyReviewed": ["homepage-desktop-viewport.jpg", "homepage-mobile-viewport.jpg", "homepage-tablet-viewport.jpg"],
+  "staticReport": "static-verification.json",
+  "originalV1": {"filesChecked": 68, "changedFiles": []},
+  "limitations": [
+    "Aggregate browser results are recorded from completed checks; the detailed per-page array was not retained after browser session reset",
+    "A complete nine-page reading-mode run timed out; no complete-run result is claimed",
+    "No comprehensive runtime-error, screen-reader, WCAG certification or production security audit is claimed",
+    "Photographs are reference-only assets requiring permission or replacement before publication"
+  ]
+}

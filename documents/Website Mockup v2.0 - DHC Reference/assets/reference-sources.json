@@ -1,0 +1,27 @@
+{
+  "reference": "https://www.dhc.gov.hk/tc/index.html",
+  "reviewed": "2026-10-22",
+  "usage": "Private design review only. Rights remain with their respective owners. Obtain permission or replace before publication.",
+  "assets": [
+    {
+      "file": "audience-residents.jpg",
+      "source": "https://www.dhc.gov.hk/images/general-public-t.jpg"
+    },
+    {
+      "file": "audience-professionals.jpg",
+      "source": "https://www.dhc.gov.hk/images/healthcare-service-providers-and-professionals-t.jpg"
+    },
+    {
+      "file": "banner-together.jpg",
+      "source": "https://www.dhc.gov.hk/images/banner-01-t.jpg"
+    },
+    {
+      "file": "banner-active.jpg",
+      "source": "https://www.dhc.gov.hk/images/banner-02-t.jpg"
+    },
+    {
+      "file": "banner-food.jpg",
+      "source": "https://www.dhc.gov.hk/images/banner-03-t.jpg"
+    }
+  ]
+}

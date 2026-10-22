@@ -1,0 +1,9 @@
+{
+  "name": "tmdhc-website-mockup-dhc-reference",
+  "private": true,
+  "version": "2.0.0",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node serve.mjs"
+  }
+}
