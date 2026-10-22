@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Prototype sitemap only. Routes are proposed; this file is not published to the live domain. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.tmdhc.org.hk/tc/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/about/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/resources/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/contact/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/health/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/programmes/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/providers/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/services/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/news/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/faq/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/privacy/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/disclaimer/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/search/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/tc/sitemap/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/about/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/resources/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/contact/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/health/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/programmes/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/providers/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/services/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/news/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/faq/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/privacy/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/disclaimer/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/search/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/en/sitemap/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/about/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/resources/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/contact/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/health/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/programmes/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/providers/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/services/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/news/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/faq/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/privacy/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/disclaimer/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/search/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://www.tmdhc.org.hk/sc/sitemap/</loc><lastmod>2026-10-21</lastmod></url>
+</urlset>

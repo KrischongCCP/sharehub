@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-21",
+  "pages": 42,
+  "checks": [
+    "42 pages load with one main heading, eight required navigation links, working images and responsive layout checks.",
+    "News carousel changes the visible card group.",
+    "Announcement dialog opens and closes by keyboard.",
+    "Reading settings change and persist across reload.",
+    "Four directory criteria combine; empty state, reset and provider disclosure work.",
+    "Language switching keeps the current page on a separate localized route.",
+    "Programme filtering and details dialog work.",
+    "FAQ category filters work.",
+    "Enquiry validation and simulated acknowledgement work without submitting data.",
+    "Search returns matching pages and handles markup-like input as plain text.",
+    "Mobile menu opens and navigates to the directory.",
+    "Every generated local link and asset resolves on disk.",
+    "Provider records are sorted by their localized display names.",
+    "Largest text setting reflows at 320px on home, directory and contact pages in all three languages.",
+    "Direct file browsing and same-page language switching work without the preview server."
+  ],
+  "errors": [],
+  "overflow": [],
+  "localTargets": 46
+}
